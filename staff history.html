@@ -1,0 +1,1126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Salary History · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== HISTORY CARD ===== */
+      .history-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .history-card {
+          padding: 16px 12px;
+        }
+      }
+
+      /* Controls Bar */
+      .controls-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 16px;
+        background: var(--dark-blue-bg);
+        padding: 12px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--card-border);
+      }
+
+      .search-wrapper {
+        position: relative;
+        flex: 1;
+        min-width: 150px;
+      }
+
+      .search-wrapper i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        font-size: 12px;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 8px 10px 8px 32px;
+        font-size: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        background: white;
+        color: #000000;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--dark-blue);
+      }
+
+      .search-input::placeholder {
+        color: #9ca3af;
+      }
+
+      .action-icons {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        white-space: nowrap;
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .action-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .action-btn.search-btn {
+        background: var(--dark-blue);
+      }
+
+      .action-btn.search-btn:hover {
+        background: var(--dark-blue-light);
+      }
+
+      .action-btn.excel {
+        background: #2e7d32;
+      }
+
+      .action-btn.excel:hover {
+        background: #1b5e20;
+      }
+
+      .action-btn.pdf {
+        background: #d32f2f;
+      }
+
+      .action-btn.pdf:hover {
+        background: #b71c1c;
+      }
+
+      @media (max-width: 768px) {
+        .controls-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .search-wrapper {
+          width: 100%;
+        }
+        .action-icons {
+          justify-content: center;
+        }
+        .action-btn {
+          padding: 5px 10px;
+          font-size: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .controls-bar {
+          padding: 10px;
+        }
+        .action-btn {
+          font-size: 9px;
+          padding: 4px 8px;
+        }
+        .action-btn i {
+          font-size: 9px;
+        }
+      }
+
+      /* Table Styles */
+      .table-container {
+        overflow-x: auto;
+        border-radius: var(--radius-sm);
+        background: white;
+        border: 1px solid var(--card-border);
+      }
+
+      .desktop-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1000px;
+      }
+
+      .desktop-table th {
+        background: var(--dark-blue);
+        color: white;
+        padding: 10px 6px;
+        font-size: 11px;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .desktop-table td {
+        padding: 8px 6px;
+        border-bottom: 1px solid var(--card-border);
+        color: #000000;
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .desktop-table tr:hover {
+        background: var(--dark-blue-bg);
+      }
+
+      .balance-positive {
+        color: var(--error);
+        font-weight: 700;
+      }
+      .balance-zero {
+        color: var(--success);
+        font-weight: 700;
+      }
+
+      .delete-btn {
+        background: none;
+        border: none;
+        color: var(--error);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px;
+        transition: var(--transition-smooth);
+      }
+
+      .delete-btn:hover {
+        color: #ff5252;
+        transform: scale(1.15);
+      }
+
+      /* Mobile Cards */
+      .mobile-cards {
+        display: none;
+        padding: 10px;
+      }
+
+      .salary-card {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-md);
+        padding: 14px;
+        margin-bottom: 10px;
+      }
+
+      .salary-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--dark-blue);
+      }
+
+      .salary-card-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000000;
+      }
+
+      .salary-card-id {
+        background: var(--dark-blue-bg);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--dark-blue);
+      }
+
+      .salary-card-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .salary-card-row:last-of-type {
+        border-bottom: none;
+      }
+
+      .salary-card-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+      }
+
+      .salary-card-value {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+        text-align: right;
+      }
+
+      .salary-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .balance-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #6b7280;
+      }
+
+      .balance-value {
+        font-size: 14px;
+        font-weight: 800;
+      }
+      .balance-value.positive {
+        color: var(--error);
+      }
+      .balance-value.zero {
+        color: var(--success);
+      }
+
+      .salary-delete-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--error);
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+      }
+
+      .salary-delete-btn:hover {
+        background: #ff5252;
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        .desktop-table {
+          display: none;
+        }
+        .mobile-cards {
+          display: block;
+        }
+      }
+
+      /* No Results - NO ICON */
+      .no-results {
+        text-align: center;
+        padding: 30px 20px;
+        color: #000000;
+      }
+      .no-results p {
+        color: #000000;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer,
+        .controls-bar {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Salary History</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="history-card">
+          <!-- Controls Bar -->
+          <div class="controls-bar">
+            <div class="search-wrapper">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="searchName"
+                class="search-input"
+                placeholder="Search by staff name..."
+              />
+            </div>
+            <div class="action-icons">
+              <button class="action-btn search-btn" id="searchBtn">
+                <i class="fas fa-search"></i> Filter
+              </button>
+              <button class="action-btn excel" id="excelBtn">
+                <i class="fas fa-file-excel"></i> Excel
+              </button>
+              <button class="action-btn pdf" id="pdfBtn">
+                <i class="fas fa-file-pdf"></i> PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Desktop Table -->
+          <div class="table-container">
+            <table class="desktop-table" id="historyTable">
+              <thead>
+                <tr>
+                  <th>Staff ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Salary</th>
+                  <th>Paid</th>
+                  <th>Balance</th>
+                  <th>Next Date</th>
+                  <th>Payment Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody">
+                <tr>
+                  <td colspan="10" class="no-results">
+                    <p>No salary payment records found.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Mobile Cards -->
+            <div class="mobile-cards" id="mobileCards"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      // ===== GET BUSINESS INFO FROM BACKEND =====
+      async function getBusinessInfo() {
+        try {
+          const biz = await Optra.get("business_info");
+          return {
+            name: biz.name || "Optra Business",
+            contact: biz.contact || "",
+            email: biz.email || "",
+            location: biz.location || "",
+          };
+        } catch (e) {
+          console.error("Error getting business info:", e);
+          return {
+            name: "Optra Business",
+            contact: "",
+            email: "",
+            location: "",
+          };
+        }
+      }
+
+      let salaryPayments = [],
+        filteredPayments = [],
+        currentUser = null;
+
+      function formatUGX(amount) {
+        return isNaN(amount) ? "0" : Number(amount).toLocaleString() + " UGX";
+      }
+
+      async function loadSalaryPayments() {
+        try {
+          const all = await Optra.get("salary_payments");
+          salaryPayments = currentUser?.businessId
+            ? all.filter((p) => p.businessId === currentUser.businessId)
+            : all;
+          salaryPayments.sort(
+            (a, b) => new Date(b.paymentDate) - new Date(a.paymentDate),
+          );
+          filteredPayments = [...salaryPayments];
+          renderTable();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function renderTable() {
+        const tbody = document.getElementById("historyBody");
+        const mobileContainer = document.getElementById("mobileCards");
+        if (!filteredPayments.length) {
+          tbody.innerHTML = `<tr><td colspan="10" class="no-results"><p>No salary payment records found.</p></td></tr>`;
+          mobileContainer.innerHTML = `<div class="no-results"><p>No salary payment records found.</p></div>`;
+          return;
+        }
+        tbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+        filteredPayments.forEach((p) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+          <td>${p.staffId || ""}</td>
+          <td>${p.staffName || p.name || ""}</td>
+          <td>${p.email || ""}</td>
+          <td>${p.phone || ""}</td>
+          <td>${formatUGX(p.salary)}</td>
+          <td>${formatUGX(p.amountPaid || 0)}</td>
+          <td class="${p.balance > 0 ? "balance-positive" : "balance-zero"}">${formatUGX(p.balance)}</td>
+          <td>${p.nextPaymentDate || ""}</td>
+          <td>${p.paymentDate || ""}</td>
+          <td><button class="delete-btn" onclick="deleteRecord('${p.id}')"><i class="fas fa-trash-alt"></i></button></td>
+        `;
+          tbody.appendChild(row);
+
+          const card = document.createElement("div");
+          card.className = "salary-card";
+          card.innerHTML = `
+          <div class="salary-card-header">
+            <span class="salary-card-name">${p.staffName || p.name || "N/A"}</span>
+            <span class="salary-card-id">ID: ${p.staffId || "N/A"}</span>
+          </div>
+          <div class="salary-card-row">
+            <span class="salary-card-label">Email</span>
+            <span class="salary-card-value">${p.email || "N/A"}</span>
+          </div>
+          <div class="salary-card-row">
+            <span class="salary-card-label">Phone</span>
+            <span class="salary-card-value">${p.phone || "N/A"}</span>
+          </div>
+          <div class="salary-card-row">
+            <span class="salary-card-label">Salary</span>
+            <span class="salary-card-value">${formatUGX(p.salary)}</span>
+          </div>
+          <div class="salary-card-row">
+            <span class="salary-card-label">Paid</span>
+            <span class="salary-card-value">${formatUGX(p.amountPaid || 0)}</span>
+          </div>
+          <div class="salary-card-row">
+            <span class="salary-card-label">Payment Date</span>
+            <span class="salary-card-value">${p.paymentDate || "N/A"}</span>
+          </div>
+          <div class="salary-card-row">
+            <span class="salary-card-label">Next Date</span>
+            <span class="salary-card-value">${p.nextPaymentDate || "N/A"}</span>
+          </div>
+          <div class="salary-card-footer">
+            <div>
+              <div class="balance-label">Balance</div>
+              <div class="balance-value ${p.balance > 0 ? "positive" : "zero"}">${formatUGX(p.balance)}</div>
+            </div>
+            <button class="salary-delete-btn" onclick="deleteRecord('${p.id}')"><i class="fas fa-trash-alt"></i></button>
+          </div>
+        `;
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      function searchRecords() {
+        const term = document
+          .getElementById("searchName")
+          .value.trim()
+          .toLowerCase();
+        filteredPayments = term
+          ? salaryPayments.filter((p) =>
+              (p.staffName || p.name || "").toLowerCase().includes(term),
+            )
+          : [...salaryPayments];
+        renderTable();
+      }
+
+      window.deleteRecord = async function (id) {
+        if (!confirm("Are you sure you want to delete this payment record?"))
+          return;
+        const all = await Optra.get("salary_payments");
+        const updated = all.filter((p) => p.id !== id);
+        await Optra.set("salary_payments", updated);
+        await loadSalaryPayments();
+        alert("Record deleted successfully!");
+      };
+
+      async function downloadPDF() {
+        if (!filteredPayments.length) {
+          alert("No data to export");
+          return;
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "landscape" });
+        const biz = await getBusinessInfo();
+
+        // Business Name
+        doc.setFontSize(16);
+        doc.setTextColor("#1a365d");
+        doc.text(biz.name || "Optra Business", 14, 15);
+
+        // Contact - separate row
+        doc.setFontSize(9);
+        doc.setTextColor("#4b5563");
+        doc.text("Contact: " + (biz.contact || ""), 14, 23);
+
+        // Email - separate row
+        doc.text("Email: " + (biz.email || ""), 14, 30);
+
+        // Location - separate row
+        doc.text("Location: " + (biz.location || ""), 14, 37);
+
+        // Generated date
+        doc.text("Generated: " + new Date().toLocaleDateString(), 14, 44);
+
+        // Report Title
+        doc.setFontSize(14);
+        doc.setTextColor("#1a365d");
+        doc.text(
+          "Staff Salary Payment History",
+          doc.internal.pageSize.getWidth() / 2,
+          54,
+          { align: "center" },
+        );
+
+        const rows = filteredPayments.map((p) => [
+          p.staffId || "",
+          p.staffName || p.name || "",
+          p.email || "",
+          p.phone || "",
+          formatUGX(p.salary),
+          formatUGX(p.amountPaid || 0),
+          formatUGX(p.balance),
+          p.nextPaymentDate || "",
+          p.paymentDate || "",
+        ]);
+
+        doc.autoTable({
+          startY: 60,
+          head: [
+            [
+              "Staff ID",
+              "Name",
+              "Email",
+              "Phone",
+              "Salary",
+              "Paid",
+              "Balance",
+              "Next Date",
+              "Payment Date",
+            ],
+          ],
+          body: rows,
+          styles: { fontSize: 7, cellPadding: 2 },
+          headStyles: { fillColor: [26, 54, 93] },
+        });
+
+        var finalY = doc.lastAutoTable.finalY + 8;
+        doc.setFontSize(8);
+        doc.setTextColor("#9ca3af");
+        doc.text("Generated by Optra Business Management System", 14, finalY);
+
+        doc.save(
+          `Salary_History_${new Date().toISOString().split("T")[0]}.pdf`,
+        );
+      }
+
+      async function downloadExcel() {
+        if (!filteredPayments.length) {
+          alert("No data to export");
+          return;
+        }
+        const biz = await getBusinessInfo();
+        const headers = [
+          "Business Name:",
+          biz.name,
+          "Contact:",
+          biz.contact,
+          "Email:",
+          biz.email,
+          "Location:",
+          biz.location,
+          "",
+          "Staff ID",
+          "Name",
+          "Email",
+          "Phone",
+          "Salary (UGX)",
+          "Amount Paid (UGX)",
+          "Balance (UGX)",
+          "Next Payment Date",
+          "Payment Date",
+        ];
+        const rows = filteredPayments.map((p) => [
+          p.staffId || "",
+          p.staffName || p.name || "",
+          p.email || "",
+          p.phone || "",
+          p.salary || 0,
+          p.amountPaid || 0,
+          p.balance || 0,
+          p.nextPaymentDate || "",
+          p.paymentDate || "",
+        ]);
+        let csv = headers.join(",") + "\n";
+        csv += rows
+          .map((row) =>
+            row
+              .map((cell) => `"${(cell || "").toString().replace(/"/g, '""')}"`)
+              .join(","),
+          )
+          .join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Salary_History_${new Date().toISOString().split("T")[0]}.csv`;
+        link.click();
+      }
+
+      document
+        .getElementById("searchBtn")
+        .addEventListener("click", searchRecords);
+      document.getElementById("pdfBtn").addEventListener("click", downloadPDF);
+      document
+        .getElementById("excelBtn")
+        .addEventListener("click", downloadExcel);
+      document
+        .getElementById("searchName")
+        .addEventListener("keypress", (e) => {
+          if (e.key === "Enter") searchRecords();
+        });
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        currentUser = checkAuth();
+        if (currentUser) {
+          loadUserAvatar();
+          await loadSalaryPayments();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Approve Users · Optra</title>
+    <!-- Font Awesome 6 - multiple CDN sources for reliability -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v6.4.2/css/all.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+
+    <style>
+      /* ===== ROOT ===== */
+      :root {
+        --icon-gray: #9ca3af;
+        --icon-gray-light: #d1d5db;
+        --primary-grey: #6b7280;
+        --light-grey: #e5e7eb;
+        --bg-grey: #f3f4f6;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #1f2937;
+        --text-mid: #4b5563;
+        --text-light: #6b7280;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-light: #2a4a7f;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --electric-blue: #118ab2;
+        --sky-blue: #06d6a0;
+        --success: #10b981;
+        --error: #ef4444;
+        --warning: #f59e0b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+        font-weight: 400;
+        cursor: pointer;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        font-weight: 400;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+        cursor: pointer;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 16px auto 24px;
+        padding: 0 12px;
+        width: 100%;
+      }
+
+      /* ===== STATS CARDS ===== */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .stat-card {
+        background: var(--bg-white);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-md);
+        padding: 12px 14px;
+        text-align: center;
+      }
+
+      .stat-info .number {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000000;
+      }
+      .stat-info .label {
+        font-size: 10px;
+        color: var(--text-mid);
+        font-weight: 500;
+        margin-top: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+
+      @media (max-width: 768px) {
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
+        }
+        .stat-card {
+          padding: 10px 12px;
+        }
+        .stat-info .number {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
+        }
+        .stat-card {
+          padding: 8px 10px;
+        }
+        .stat-info .number {
+          font-size: 16px;
+        }
+        .stat-info .label {
+          font-size: 9px;
+        }
+      }
+
+      /* ===== TABLE CARD ===== */
+      .table-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-md);
+        padding: 16px 14px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+      }
+
+      .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--card-border);
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .table-header h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #000000;
+      }
+
+      .btn-refresh {
+        padding: 4px 12px;
+        background: #94a3b8;
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 11px;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 30px;
+      }
+      .btn-refresh:hover {
+        background: #64748b;
+        transform: translateY(-2px);
+      }
+      .btn-refresh i {
+        font-size: 10px;
+      }
+
+      /* ===== TABLE - RESPONSIVE ===== */
+      .table-container {
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .desktop-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .desktop-table th {
+        background: var(--accent);
+        color: white;
+        padding: 8px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .desktop-table td {
+        padding: 8px 8px;
+        border-bottom: 1px solid var(--card-border);
+        color: #000000;
+        font-size: 12px;
+        font-weight: 400;
+      }
+
+      .desktop-table tr:hover {
+        background: var(--accent-bg);
+      }
+
+      .user-cell {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .user-avatar-small {
+        width: 28px;
+        height: 28px;
+        background: var(--accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 12px;
+        flex-shrink: 0;
+      }
+      .user-details-small h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: #000000;
+      }
+
+      .badge {
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 9px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        display: inline-block;
+      }
+      .badge.manager {
+        background: rgba(17, 138, 178, 0.12);
+        color: #000000;
+      }
+      .badge.staff {
+        background: rgba(157, 78, 221, 0.12);
+        color: #000000;
+      }
+      .badge.pending {
+        background: rgba(245, 158, 11, 0.12);
+        color: #000000;
+      }
+      .badge.approved {
+        background: rgba(16, 185, 129, 0.12);
+        color: #000000;
+      }
+
+      .action-btns {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+
+      .btn-approve {
+        padding: 3px 10px;
+        background: var(--success);
+        border: none;
+        border-radius: 20px;
+        color: white;
+        font-weight: 600;
+        font-size: 10px;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        height: 24px;
+      }
+      .btn-approve:hover {
+        background: #0d9f6e;
+        transform: translateY(-1px);
+      }
+      .btn-approve i {
+        font-size: 9px;
+      }
+
+      .btn-view {
+        padding: 3px 10px;
+        background: var(--electric-blue);
+        border: none;
+        border-radius: 20px;
+        color: white;
+        font-weight: 600;
+        font-size: 10px;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        height: 24px;
+      }
+      .btn-view:hover {
+        background: #0e6b8f;
+        transform: translateY(-1px);
+      }
+      .btn-view i {
+        font-size: 9px;
+      }
+
+      /* ===== RESPONSIVE TABLE - MOBILE CARDS ===== */
+      @media screen and (max-width: 768px) {
+        .desktop-table,
+        .desktop-table thead,
+        .desktop-table tbody,
+        .desktop-table th,
+        .desktop-table td,
+        .desktop-table tr {
+          display: block;
+        }
+
+        .desktop-table thead {
+          display: none;
+        }
+
+        .desktop-table tbody tr {
+          display: block;
+          margin-bottom: 10px;
+          border: 1px solid var(--card-border);
+          border-radius: var(--radius-sm);
+          padding: 12px 14px;
+          background: white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .desktop-table tbody tr:hover {
+          background: white;
+        }
+
+        .desktop-table td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 6px 0;
+          border: none;
+          border-bottom: 1px solid #f0f0f0;
+          font-size: 12px;
+        }
+
+        .desktop-table td:last-child {
+          border-bottom: none;
+        }
+
+        .desktop-table td::before {
+          content: attr(data-label);
+          font-weight: 600;
+          color: #000000;
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+          flex-shrink: 0;
+          margin-right: 12px;
+        }
+
+        .desktop-table td:first-child::before {
+          content: "User";
+        }
+        .desktop-table td:nth-child(2)::before {
+          content: "Email";
+        }
+        .desktop-table td:nth-child(3)::before {
+          content: "Username";
+        }
+        .desktop-table td:nth-child(4)::before {
+          content: "Business";
+        }
+        .desktop-table td:nth-child(5)::before {
+          content: "Role";
+        }
+        .desktop-table td:nth-child(6)::before {
+          content: "Registered";
+        }
+        .desktop-table td:nth-child(7)::before {
+          content: "Status";
+        }
+        .desktop-table td:nth-child(8)::before {
+          content: "Actions";
+        }
+
+        .user-cell {
+          flex: 1;
+          justify-content: flex-start;
+        }
+
+        .action-btns {
+          justify-content: flex-end;
+          flex: 1;
+        }
+
+        .btn-approve,
+        .btn-view {
+          font-size: 9px;
+          padding: 2px 8px;
+          height: 22px;
+        }
+
+        .badge {
+          font-size: 8px;
+          padding: 2px 6px;
+        }
+
+        .table-card {
+          padding: 10px 8px;
+        }
+
+        .table-header h3 {
+          font-size: 14px;
+        }
+
+        .btn-refresh {
+          font-size: 10px;
+          padding: 3px 8px;
+          height: 26px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .desktop-table tbody tr {
+          padding: 10px 10px;
+        }
+
+        .desktop-table td {
+          padding: 5px 0;
+          font-size: 11px;
+          flex-wrap: wrap;
+        }
+
+        .desktop-table td::before {
+          font-size: 9px;
+          min-width: 70px;
+        }
+
+        .user-details-small h4 {
+          font-size: 11px;
+        }
+
+        .user-avatar-small {
+          width: 22px;
+          height: 22px;
+          font-size: 9px;
+        }
+
+        .btn-approve,
+        .btn-view {
+          font-size: 8px;
+          padding: 2px 6px;
+          height: 20px;
+          gap: 2px;
+        }
+
+        .btn-approve i,
+        .btn-view i {
+          font-size: 7px;
+        }
+
+        .action-btns {
+          gap: 3px;
+        }
+      }
+
+      /* ===== EMPTY STATE ===== */
+      .empty-state {
+        text-align: center;
+        padding: 30px 16px;
+        color: var(--text-mid);
+      }
+      .empty-state h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 4px;
+      }
+      .empty-state p {
+        font-size: 13px;
+        color: #000000;
+        font-weight: 400;
+      }
+
+      /* ===== TOAST ===== */
+      .toast {
+        position: fixed;
+        bottom: 80px;
+        right: 16px;
+        background: #ffffff;
+        border-radius: var(--radius-md);
+        padding: 12px 16px;
+        border-left: 4px solid var(--success);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        max-width: 320px;
+        transform: translateX(120%);
+        opacity: 0;
+        transition: all 0.25s ease;
+        z-index: 1000;
+      }
+      .toast.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      .toast.success {
+        border-left-color: var(--success);
+      }
+      .toast.error {
+        border-left-color: var(--error);
+      }
+      .toast.info {
+        border-left-color: var(--electric-blue);
+      }
+
+      .toast-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .toast-icon {
+        flex-shrink: 0;
+        font-size: 18px;
+      }
+      .toast-message h4 {
+        font-size: 13px;
+        font-weight: 700;
+        color: #000000;
+      }
+      .toast-message p {
+        font-size: 11px;
+        color: var(--text-gray);
+      }
+      .close-toast {
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 11px;
+      }
+      .close-toast:hover {
+        color: var(--error);
+      }
+
+      /* ===== FOOTER - Inventory removed ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        font-weight: 400;
+        transition: var(--transition);
+      }
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 380px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 20px;
+        }
+        .nav-item span {
+          font-size: 11px;
+        }
+        .nav-icons {
+          max-width: 320px;
+        }
+      }
+
+      /* Font Awesome icon fallback */
+      .fas,
+      .far,
+      .fal,
+      .fab,
+      .fa {
+        font-family: "Font Awesome 6 Free" !important;
+        font-weight: 400;
+      }
+      .fas {
+        font-weight: 900 !important;
+      }
+      .fa-solid {
+        font-weight: 900 !important;
+      }
+      .fa-regular {
+        font-weight: 400 !important;
+      }
+      .fa-brands {
+        font-family: "Font Awesome 6 Brands" !important;
+        font-weight: 400 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="main-header">
+      <div class="header-left">
+        <button
+          class="hamburger-link"
+          aria-label="Menu"
+          onclick="
+            event.preventDefault();
+            alert('Menu');
+          "
+        >
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Approve Users</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <button class="avatar-btn" title="Profile" onclick="alert('Profile')">
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- SCROLLABLE CONTENT -->
+    <div class="scrollable-content">
+      <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="number" id="pendingCount">0</div>
+              <div class="label">Pending</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="number" id="managerCount">0</div>
+              <div class="label">Managers</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="number" id="staffCount">0</div>
+              <div class="label">Staff</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="number" id="businessCount">0</div>
+              <div class="label">Businesses</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Card -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Pending Approvals</h3>
+            <button class="btn-refresh" id="refreshBtn">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+          </div>
+          <div class="table-container">
+            <table class="desktop-table">
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Username</th>
+                  <th>Business</th>
+                  <th>Role</th>
+                  <th>Registered</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER - Inventory removed -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <button
+          class="nav-item"
+          onclick="
+            event.preventDefault();
+            alert('Profit');
+          "
+        >
+          <i class="fas fa-chart-line"></i>
+          <span>Profit</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="
+            event.preventDefault();
+            alert('Add Sale');
+          "
+        >
+          <i class="fas fa-cash-register"></i>
+          <span>Add Sale</span>
+        </button>
+        <button
+          class="nav-item"
+          onclick="
+            event.preventDefault();
+            alert('Settings');
+          "
+        >
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </button>
+      </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+      <div class="toast-content">
+        <div class="toast-icon" id="toastIcon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-message">
+          <h4 id="toastTitle">Success</h4>
+          <p id="toastMessage">User approved successfully!</p>
+        </div>
+        <button class="close-toast" id="closeToast">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Font Awesome fallback - if CDN fails, use Unicode symbols
+      document.addEventListener("DOMContentLoaded", function () {
+        var testIcon = document.createElement("i");
+        testIcon.className = "fas fa-home";
+        testIcon.style.display = "none";
+        document.body.appendChild(testIcon);
+        var computedStyle = window.getComputedStyle(testIcon);
+        var fontFamily = computedStyle.getPropertyValue("font-family");
+        document.body.removeChild(testIcon);
+
+        if (!fontFamily || fontFamily.indexOf("Font Awesome") === -1) {
+          document
+            .querySelectorAll(
+              ".fas, .far, .fal, .fa, .fa-solid, .fa-regular, .fa-brands",
+            )
+            .forEach(function (el) {
+              var className = el.className;
+              if (className.indexOf("fa-bars") > -1) el.textContent = "☰";
+              else if (className.indexOf("fa-bell") > -1) el.textContent = "🔔";
+              else if (className.indexOf("fa-sync-alt") > -1)
+                el.textContent = "⟳";
+              else if (className.indexOf("fa-check") > -1) el.textContent = "✓";
+              else if (className.indexOf("fa-eye") > -1) el.textContent = "👁";
+              else if (className.indexOf("fa-user") > -1) el.textContent = "👤";
+              else if (className.indexOf("fa-times") > -1) el.textContent = "✕";
+              else if (className.indexOf("fa-chart-line") > -1)
+                el.textContent = "📈";
+              else if (className.indexOf("fa-cash-register") > -1)
+                el.textContent = "💵";
+              else if (className.indexOf("fa-cog") > -1) el.textContent = "⚙";
+              else if (className.indexOf("fa-check-circle") > -1)
+                el.textContent = "✅";
+              else if (className.indexOf("fa-exclamation-circle") > -1)
+                el.textContent = "⚠";
+              else if (className.indexOf("fa-info-circle") > -1)
+                el.textContent = "ℹ";
+              else el.textContent = "•";
+            });
+        }
+      });
+
+      // ===== AVATAR =====
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const parts = name.trim().split(" ");
+        let initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      // ===== TOAST =====
+      function showToast(title, message, type = "success") {
+        const toast = document.getElementById("toast");
+        const toastTitle = document.getElementById("toastTitle");
+        const toastMessage = document.getElementById("toastMessage");
+        const toastIcon = document.getElementById("toastIcon");
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        toast.className = `toast ${type}`;
+        if (type === "success") {
+          toastIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+        } else if (type === "error") {
+          toastIcon.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+        } else {
+          toastIcon.innerHTML = '<i class="fas fa-info-circle"></i>';
+        }
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
+      }
+
+      document.getElementById("closeToast").addEventListener("click", () => {
+        document.getElementById("toast").classList.remove("show");
+      });
+
+      // ===== AUTH =====
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const userRole = localStorage.getItem("userRole");
+        if (!isLoggedIn || isLoggedIn !== "true") {
+          showToast("Access Denied", "Please login first", "error");
+          setTimeout(() => (window.location.href = "index.html"), 1500);
+          return false;
+        }
+        if (userRole !== "Admin") {
+          showToast("Access Denied", "Admin access only", "error");
+          setTimeout(() => (window.location.href = "menu.html"), 1500);
+          return false;
+        }
+        return true;
+      }
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, function (m) {
+          if (m === "&") return "&amp;";
+          if (m === "<") return "&lt;";
+          if (m === ">") return "&gt;";
+          return m;
+        });
+      }
+
+      let isLoadingUsers = false;
+
+      async function loadPendingUsers() {
+        if (isLoadingUsers) return;
+        isLoadingUsers = true;
+        try {
+          const users = await Optra.listUsers();
+          const currentUser = JSON.parse(
+            localStorage.getItem("currentUser") || "{}",
+          );
+          const businessId = currentUser.businessId;
+          const businessUsers = users.filter(
+            (u) => u.businessId === businessId,
+          );
+          const pendingUsers = businessUsers.filter(
+            (u) => !u.approved && u.role !== "Admin",
+          );
+          const approvedManagers = businessUsers.filter(
+            (u) => u.role === "Manager" && u.approved,
+          );
+          const approvedStaff = businessUsers.filter(
+            (u) => u.role === "Staff" && u.approved,
+          );
+          document.getElementById("pendingCount").textContent =
+            pendingUsers.length;
+          document.getElementById("managerCount").textContent =
+            approvedManagers.length;
+          document.getElementById("staffCount").textContent =
+            approvedStaff.length;
+          const uniqueBusinessIds = new Set(
+            businessUsers.map((u) => u.businessId),
+          ).size;
+          document.getElementById("businessCount").textContent =
+            uniqueBusinessIds;
+
+          const tableBody = document.getElementById("tableBody");
+          if (pendingUsers.length === 0) {
+            tableBody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><h3>No Pending Approvals</h3><p>All users have been approved.</p></div></td></tr>`;
+            return;
+          }
+
+          tableBody.innerHTML = pendingUsers
+            .map((user) => {
+              const registeredDate = new Date(
+                user.createdAt,
+              ).toLocaleDateString();
+              return `<tr>
+                        <td data-label="User"><div class="user-cell"><div class="user-avatar-small"><i class="fas fa-user"></i></div><div class="user-details-small"><h4>${escapeHtml(user.name) || "N/A"}</h4></div></div></td>
+                        <td data-label="Email">${escapeHtml(user.email) || "N/A"}</td>
+                        <td data-label="Username">${escapeHtml(user.username) || "N/A"}</td>
+                        <td data-label="Business"><span class="badge" style="background:rgba(17,138,178,0.12); color:#000000;">${escapeHtml(user.businessId)}</span></td>
+                        <td data-label="Role"><span class="badge ${user.role === "Manager" ? "manager" : "staff"}">${user.role || "Staff"}</span></td>
+                        <td data-label="Registered">${registeredDate}</td>
+                        <td data-label="Status"><span class="badge pending">Pending</span></td>
+                        <td data-label="Actions"><div class="action-btns"><button class="btn-approve" onclick="approveUser('${user.id}')"><i class="fas fa-check"></i> Approve</button><button class="btn-view" onclick="viewUserDetails('${user.id}')"><i class="fas fa-eye"></i> View</button></div></td>
+                    </tr>`;
+            })
+            .join("");
+        } catch (error) {
+          console.error("Error loading users:", error);
+          showToast(
+            "Error",
+            (error.data && error.data.error) || "Failed to load users",
+            "error",
+          );
+        } finally {
+          isLoadingUsers = false;
+        }
+      }
+
+      async function approveUser(userId) {
+        try {
+          const updated = await Optra.updateUser(userId, { approved: true });
+          showToast(
+            "Success",
+            `${(updated && updated.name) || "User"} has been approved!`,
+            "success",
+          );
+          loadPendingUsers();
+        } catch (error) {
+          showToast(
+            "Error",
+            (error.data && error.data.error) || "Failed to approve user",
+            "error",
+          );
+        }
+      }
+
+      async function viewUserDetails(userId) {
+        try {
+          const users = await Optra.listUsers();
+          const user = users.find((u) => u.id === userId);
+          if (!user) {
+            showToast("Error", "User not found", "error");
+            return;
+          }
+          alert(
+            `Name: ${user.name}\nEmail: ${user.email}\nUsername: ${user.username}\nRole: ${user.role}\nBusiness ID: ${user.businessId}\nRegistered: ${new Date(user.createdAt).toLocaleString()}\nStatus: ${user.approved ? "Approved" : "Pending"}`,
+          );
+        } catch (error) {
+          console.error("Error viewing user:", error);
+          showToast("Error", "Failed to load user details", "error");
+        }
+      }
+
+      // ===== INIT =====
+      document.addEventListener("DOMContentLoaded", function () {
+        if (checkAuth()) {
+          loadUserAvatar();
+          loadPendingUsers();
+          document
+            .getElementById("refreshBtn")
+            .addEventListener("click", function () {
+              loadPendingUsers();
+              showToast("Refreshed", "User list updated", "success");
+            });
+          setInterval(loadPendingUsers, 30000);
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

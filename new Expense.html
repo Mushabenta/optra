@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Add Expense · Optra</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ===== INVENTORY STYLE EXTENDED ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      }
+
+      :root {
+        --icon-gray: #9ca3af;
+        --primary-grey: #6b7280;
+        --light-grey: #e5e7eb;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #1f2937;
+        --text-mid: #4b5563;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --electric-blue: #118ab2;
+        --sky-blue: #06d6a0;
+        --sunshine: #ffd166;
+        --lilac: #9d4edd;
+        --success: #06d6a0;
+        --error: #ef476f;
+        --pdf-red: #d32f2f;
+        --green-600: #16a34a;
+      }
+
+      body {
+        background: var(--bg-white);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER (identical to inventory) ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+      @media (min-width: 601px) and (max-width: 1024px) {
+        .hamburger-link {
+          font-size: 24px;
+        }
+        .page-title {
+          font-size: 19px;
+        }
+        .avatar-btn {
+          width: 46px;
+          height: 46px;
+        }
+        .avatar-initials {
+          font-size: 17px;
+        }
+        .icon-btn {
+          font-size: 21px;
+        }
+      }
+      @media (min-width: 1025px) {
+        .hamburger-link {
+          font-size: 28px;
+        }
+        .page-title {
+          font-size: 22px;
+        }
+        .avatar-btn {
+          width: 48px;
+          height: 48px;
+        }
+        .avatar-initials {
+          font-size: 18px;
+        }
+        .icon-btn {
+          font-size: 24px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 20px auto 30px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== CARD (like inventory card) ===== */
+      .expense-card-main {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 25px 20px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 30px;
+      }
+
+      .expense-card-main::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--accent);
+      }
+
+      .expense-card-main:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 25px 40px -16px rgba(0, 0, 0, 0.12);
+      }
+
+      /* ===== FORM STYLES ===== */
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      label i {
+        color: var(--icon-gray);
+        font-size: 13px;
+        width: 16px;
+      }
+
+      .required {
+        color: var(--error);
+        margin-left: 2px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 14px;
+        border: 2px solid #e2e8f0;
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        background: white;
+        outline: none;
+        color: var(--text-dark);
+      }
+
+      input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        transform: translateY(-1px);
+      }
+
+      input::placeholder {
+        color: var(--icon-gray);
+      }
+
+      /* ===== BUTTON - SHORT ===== */
+      .btn-add {
+        padding: 10px 28px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: var(--transition);
+        background: var(--accent);
+        color: white;
+        box-shadow: 0 4px 12px rgba(26, 54, 93, 0.2);
+        margin-top: 4px;
+        width: auto;
+        min-width: 120px;
+      }
+
+      .btn-add:hover {
+        background: #2a4a7f;
+        transform: translateY(-2px);
+      }
+
+      .btn-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      /* ===== SUMMARY CARD ===== */
+      .summary-card {
+        background: var(--accent-bg);
+        border-radius: var(--radius-sm);
+        padding: 14px 16px;
+        margin: 18px 0 14px;
+        border: 1px solid var(--card-border);
+        border-left: 4px solid var(--accent);
+      }
+
+      .summary-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-mid);
+        margin-bottom: 2px;
+      }
+
+      .summary-amount {
+        font-size: 24px;
+        font-weight: 800;
+        color: #000000;
+      }
+
+      /* ===== MESSAGE ===== */
+      .message {
+        margin-top: 14px;
+        padding: 10px 14px;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 500;
+        text-align: center;
+        animation: slideIn 0.3s ease;
+        display: none;
+      }
+
+      .message.success {
+        background: #d1fae5;
+        color: #065f46;
+        display: block;
+        border-left: 4px solid var(--success);
+      }
+
+      .message.error {
+        background: #fee2e2;
+        color: #991b1b;
+        display: block;
+        border-left: 4px solid var(--error);
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== RECENT EXPENSES ===== */
+      .recent-section {
+        margin-top: 20px;
+      }
+
+      .recent-section h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .recent-section h3 i {
+        color: var(--icon-gray);
+        font-size: 14px;
+      }
+
+      .recent-item {
+        background: #f8fafc;
+        border-radius: var(--radius-sm);
+        padding: 8px 12px;
+        margin-bottom: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #eef2f6;
+        transition: var(--transition);
+      }
+
+      .recent-item:hover {
+        border-color: var(--accent);
+        transform: translateX(4px);
+        background: white;
+      }
+
+      .recent-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+
+      .recent-name {
+        font-weight: 600;
+        color: #000000;
+        font-size: 12px;
+      }
+
+      .recent-date {
+        font-size: 10px;
+        color: var(--text-mid);
+      }
+
+      .recent-amount {
+        font-weight: 700;
+        color: var(--coral);
+        font-size: 13px;
+      }
+
+      .view-all-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 12px;
+        margin-top: 6px;
+        transition: var(--transition);
+      }
+
+      .view-all-link:hover {
+        gap: 10px;
+        color: var(--electric-blue);
+      }
+
+      .view-all-link i {
+        font-size: 11px;
+      }
+
+      .no-expenses {
+        text-align: center;
+        color: var(--text-mid);
+        padding: 16px 0;
+        font-size: 12px;
+      }
+
+      .no-expenses i {
+        font-size: 24px;
+        color: var(--icon-gray);
+        margin-bottom: 6px;
+        display: block;
+      }
+
+      /* ===== FOOTER (identical to inventory) ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 640px) {
+        .container {
+          padding: 0 6px;
+          margin: 10px auto 16px;
+        }
+        .expense-card-main {
+          padding: 14px 10px;
+          border-radius: var(--radius-lg);
+        }
+        .summary-amount {
+          font-size: 20px;
+        }
+        .btn-add {
+          padding: 8px 20px;
+          font-size: 12px;
+          min-width: 100px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .expense-card-main {
+          padding: 10px 6px;
+        }
+        input {
+          padding: 8px 10px;
+          font-size: 13px;
+        }
+        .summary-amount {
+          font-size: 18px;
+        }
+        .btn-add {
+          padding: 6px 16px;
+          font-size: 11px;
+          min-width: 80px;
+        }
+        .recent-item {
+          padding: 6px 10px;
+        }
+        .recent-name {
+          font-size: 11px;
+        }
+        .recent-amount {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Add Expense</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="expense-card-main">
+          <form id="expenseForm" novalidate>
+            <div class="form-group">
+              <label>Expense Name <span class="required">*</span></label>
+              <input
+                type="text"
+                id="expenseName"
+                placeholder="e.g., Rent, Electricity, Salaries"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Amount (UGX) <span class="required">*</span></label>
+              <input
+                type="number"
+                id="amount"
+                placeholder="0"
+                min="0"
+                step="100"
+              />
+            </div>
+
+            <div class="form-group">
+              <label
+                ><i class="fas fa-calendar-alt"></i> Date
+                <span class="required">*</span></label
+              >
+              <input type="date" id="date" />
+            </div>
+
+            <div class="btn-wrapper">
+              <button type="button" class="btn-add" onclick="addExpense()">
+                Save
+              </button>
+            </div>
+
+            <div id="message" class="message"></div>
+
+            <div class="summary-card">
+              <div class="summary-title">Today's Total</div>
+              <div class="summary-amount" id="todayTotal">UGX 0</div>
+            </div>
+
+            <div class="recent-section">
+              <h3><i class="fas fa-history"></i> Recent Expenses</h3>
+              <div id="recentExpenses"></div>
+              <a href="expenses history.html" class="view-all-link">
+                View All History <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item">
+          <i class="fas fa-cash-register"></i>
+          <span>Add Sale</span>
+        </a>
+        <a href="profit report.html" class="nav-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Profit</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const parts = name.trim().split(" ");
+        let initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          const user = JSON.parse(currentUser);
+          loadUserAvatar();
+          return user;
+        } catch (_) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      const expenseNameInput = document.getElementById("expenseName");
+      const amountInput = document.getElementById("amount");
+      const dateInput = document.getElementById("date");
+      const messageDiv = document.getElementById("message");
+      const todayTotalSpan = document.getElementById("todayTotal");
+      const recentExpensesDiv = document.getElementById("recentExpenses");
+
+      let currentUser = null;
+      let expensesList = [];
+
+      function formatNumber(num) {
+        if (isNaN(num)) return "0";
+        return Number(num).toLocaleString("en-UG");
+      }
+
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        const [year, month, day] = dateStr.split("-");
+        return `${day}/${month}/${year}`;
+      }
+
+      function showMessage(text, isSuccess = true) {
+        messageDiv.textContent = text;
+        messageDiv.className = isSuccess ? "message success" : "message error";
+        messageDiv.style.display = "block";
+        setTimeout(() => {
+          messageDiv.style.display = "none";
+        }, 3000);
+      }
+
+      async function loadExpenses() {
+        try {
+          const user = JSON.parse(localStorage.getItem("currentUser"));
+          if (!user || !user.businessId) return;
+          const allExpenses = await Optra.get("expenses");
+          expensesList = allExpenses.filter(
+            (e) => e.businessId === user.businessId,
+          );
+          updateTodayTotal();
+          displayRecentExpenses();
+        } catch (error) {
+          console.error("Error loading expenses:", error);
+        }
+      }
+
+      function updateTodayTotal() {
+        const today = new Date().toISOString().split("T")[0];
+        const todayExpenses = expensesList.filter((e) => e.date === today);
+        const total = todayExpenses.reduce((sum, e) => sum + e.amount, 0);
+        todayTotalSpan.textContent = `UGX ${formatNumber(total)}`;
+      }
+
+      function displayRecentExpenses() {
+        if (expensesList.length === 0) {
+          recentExpensesDiv.innerHTML = `
+            <div class="no-expenses">
+              <i class="fas fa-receipt"></i>
+              <p>No expenses recorded yet.</p>
+            </div>
+          `;
+          return;
+        }
+        const recent = [...expensesList]
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .slice(0, 3);
+        recentExpensesDiv.innerHTML = recent
+          .map(
+            (exp) =>
+              `<div class="recent-item">
+                <div class="recent-info">
+                  <span class="recent-name">${exp.name}</span>
+                  <span class="recent-date">${formatDate(exp.date)}</span>
+                </div>
+                <span class="recent-amount">UGX ${formatNumber(exp.amount)}</span>
+              </div>`,
+          )
+          .join("");
+      }
+
+      function clearForm() {
+        expenseNameInput.value = "";
+        amountInput.value = "";
+        setTodayDate();
+      }
+
+      function setTodayDate() {
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.value = today;
+      }
+
+      window.addExpense = async function () {
+        const name = expenseNameInput.value.trim();
+        const amount = amountInput.value.trim();
+        const date = dateInput.value;
+
+        if (!name) {
+          showMessage("Please enter expense name.", false);
+          return;
+        }
+        if (!amount || Number(amount) <= 0) {
+          showMessage("Please enter a valid amount greater than zero.", false);
+          return;
+        }
+        if (!date) {
+          showMessage("Please select a date.", false);
+          return;
+        }
+
+        const user = JSON.parse(localStorage.getItem("currentUser"));
+        if (!user || !user.businessId) {
+          showMessage("Business ID not found.", false);
+          return;
+        }
+
+        const newExpense = {
+          id: Date.now().toString(),
+          name: name,
+          amount: Number(amount),
+          date: date,
+          businessId: user.businessId,
+          createdBy: user.name || user.email,
+          createdAt: new Date().toISOString(),
+        };
+
+        try {
+          const expenses = await Optra.get("expenses");
+          expenses.push(newExpense);
+          await Optra.set("expenses", expenses);
+          expensesList.push(newExpense);
+          updateTodayTotal();
+          displayRecentExpenses();
+          clearForm();
+          showMessage("Expense added successfully!", true);
+        } catch (error) {
+          console.error("Error adding expense:", error);
+          showMessage("Failed to add expense.", false);
+        }
+      };
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        currentUser = checkAuth();
+        if (currentUser) {
+          setTodayDate();
+          await loadExpenses();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Expenses History · Optra</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      :root {
+        --icon-gray: #9ca3af;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #1f2937;
+        --text-mid: #4b5563;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-light: #2a4a7f;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --sky-blue: #06d6a0;
+      }
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 16px auto 24px;
+        padding: 0 12px;
+        width: 100%;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: var(--radius-md);
+        padding: 16px 14px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        margin-bottom: 14px;
+      }
+      @media (max-width: 480px) {
+        .card {
+          padding: 12px 8px;
+        }
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--card-border);
+      }
+      .card-header h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: #000000;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .summary-card {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 10px 12px;
+        border: 1px solid var(--card-border);
+        text-align: center;
+      }
+      .summary-card .label {
+        font-size: 9px;
+        font-weight: 600;
+        color: var(--text-mid);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .summary-card .amount {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-top: 2px;
+      }
+      .summary-card .amount.negative {
+        color: var(--coral);
+      }
+      @media (max-width: 768px) {
+        .summary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .summary-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
+        }
+        .summary-card {
+          padding: 8px 6px;
+        }
+        .summary-card .amount {
+          font-size: 13px;
+        }
+        .summary-card .label {
+          font-size: 8px;
+        }
+      }
+
+      .controls-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+        padding: 8px 12px;
+        background: var(--accent-bg);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--card-border);
+        margin-bottom: 14px;
+      }
+      @media (max-width: 768px) {
+        .controls-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+      .filter-group {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        flex: 1;
+      }
+      @media (max-width: 768px) {
+        .filter-group {
+          justify-content: center;
+        }
+      }
+      .filter-btn {
+        padding: 4px 10px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        font-size: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        background: white;
+        color: var(--text-dark);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 28px;
+      }
+      @media (max-width: 480px) {
+        .filter-btn {
+          font-size: 9px;
+          padding: 3px 7px;
+          height: 24px;
+        }
+        .filter-btn span {
+          display: none;
+        }
+      }
+      .filter-btn:hover {
+        border-color: var(--accent);
+      }
+      .filter-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+      .export-group {
+        display: flex;
+        gap: 4px;
+        margin-left: auto;
+      }
+      @media (max-width: 768px) {
+        .export-group {
+          justify-content: center;
+          margin-left: 0;
+        }
+      }
+      .export-btn {
+        padding: 4px 10px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        height: 28px;
+        transition: var(--transition);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      @media (max-width: 480px) {
+        .export-btn {
+          font-size: 9px;
+          padding: 3px 7px;
+          height: 24px;
+        }
+        .export-btn span {
+          display: none;
+        }
+      }
+      .export-btn:hover {
+        transform: scale(1.04);
+      }
+      .excel-btn {
+        background: #2e7d32;
+      }
+      .pdf-btn {
+        background: #d32f2f;
+      }
+
+      .search-section {
+        display: none;
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 12px;
+        border: 1px solid var(--card-border);
+        margin-bottom: 14px;
+      }
+      .search-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 480px) {
+        .search-group {
+          flex-direction: column;
+        }
+      }
+      .search-input,
+      .date-input {
+        padding: 6px 10px;
+        font-size: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        background: white;
+        color: var(--text-dark);
+        height: 32px;
+        flex: 1;
+        min-width: 120px;
+      }
+      @media (max-width: 480px) {
+        .search-input,
+        .date-input {
+          width: 100%;
+          min-width: auto;
+        }
+      }
+      .search-input:focus,
+      .date-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .clear-btn {
+        padding: 6px 14px;
+        background: var(--coral);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        height: 32px;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .clear-btn:hover {
+        opacity: 0.85;
+      }
+
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--card-border);
+        background: white;
+        margin: 8px 0;
+        width: 100%;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px;
+      }
+      .data-table th {
+        background: var(--accent);
+        color: white;
+        padding: 10px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+      }
+      .data-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-dark);
+        font-size: 12px;
+      }
+      .data-table tr:hover {
+        background: var(--accent-bg);
+      }
+
+      @media screen and (max-width: 640px) {
+        .data-table,
+        .data-table thead,
+        .data-table tbody,
+        .data-table th,
+        .data-table td,
+        .data-table tr {
+          display: block;
+        }
+        .data-table {
+          min-width: 0;
+        }
+        .table-wrapper {
+          overflow-x: visible;
+        }
+        .data-table thead {
+          display: none;
+        }
+        .data-table tbody tr {
+          display: block;
+          margin-bottom: 12px;
+          border: 1px solid var(--card-border);
+          border-radius: var(--radius-sm);
+          padding: 12px 14px;
+          background: white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+        .data-table tbody tr:hover {
+          background: white;
+        }
+        .data-table td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 6px 0;
+          border: none;
+          border-bottom: 1px solid #f0f0f0;
+          font-size: 12px;
+        }
+        .data-table td:last-child {
+          border-bottom: none;
+        }
+        .data-table td::before {
+          content: attr(data-label);
+          font-weight: 600;
+          color: var(--accent);
+          font-size: 10px;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+          flex-shrink: 0;
+          margin-right: 12px;
+        }
+        .data-table td:first-child::before {
+          content: "No";
+        }
+        .data-table td:nth-child(2)::before {
+          content: "Date";
+        }
+        .data-table td:nth-child(3)::before {
+          content: "Category";
+        }
+        .data-table td:nth-child(4)::before {
+          content: "Description";
+        }
+        .data-table td:nth-child(5)::before {
+          content: "Amount";
+        }
+        .no-data {
+          padding: 30px 15px !important;
+          display: block !important;
+          text-align: center !important;
+        }
+      }
+
+      .no-data {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-mid);
+      }
+      .no-data h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 4px;
+      }
+      .no-data p {
+        font-size: 13px;
+        color: #000000;
+      }
+
+      .chart-wrapper {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 12px;
+        border: 1px solid var(--card-border);
+        margin-top: 14px;
+      }
+      .chart-wrapper h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 10px;
+      }
+      canvas {
+        width: 100% !important;
+        max-height: 200px;
+      }
+
+      .add-expense-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 20px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        white-space: nowrap;
+      }
+      .add-expense-btn:hover {
+        background: var(--accent-light);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(26, 54, 93, 0.25);
+      }
+
+      @media (max-width: 480px) {
+        .add-expense-btn {
+          padding: 8px 16px;
+          font-size: 12px;
+          width: auto;
+          gap: 4px;
+        }
+        .add-expense-btn i {
+          font-size: 11px;
+        }
+      }
+      @media (max-width: 380px) {
+        .add-expense-btn {
+          padding: 6px 12px;
+          font-size: 11px;
+        }
+        .add-expense-btn i {
+          font-size: 10px;
+        }
+      }
+
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+      }
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .controls-bar,
+        .main-footer {
+          display: none !important;
+        }
+        .table-wrapper {
+          display: block !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu"
+          ><i class="fas fa-bars"></i
+        ></a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Expenses History</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="scrollable-content">
+      <div class="container">
+        <!-- Page header removed -->
+
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="label">Total Expenses</div>
+            <div class="amount negative" id="totalExpenses">UGX 0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">This Month</div>
+            <div class="amount negative" id="monthTotal">UGX 0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">This Week</div>
+            <div class="amount negative" id="weekTotal">UGX 0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Total Count</div>
+            <div class="amount" id="expenseCount">0</div>
+          </div>
+        </div>
+
+        <div class="controls-bar">
+          <div class="filter-group">
+            <button
+              class="filter-btn"
+              onclick="showDailyFilter()"
+              id="dailyFilterBtn"
+            >
+              <i class="fas fa-calendar-day"></i><span> Daily</span>
+            </button>
+            <button
+              class="filter-btn"
+              onclick="showRangeFilter()"
+              id="rangeFilterBtn"
+            >
+              <i class="fas fa-calendar-alt"></i><span> Range</span>
+            </button>
+            <button
+              class="filter-btn"
+              onclick="showSearchFilter()"
+              id="searchFilterBtn"
+            >
+              <i class="fas fa-search"></i><span> Search</span>
+            </button>
+            <button
+              class="filter-btn"
+              onclick="resetFilters()"
+              id="resetFilterBtn"
+            >
+              <i class="fas fa-undo-alt"></i><span> Reset</span>
+            </button>
+          </div>
+          <div class="export-group">
+            <button class="export-btn excel-btn" onclick="exportToExcel()">
+              <i class="fas fa-file-excel"></i><span> Excel</span>
+            </button>
+            <button class="export-btn pdf-btn" onclick="exportToPDF()">
+              <i class="fas fa-file-pdf"></i><span> PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="search-section" id="dailyFilterSection">
+          <div class="search-group">
+            <input
+              type="date"
+              id="dailyDate"
+              class="date-input"
+              onchange="filterByDaily()"
+            />
+            <button class="clear-btn" onclick="clearDailyFilter()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="search-section" id="rangeFilterSection">
+          <div class="search-group">
+            <input
+              type="date"
+              id="startDate"
+              class="date-input"
+              onchange="filterByRange()"
+            />
+            <span style="color: var(--text-mid); font-size: 12px">to</span>
+            <input
+              type="date"
+              id="endDate"
+              class="date-input"
+              onchange="filterByRange()"
+            />
+            <button class="clear-btn" onclick="clearRangeFilter()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="search-section" id="searchFilterSection">
+          <div class="search-group">
+            <input
+              type="text"
+              id="searchText"
+              class="search-input"
+              placeholder="Search expense..."
+              oninput="filterBySearch()"
+            />
+            <button class="clear-btn" onclick="clearSearchFilter()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>Expense History</h3></div>
+          <div class="table-wrapper">
+            <table class="data-table" id="expensesTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="expensesTableBody">
+                <tr>
+                  <td colspan="5" class="no-data">
+                    <h4>No Expenses Found</h4>
+                    <p>Add expenses to see them here.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chart-wrapper">
+          <h3>Expense Breakdown</h3>
+          <canvas id="expensesChart"></canvas>
+        </div>
+
+        <div style="text-align: center; margin-top: 16px; padding-bottom: 10px">
+          <a href="new Expense.html" class="add-expense-btn"
+            ><i class="fas fa-plus-circle"></i> Add</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="inventory.html" class="nav-item"
+          ><i class="fas fa-warehouse"></i><span>Inventory</span></a
+        >
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function checkAuth() {
+        var isLoggedIn = localStorage.getItem("isLoggedIn");
+        var currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      function loadUserAvatar() {
+        var avatarImg = document.getElementById("profileAvatar");
+        var initialsSpan = document.getElementById("avatarInitials");
+        var user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        var name = user.name || "User";
+        var parts = name.trim().split(" ");
+        var initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+        var hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      var allExpenses = [],
+        filteredExpenses = [],
+        currentUser = null,
+        chartInstance = null;
+      var tableBody = document.getElementById("expensesTableBody");
+      var totalExpensesSpan = document.getElementById("totalExpenses");
+      var monthTotalSpan = document.getElementById("monthTotal");
+      var weekTotalSpan = document.getElementById("weekTotal");
+      var expenseCountSpan = document.getElementById("expenseCount");
+
+      var dailySection = document.getElementById("dailyFilterSection");
+      var rangeSection = document.getElementById("rangeFilterSection");
+      var searchSection = document.getElementById("searchFilterSection");
+      var dailyDate = document.getElementById("dailyDate");
+      var startDate = document.getElementById("startDate");
+      var endDate = document.getElementById("endDate");
+      var searchText = document.getElementById("searchText");
+
+      dailySection.style.display = "none";
+      rangeSection.style.display = "none";
+      searchSection.style.display = "none";
+
+      function formatNumber(num) {
+        return isNaN(num) ? "0" : Number(num).toLocaleString("en-UG");
+      }
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        var parts = dateStr.split("-");
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
+      }
+
+      async function loadExpenses() {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser"));
+          if (!user || !user.businessId) return;
+          var allExpensesData = await Optra.get("expenses");
+          allExpenses = allExpensesData.filter(function (e) {
+            return e.businessId === user.businessId;
+          });
+          allExpenses.sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+          });
+          filteredExpenses = allExpenses.slice();
+          renderTable();
+          updateSummary();
+          drawChart();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function updateSummary() {
+        var total = filteredExpenses.reduce(function (sum, exp) {
+          return sum + exp.amount;
+        }, 0);
+        totalExpensesSpan.textContent = "UGX " + formatNumber(total);
+        var now = new Date();
+        var currentMonth = now.getMonth(),
+          currentYear = now.getFullYear();
+        var monthTotal = filteredExpenses
+          .filter(function (exp) {
+            var d = new Date(exp.date);
+            return (
+              d.getMonth() === currentMonth && d.getFullYear() === currentYear
+            );
+          })
+          .reduce(function (sum, exp) {
+            return sum + exp.amount;
+          }, 0);
+        monthTotalSpan.textContent = "UGX " + formatNumber(monthTotal);
+        var startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay());
+        startOfWeek.setHours(0, 0, 0, 0);
+        var weekTotal = filteredExpenses
+          .filter(function (exp) {
+            return new Date(exp.date) >= startOfWeek;
+          })
+          .reduce(function (sum, exp) {
+            return sum + exp.amount;
+          }, 0);
+        weekTotalSpan.textContent = "UGX " + formatNumber(weekTotal);
+        expenseCountSpan.textContent = filteredExpenses.length;
+      }
+
+      function renderTable() {
+        if (filteredExpenses.length === 0) {
+          tableBody.innerHTML =
+            '<tr><td colspan="5" class="no-data"><h4>No Expenses Found</h4><p>Add expenses to see them here.</p></td></tr>';
+          return;
+        }
+        tableBody.innerHTML = "";
+        filteredExpenses.forEach(function (exp, index) {
+          var row = document.createElement("tr");
+          row.innerHTML =
+            '<td data-label="No">' +
+            (index + 1) +
+            '</td><td data-label="Date">' +
+            formatDate(exp.date) +
+            '</td><td data-label="Category">' +
+            (exp.category || "Other") +
+            '</td><td data-label="Description">' +
+            (exp.description || exp.name || "N/A") +
+            '</td><td data-label="Amount">UGX ' +
+            formatNumber(exp.amount) +
+            "</td>";
+          tableBody.appendChild(row);
+        });
+      }
+
+      function drawChart() {
+        var ctx = document.getElementById("expensesChart").getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+        if (filteredExpenses.length === 0) return;
+        var expenseGroups = {};
+        filteredExpenses.forEach(function (exp) {
+          expenseGroups[exp.category || "Other"] =
+            (expenseGroups[exp.category || "Other"] || 0) + exp.amount;
+        });
+        var labels = Object.keys(expenseGroups);
+        var data = Object.values(expenseGroups);
+        var colors = [
+          "#ef476f",
+          "#06d6a0",
+          "#118ab2",
+          "#ffd166",
+          "#9d4edd",
+          "#ff6b6b",
+          "#4ecdc4",
+          "#45b7d1",
+          "#96ceb4",
+          "#f7dc6f",
+        ];
+        chartInstance = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                data: data,
+                backgroundColor: colors.slice(0, labels.length),
+                borderWidth: 2,
+                borderColor: "white",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                position: window.innerWidth < 600 ? "bottom" : "right",
+              },
+            },
+          },
+        });
+      }
+
+      function showDailyFilter() {
+        dailySection.style.display =
+          dailySection.style.display === "none" ? "block" : "none";
+        rangeSection.style.display = "none";
+        searchSection.style.display = "none";
+        if (!dailyDate.value)
+          dailyDate.value = new Date().toISOString().split("T")[0];
+      }
+      function showRangeFilter() {
+        rangeSection.style.display =
+          rangeSection.style.display === "none" ? "block" : "none";
+        dailySection.style.display = "none";
+        searchSection.style.display = "none";
+      }
+      function showSearchFilter() {
+        searchSection.style.display =
+          searchSection.style.display === "none" ? "block" : "none";
+        dailySection.style.display = "none";
+        rangeSection.style.display = "none";
+      }
+
+      function filterByDaily() {
+        if (dailyDate.value) {
+          filteredExpenses = allExpenses.filter(function (exp) {
+            return exp.date === dailyDate.value;
+          });
+          renderTable();
+          updateSummary();
+          drawChart();
+        }
+      }
+      function filterByRange() {
+        if (startDate.value && endDate.value) {
+          filteredExpenses = allExpenses.filter(function (exp) {
+            return exp.date >= startDate.value && exp.date <= endDate.value;
+          });
+          renderTable();
+          updateSummary();
+          drawChart();
+        }
+      }
+      function filterBySearch() {
+        var term = searchText.value.trim().toLowerCase();
+        filteredExpenses = term
+          ? allExpenses.filter(function (exp) {
+              return (
+                (exp.description || exp.name || "")
+                  .toLowerCase()
+                  .includes(term) ||
+                (exp.category || "").toLowerCase().includes(term)
+              );
+            })
+          : allExpenses.slice();
+        renderTable();
+        updateSummary();
+        drawChart();
+      }
+      function resetFilters() {
+        filteredExpenses = allExpenses.slice();
+        renderTable();
+        updateSummary();
+        drawChart();
+        dailySection.style.display = "none";
+        rangeSection.style.display = "none";
+        searchSection.style.display = "none";
+        dailyDate.value = "";
+        startDate.value = "";
+        endDate.value = "";
+        searchText.value = "";
+      }
+      function clearDailyFilter() {
+        dailyDate.value = "";
+        resetFilters();
+      }
+      function clearRangeFilter() {
+        startDate.value = "";
+        endDate.value = "";
+        resetFilters();
+      }
+      function clearSearchFilter() {
+        searchText.value = "";
+        resetFilters();
+      }
+
+      async function exportToExcel() {
+        if (filteredExpenses.length === 0) {
+          alert("No expenses to export.");
+          return;
+        }
+        var biz = await Optra.get("business_info");
+        var wsData = [
+          ["Business Name:", biz.name],
+          ["Contact:", biz.contact],
+          ["Email:", biz.email],
+          ["Location:", biz.location],
+          [],
+          ["No", "Date", "Category", "Description", "Amount (UGX)"],
+        ];
+        filteredExpenses.forEach(function (exp, index) {
+          wsData.push([
+            index + 1,
+            exp.date,
+            exp.category || "Other",
+            exp.description || exp.name || "N/A",
+            exp.amount,
+          ]);
+        });
+        var total = filteredExpenses.reduce(function (sum, exp) {
+          return sum + exp.amount;
+        }, 0);
+        wsData.push([]);
+        wsData.push(["TOTAL", "", "", "", total]);
+
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, "Expenses");
+        XLSX.writeFile(
+          wb,
+          "Expenses_History_" +
+            new Date().toISOString().split("T")[0] +
+            ".xlsx",
+        );
+      }
+
+      async function exportToPDF() {
+        if (filteredExpenses.length === 0) {
+          alert("No expenses to export.");
+          return;
+        }
+        var biz = await Optra.get("business_info");
+        var doc = new window.jspdf.jsPDF();
+
+        // Business Name
+        doc.setFontSize(18);
+        doc.setTextColor("#1a365d");
+        doc.text(biz.name || "Optra Business", 14, 15);
+
+        // Contact - separate row
+        doc.setFontSize(10);
+        doc.setTextColor("#4b5563");
+        doc.text("Contact: " + (biz.contact || ""), 14, 23);
+
+        // Email - separate row
+        doc.text("Email: " + (biz.email || ""), 14, 30);
+
+        // Location - separate row
+        doc.text("Location: " + (biz.location || ""), 14, 37);
+
+        // Report Title
+        doc.setFontSize(14);
+        doc.setTextColor("#ef476f");
+        doc.text("Expenses History Report", 14, 47);
+
+        // Generated date
+        doc.setFontSize(9);
+        doc.setTextColor("#4b5563");
+        doc.text("Generated: " + new Date().toLocaleString(), 14, 54);
+
+        var tableData = filteredExpenses.map(function (exp, index) {
+          return [
+            index + 1,
+            exp.date,
+            exp.category || "Other",
+            exp.description || exp.name || "N/A",
+            "UGX " + formatNumber(exp.amount),
+          ];
+        });
+        var total = filteredExpenses.reduce(function (sum, exp) {
+          return sum + exp.amount;
+        }, 0);
+        tableData.push(["", "", "", "TOTAL", "UGX " + formatNumber(total)]);
+
+        doc.autoTable({
+          startY: 60,
+          head: [["No", "Date", "Category", "Description", "Amount"]],
+          body: tableData,
+          styles: { fontSize: 8, cellPadding: 3 },
+          headStyles: { fillColor: [26, 54, 93], textColor: 255 },
+          footStyles: { fillColor: [240, 240, 240], textColor: [26, 54, 93] },
+          columnStyles: { 3: { cellWidth: "auto" } },
+        });
+        var finalY = doc.lastAutoTable.finalY + 8;
+        doc.setFontSize(8);
+        doc.setTextColor("#9ca3af");
+        doc.text("Generated by Optra Business Management System", 14, finalY);
+        doc.save(
+          "Expenses_History_" + new Date().toISOString().split("T")[0] + ".pdf",
+        );
+      }
+
+      window.addEventListener("resize", function () {
+        if (filteredExpenses.length > 0) drawChart();
+      });
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        currentUser = checkAuth();
+        if (currentUser) {
+          loadUserAvatar();
+          await loadExpenses();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

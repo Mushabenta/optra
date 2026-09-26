@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Privacy Policy · Optra</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+
+    <style>
+      /* ===== ROOT - matches Expenses History ===== */
+      :root {
+        --icon-gray: #9ca3af;
+        --icon-gray-light: #d1d5db;
+        --primary-grey: #6b7280;
+        --light-grey: #e5e7eb;
+        --bg-grey: #f3f4f6;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #000000;
+        --text-mid: #000000;
+        --text-light: #000000;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-light: #2a4a7f;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --electric-blue: #118ab2;
+        --sky-blue: #06d6a0;
+        --success: #10b981;
+        --error: #ef4444;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER - matches Expenses History ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 16px auto 24px;
+        padding: 0 12px;
+        width: 100%;
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .page-header h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #000000;
+        white-space: nowrap;
+      }
+
+      /* ===== POLICY CARD ===== */
+      .policy-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-md);
+        padding: 16px 14px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+      }
+
+      .policy-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid var(--card-border);
+      }
+
+      .policy-header h1 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 6px;
+      }
+
+      .policy-header .subtitle {
+        color: #000000;
+        font-size: 13px;
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .effective-date {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 4px 14px;
+        background: var(--bg-grey);
+        border-radius: 20px;
+        font-size: 11px;
+        color: #000000;
+        border: 1px solid var(--card-border);
+      }
+
+      /* ===== TABLE OF CONTENTS ===== */
+      .toc {
+        background: var(--bg-grey);
+        border-radius: var(--radius-md);
+        padding: 14px 12px;
+        margin-bottom: 20px;
+        border: 1px solid var(--card-border);
+      }
+
+      .toc h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 10px;
+      }
+
+      .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 6px;
+      }
+
+      .toc-item {
+        color: #000000;
+        text-decoration: none;
+        font-size: 12px;
+        padding: 5px 10px;
+        background: white;
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--card-border);
+      }
+
+      .toc-item:hover {
+        background: var(--accent-bg);
+        transform: translateX(3px);
+        border-color: var(--accent);
+        color: #000000;
+      }
+
+      .toc-item i {
+        font-size: 10px;
+        color: var(--icon-gray);
+      }
+
+      /* ===== POLICY SECTIONS ===== */
+      .policy-section {
+        margin-bottom: 24px;
+        scroll-margin-top: 80px;
+      }
+
+      .policy-section h2 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 12px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--card-border);
+      }
+
+      .policy-section h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: #000000;
+        margin: 14px 0 8px;
+      }
+
+      .policy-section p {
+        color: #000000;
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 10px;
+      }
+
+      .policy-list {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0;
+      }
+
+      .policy-list li {
+        color: #000000;
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+
+      .policy-list li::before {
+        content: "•";
+        color: var(--icon-gray);
+        position: absolute;
+        left: 0;
+      }
+
+      .policy-list li strong {
+        color: #000000;
+        font-weight: 600;
+      }
+
+      /* ===== DEFINITIONS ===== */
+      .definitions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 16px 0;
+      }
+
+      .def-item {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        border: 1px solid var(--card-border);
+      }
+
+      .def-item h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 4px;
+      }
+
+      .def-item p {
+        font-size: 12px;
+        color: #000000;
+        line-height: 1.5;
+        margin-bottom: 0;
+      }
+
+      /* ===== INFO/WARNING BOXES ===== */
+      .info-box,
+      .warning-box {
+        background: var(--bg-grey);
+        border-left: 3px solid #000000;
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        margin: 12px 0;
+      }
+
+      .info-box p,
+      .warning-box p {
+        margin-bottom: 0;
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .info-box p strong,
+      .warning-box p strong {
+        color: #000000;
+      }
+
+      /* ===== DATA TABLE ===== */
+      .data-table {
+        margin: 16px 0;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        border: 1px solid var(--card-border);
+      }
+
+      .data-table table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        font-size: 12px;
+      }
+
+      .data-table th {
+        background: #000000;
+        color: white;
+        padding: 8px 8px;
+        font-weight: 600;
+        text-align: left;
+      }
+
+      .data-table td {
+        padding: 8px 8px;
+        border-bottom: 1px solid var(--card-border);
+        color: #000000;
+        font-size: 12px;
+      }
+
+      .data-table a {
+        color: var(--electric-blue);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .data-table a:hover {
+        text-decoration: underline;
+      }
+
+      /* ===== BACK TO TOP ===== */
+      .back-to-top {
+        position: fixed;
+        bottom: 80px;
+        right: 16px;
+        width: 38px;
+        height: 38px;
+        background: #000000;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+        transition: var(--transition);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 100;
+        border: 2px solid white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+      .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+      }
+      .back-to-top:hover {
+        transform: translateY(-3px);
+        background: #1a1a1a;
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+      }
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      .nav-item.active i,
+      .nav-item.active span {
+        color: #000000;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+        .container {
+          margin: 12px auto 16px;
+          padding: 0 10px;
+        }
+        .policy-card {
+          padding: 14px 12px;
+        }
+        .policy-header h1 {
+          font-size: 20px;
+        }
+        .policy-header .subtitle {
+          font-size: 12px;
+        }
+        .definitions {
+          grid-template-columns: 1fr;
+        }
+        .toc-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .policy-section h2 {
+          font-size: 16px;
+        }
+        .policy-section p,
+        .policy-list li {
+          font-size: 12px;
+        }
+        .data-table th,
+        .data-table td {
+          font-size: 11px;
+          padding: 6px;
+        }
+        .page-header h2 {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 6px;
+          margin: 10px auto 12px;
+        }
+        .policy-card {
+          padding: 10px 8px;
+        }
+        .policy-header h1 {
+          font-size: 18px;
+        }
+        .toc-grid {
+          grid-template-columns: 1fr;
+        }
+        .def-item h4 {
+          font-size: 12px;
+        }
+        .def-item p {
+          font-size: 11px;
+        }
+        .back-to-top {
+          width: 34px;
+          height: 34px;
+          font-size: 14px;
+          bottom: 70px;
+          right: 12px;
+        }
+        .data-table table {
+          font-size: 11px;
+        }
+        .data-table th,
+        .data-table td {
+          padding: 5px;
+          font-size: 10px;
+        }
+        .page-header h2 {
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .main-header {
+          padding: 4px 8px;
+        }
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 14px;
+        }
+        .avatar-btn {
+          width: 34px;
+          height: 34px;
+        }
+        .avatar-initials {
+          font-size: 12px;
+        }
+        .icon-btn {
+          font-size: 16px;
+          padding: 3px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Privacy Policy</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- SCROLLABLE CONTENT -->
+    <div class="scrollable-content">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+          <h2>Privacy Policy</h2>
+        </div>
+
+        <div class="policy-card">
+          <div class="policy-header">
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">
+              This Privacy Policy describes how Optra collects, uses, stores,
+              and protects your information when you use our business management
+              application.
+            </p>
+            <div class="effective-date">Effective Date: June 1, 2026</div>
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <div class="toc-grid">
+              <a href="#definitions" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 1. Definitions</a
+              >
+              <a href="#information-we-collect" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 2. Information We
+                Collect</a
+              >
+              <a href="#how-we-use" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 3. How We Use Your
+                Information</a
+              >
+              <a href="#legal-basis" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 4. Legal Basis for
+                Processing</a
+              >
+              <a href="#data-storage" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 5. Data Storage &amp;
+                Security</a
+              >
+              <a href="#data-retention" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 6. Data Retention</a
+              >
+              <a href="#your-rights" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 7. Your Rights</a
+              >
+              <a href="#third-party" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 8. Third-Party Services</a
+              >
+              <a href="#international" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 9. International Data
+                Transfers</a
+              >
+              <a href="#children" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 10. Children's Privacy</a
+              >
+              <a href="#changes" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 11. Changes to This
+                Policy</a
+              >
+              <a href="#governing-law" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 12. Governing Law</a
+              >
+            </div>
+          </div>
+
+          <!-- Section 1: Definitions -->
+          <section id="definitions" class="policy-section">
+            <h2>1. Definitions</h2>
+            <p>
+              For the purposes of this Privacy Policy, the following terms have
+              the meanings ascribed to them below:
+            </p>
+            <div class="definitions">
+              <div class="def-item">
+                <h4>Personal Data</h4>
+                <p>
+                  Any information relating to an identified or identifiable
+                  natural person. This includes names, email addresses, contact
+                  information, and any other data that can be used to identify
+                  you directly or indirectly.
+                </p>
+              </div>
+              <div class="def-item">
+                <h4>Business Data</h4>
+                <p>
+                  Information related to your business operations, including
+                  sales records, inventory data, expense tracking, staff
+                  information, and financial transactions recorded within the
+                  Optra application.
+                </p>
+              </div>
+              <div class="def-item">
+                <h4>Usage Data</h4>
+                <p>
+                  Information collected automatically regarding your interaction
+                  with the application, including access times, pages viewed,
+                  and the duration of your sessions.
+                </p>
+              </div>
+              <div class="def-item">
+                <h4>Business Identifier</h4>
+                <p>
+                  A unique identifier assigned to your business account that
+                  helps organize and segregate data between different business
+                  entities using the application.
+                </p>
+              </div>
+              <div class="def-item">
+                <h4>Data Controller</h4>
+                <p>
+                  You are the data controller of your business information, as
+                  all data remains under your exclusive control.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Section 2: Information We Collect -->
+          <section id="information-we-collect" class="policy-section">
+            <h2>2. Information We Collect</h2>
+            <p>
+              Optra collects the following categories of information to provide
+              and improve our business management services:
+            </p>
+            <h3>2.1 Account Information</h3>
+            <ul class="policy-list">
+              <li>
+                <strong>Full Name:</strong> Used to personalize your account and
+                identify users within your business
+              </li>
+              <li>
+                <strong>Email Address:</strong> Used as your primary login
+                credential and for account recovery
+              </li>
+              <li>
+                <strong>Username:</strong> A unique identifier for your account
+              </li>
+              <li>
+                <strong>Password:</strong> Stored securely using
+                industry-standard encryption
+              </li>
+              <li>
+                <strong>Business ID:</strong> A unique identifier that groups
+                users belonging to the same business entity
+              </li>
+              <li>
+                <strong>Role:</strong> Your permission level within the
+                application (Admin, Manager, Staff)
+              </li>
+            </ul>
+            <h3>2.2 Business Information</h3>
+            <ul class="policy-list">
+              <li>
+                <strong>Business Name:</strong> The name of your company or
+                organization
+              </li>
+              <li>
+                <strong>Contact Information:</strong> Business phone numbers and
+                email addresses
+              </li>
+              <li>
+                <strong>Location:</strong> Physical address of your business
+              </li>
+              <li>
+                <strong>Profile Image:</strong> Optional profile picture for
+                your business account
+              </li>
+            </ul>
+            <h3>2.3 Transaction Data</h3>
+            <ul class="policy-list">
+              <li>
+                <strong>Sales Records:</strong> Customer information, items
+                sold, quantities, prices, payment methods, and transaction dates
+              </li>
+              <li>
+                <strong>Purchase Records:</strong> Supplier information, items
+                purchased, costs, quantities, and payment details
+              </li>
+              <li>
+                <strong>Expense Data:</strong> Expense descriptions, amounts,
+                categories, and dates
+              </li>
+              <li>
+                <strong>Inventory Data:</strong> Stock levels, item
+                descriptions, purchase prices, and reorder thresholds
+              </li>
+              <li>
+                <strong>Receipt Information:</strong> Transaction receipts
+                including customer details and itemized purchases
+              </li>
+            </ul>
+            <h3>2.4 Staff Management Data</h3>
+            <ul class="policy-list">
+              <li>
+                <strong>Employee Information:</strong> Staff names, contact
+                details, roles, and hire dates
+              </li>
+              <li>
+                <strong>Salary Records:</strong> Employee salaries, payment
+                history, and compensation details
+              </li>
+              <li>
+                <strong>Attendance Data:</strong> Staff attendance records,
+                clock-in/out times, and leave information
+              </li>
+            </ul>
+            <div class="info-box">
+              <p>
+                <strong>Note:</strong> All data collected is used solely to
+                enhance your experience with the application. We do not track
+                you across different websites or services.
+              </p>
+            </div>
+          </section>
+
+          <!-- Section 3: How We Use Your Information -->
+          <section id="how-we-use" class="policy-section">
+            <h2>3. How We Use Your Information</h2>
+            <p>
+              Optra uses the collected information exclusively to provide and
+              improve our business management services. Your information is used
+              for the following purposes:
+            </p>
+            <h3>3.1 Service Provision</h3>
+            <ul class="policy-list">
+              <li>
+                To authenticate your identity and authorize access to the
+                application
+              </li>
+              <li>To process and record sales transactions</li>
+              <li>To manage inventory levels and track stock movements</li>
+              <li>To record and categorize business expenses</li>
+              <li>To generate receipts and invoices for customers</li>
+              <li>
+                To calculate profit and loss statements based on sales and
+                purchase data
+              </li>
+              <li>To manage staff records and process salary payments</li>
+              <li>To track employee attendance and work hours</li>
+            </ul>
+            <div class="warning-box">
+              <p>
+                <strong>Important:</strong> Optra does not use your personal or
+                business data for advertising, marketing, or any purposes other
+                than those explicitly stated above. We do not sell, rent, or
+                trade your information to third parties.
+              </p>
+            </div>
+          </section>
+
+          <!-- Section 5: Data Storage and Security -->
+          <section id="data-storage" class="policy-section">
+            <h2>5. Data Storage and Security</h2>
+            <p>
+              Optra is committed to protecting your information. We implement
+              appropriate technical and organizational measures to ensure a
+              level of security appropriate to the risk.
+            </p>
+            <div class="warning-box">
+              <p>
+                <strong>Important:</strong> Always maintain regular backups of
+                your critical business data. We recommend exporting your data
+                periodically for safekeeping.
+              </p>
+            </div>
+          </section>
+
+          <!-- Section 8: Third-Party Services -->
+          <section id="third-party" class="policy-section">
+            <h2>8. Third-Party Services</h2>
+            <p>
+              Optra utilizes the following third-party services, which may
+              collect information as described in their respective privacy
+              policies:
+            </p>
+            <div class="data-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Service</th>
+                    <th>Purpose</th>
+                    <th>Privacy Policy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Service"><strong>Google Fonts</strong></td>
+                    <td data-label="Purpose">Typography and font rendering</td>
+                    <td data-label="Privacy Policy">
+                      <a
+                        href="https://policies.google.com/privacy"
+                        target="_blank"
+                        >Google Privacy Policy</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Service"><strong>Font Awesome</strong></td>
+                    <td data-label="Purpose">Icon library</td>
+                    <td data-label="Privacy Policy">
+                      <a href="https://fontawesome.com/privacy" target="_blank"
+                        >Font Awesome Privacy</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Service"><strong>Chart.js</strong></td>
+                    <td data-label="Purpose">Data visualization</td>
+                    <td data-label="Privacy Policy">
+                      <a
+                        href="https://www.chartjs.org/docs/latest/"
+                        target="_blank"
+                        >Chart.js Docs</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Service"><strong>jsPDF</strong></td>
+                    <td data-label="Purpose">PDF generation</td>
+                    <td data-label="Privacy Policy">
+                      <a
+                        href="https://github.com/parallax/jsPDF"
+                        target="_blank"
+                        >jsPDF GitHub</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td data-label="Service">
+                      <strong>SheetJS (XLSX)</strong>
+                    </td>
+                    <td data-label="Purpose">Excel file generation</td>
+                    <td data-label="Privacy Policy">
+                      <a href="https://sheetjs.com/" target="_blank"
+                        >SheetJS Website</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="info-box">
+              <p>
+                <strong>Privacy Assurance:</strong> Your business data remains
+                secure and is never shared with these third-party services
+                beyond what is necessary for their functionality.
+              </p>
+            </div>
+          </section>
+
+          <!-- Section 9: International Data Transfers -->
+          <section id="international" class="policy-section">
+            <h2>9. International Data Transfers</h2>
+            <p>
+              Optra may process data in countries where we operate. We ensure
+              that appropriate safeguards are in place to protect your
+              information when it is transferred internationally.
+            </p>
+          </section>
+
+          <!-- Acknowledgments -->
+          <div
+            style="
+              margin-top: 24px;
+              padding-top: 16px;
+              border-top: 1px solid var(--card-border);
+              text-align: center;
+              color: #000000;
+              font-size: 12px;
+            "
+          >
+            <p>
+              By using Optra, you acknowledge that you have read and understood
+              this Privacy Policy.
+            </p>
+            <p style="margin-top: 6px">
+              © 2026 Optra Business Management System. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- FOOTER - Settings replaces More dropdown, Inventory removed -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="profit report.html" class="nav-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Profit</span>
+        </a>
+        <a href="new sales form.html" class="nav-item">
+          <i class="fas fa-cash-register"></i>
+          <span>Add Sale</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      // ===== AVATAR =====
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const parts = name.trim().split(" ");
+        let initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      // ===== AUTH =====
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          const user = JSON.parse(currentUser);
+          return user;
+        } catch (_) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      // ===== BACK TO TOP =====
+      window.onscroll = function () {
+        const backToTop = document.getElementById("backToTop");
+        if (
+          document.body.scrollTop > 300 ||
+          document.documentElement.scrollTop > 300
+        ) {
+          backToTop.classList.add("show");
+        } else {
+          backToTop.classList.remove("show");
+        }
+      };
+
+      window.scrollToTop = function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      // ===== TOC SMOOTH SCROLL =====
+      document.querySelectorAll(".toc-item").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+          if (targetElement)
+            targetElement.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // ===== INIT =====
+      document.addEventListener("DOMContentLoaded", function () {
+        const user = checkAuth();
+        if (user) {
+          loadUserAvatar();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

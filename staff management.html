@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Staff Management · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 70px;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 16px 20px 20px;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 6px;
+        flex-shrink: 0;
+      }
+      .page-header h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        white-space: nowrap;
+      }
+
+      /* ===== MENU CARD ===== */
+      .menu-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 22px 22px;
+        box-shadow: var(--card-shadow);
+        flex: 1;
+        margin-bottom: 16px;
+      }
+
+      /* Stats Bar */
+      .stats-bar {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+        padding: 16px 14px;
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-md);
+        border-left: 4px solid var(--dark-blue);
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        line-height: 1.2;
+      }
+
+      .stat-label {
+        font-size: 11px;
+        color: #000000;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        margin-top: 2px;
+      }
+
+      /* Menu Links */
+      .menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .menu-link {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 14px 18px;
+        background: #ffffff;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        color: #000000;
+        transition: var(--transition-smooth);
+        border: 1px solid var(--card-border);
+      }
+
+      .menu-link:hover {
+        border-color: var(--dark-blue);
+        transform: translateX(4px);
+        box-shadow: 0 2px 8px rgba(26, 54, 93, 0.08);
+      }
+
+      .link-icon {
+        font-size: 20px;
+        color: #000000;
+        width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .link-content {
+        flex: 1;
+      }
+
+      .link-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #000000;
+        line-height: 1.3;
+      }
+
+      .link-desc {
+        font-size: 12px;
+        color: #000000;
+        opacity: 0.7;
+        line-height: 1.3;
+        margin-top: 1px;
+      }
+
+      .link-arrow {
+        color: #9ca3af;
+        font-size: 14px;
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: var(--transition-smooth);
+        flex-shrink: 0;
+      }
+
+      .menu-link:hover .link-arrow {
+        opacity: 1;
+        transform: translateX(0);
+        color: var(--dark-blue);
+      }
+
+      /* ===== RESPONSIVE - SMALL SCREENS ===== */
+      @media (max-width: 480px) {
+        .container {
+          padding: 12px 14px 16px;
+        }
+
+        .page-header {
+          margin-bottom: 12px;
+        }
+        .page-header h2 {
+          font-size: 20px;
+        }
+
+        .menu-card {
+          padding: 16px 14px 14px;
+          border-radius: 20px;
+          margin-bottom: 12px;
+        }
+
+        .stats-bar {
+          gap: 8px;
+          padding: 12px 10px;
+          margin-bottom: 18px;
+          border-left-width: 3px;
+        }
+
+        .stat-value {
+          font-size: 20px;
+        }
+        .stat-label {
+          font-size: 9px;
+        }
+
+        .menu-links {
+          gap: 8px;
+        }
+
+        .menu-link {
+          padding: 12px 14px;
+          gap: 12px;
+          border-radius: 8px;
+        }
+
+        .link-icon {
+          font-size: 17px;
+          width: 22px;
+        }
+
+        .link-title {
+          font-size: 14px;
+        }
+        .link-desc {
+          font-size: 11px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .container {
+          padding: 8px 10px 12px;
+        }
+
+        .menu-card {
+          padding: 12px 10px 10px;
+          border-radius: 16px;
+        }
+
+        .stats-bar {
+          padding: 10px 8px;
+          gap: 4px;
+          margin-bottom: 14px;
+        }
+
+        .stat-value {
+          font-size: 17px;
+        }
+        .stat-label {
+          font-size: 8px;
+        }
+
+        .menu-link {
+          padding: 10px 10px;
+          gap: 10px;
+        }
+
+        .link-icon {
+          font-size: 15px;
+          width: 18px;
+        }
+
+        .link-title {
+          font-size: 12px;
+        }
+        .link-desc {
+          font-size: 10px;
+        }
+
+        .page-header h2 {
+          font-size: 17px;
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 480px) {
+        .main-footer {
+          padding: 6px 0 8px;
+        }
+        .scrollable-content {
+          padding-bottom: 60px;
+        }
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+      }
+      @media (max-width: 480px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 3px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Staff</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="page-header">
+          <h2>Staff Management</h2>
+        </div>
+
+        <div class="menu-card">
+          <!-- Stats Bar -->
+          <div class="stats-bar" id="statsBar">
+            <div class="stat-item">
+              <div class="stat-value" id="totalStaff">0</div>
+              <div class="stat-label">Total Staff</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="activeStaff">0</div>
+              <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value" id="pendingPayments">0</div>
+              <div class="stat-label">Pending</div>
+            </div>
+          </div>
+
+          <!-- Menu Links -->
+          <div class="menu-links">
+            <a href="add staff.html" class="menu-link">
+              <i class="fas fa-user-plus link-icon"></i>
+              <div class="link-content">
+                <div class="link-title">Add Staff</div>
+                <div class="link-desc">
+                  Register new staff members to your team
+                </div>
+              </div>
+              <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="staff history.html" class="menu-link">
+              <i class="fas fa-history link-icon"></i>
+              <div class="link-content">
+                <div class="link-title">Staff History</div>
+                <div class="link-desc">
+                  View complete staff records and history
+                </div>
+              </div>
+              <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="salary payments.html" class="menu-link">
+              <i class="fas fa-money-check-dollar link-icon"></i>
+              <div class="link-content">
+                <div class="link-title">Salary Payments</div>
+                <div class="link-desc">
+                  Process monthly salaries and track payments
+                </div>
+              </div>
+              <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="attendance.html" class="menu-link">
+              <i class="fas fa-calendar-check link-icon"></i>
+              <div class="link-content">
+                <div class="link-title">Attendance</div>
+                <div class="link-desc">
+                  Track staff attendance and working hours
+                </div>
+              </div>
+              <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+
+            <a href="view staff.html" class="menu-link">
+              <i class="fas fa-users link-icon"></i>
+              <div class="link-content">
+                <div class="link-title">View Staff</div>
+                <div class="link-desc">View and manage all staff details</div>
+              </div>
+              <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      async function loadStaffStats() {
+        try {
+          const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+          if (!currentUser) return;
+          const allStaff = await Optra.get("staff");
+          let businessStaff = allStaff;
+          if (currentUser.businessId) {
+            businessStaff = allStaff.filter(
+              (s) => s.businessId === currentUser.businessId,
+            );
+          }
+          const totalStaff = businessStaff.length;
+          const activeStaff = businessStaff.filter(
+            (s) => s.status !== "inactive",
+          ).length;
+          const allPayments = await Optra.get("salary_payments");
+          const businessPayments = allPayments.filter(
+            (p) => p.businessId === currentUser.businessId,
+          );
+          const now = new Date();
+          const currentMonth = now.toISOString().slice(0, 7);
+          const paidStaffIds = new Set(
+            businessPayments
+              .filter(
+                (p) => p.paymentDate && p.paymentDate.startsWith(currentMonth),
+              )
+              .map((p) => p.staffId),
+          );
+          const pendingPayments = businessStaff.filter(
+            (s) => !paidStaffIds.has(s.staffId || s.id),
+          ).length;
+          document.getElementById("totalStaff").innerText = totalStaff;
+          document.getElementById("activeStaff").innerText = activeStaff;
+          document.getElementById("pendingPayments").innerText =
+            pendingPayments;
+        } catch (error) {
+          console.error("Error loading staff stats:", error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const user = checkAuth();
+        if (user) {
+          loadUserAvatar();
+          await loadStaffStats();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

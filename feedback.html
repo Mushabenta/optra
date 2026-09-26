@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <title>Feedback · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .page-header h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #000000;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 480px) {
+        .page-header h2 {
+          font-size: 18px;
+        }
+      }
+
+      /* ===== FEEDBACK CARD ===== */
+      .feedback-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .feedback-card {
+          padding: 16px 12px;
+        }
+      }
+
+      .intro-text {
+        color: #000000;
+        font-size: 13px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      /* ===== FORM STYLES ===== */
+      .form-group {
+        margin-bottom: 14px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        transition: var(--transition-smooth);
+        background: white;
+        color: #000000;
+        outline: none;
+        font-family: "Poppins", sans-serif;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: var(--dark-blue);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #9ca3af;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .error-message {
+        color: var(--error);
+        font-size: 13px;
+        margin-bottom: 12px;
+        padding: 10px 12px;
+        background: rgba(239, 71, 111, 0.1);
+        border-radius: var(--radius-sm);
+        border-left: 3px solid var(--error);
+        display: none;
+      }
+
+      .error-message.show {
+        display: block;
+      }
+
+      .btn-submit {
+        width: auto;
+        min-width: 160px;
+        padding: 11px 28px;
+        background: var(--dark-blue);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        box-shadow: 0 4px 12px rgba(26, 54, 93, 0.2);
+        margin-top: 10px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .btn-submit:hover {
+        background: var(--dark-blue-light);
+        transform: translateY(-2px);
+      }
+
+      .btn-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-submit i {
+        font-size: 16px;
+      }
+
+      .btn-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .success-message {
+        text-align: center;
+        padding: 12px;
+        background: var(--dark-blue);
+        color: white;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        margin-top: 16px;
+        animation: slideIn 0.3s ease;
+        display: none;
+      }
+
+      .success-message.show {
+        display: block;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Feedback</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="page-header">
+          <h2>Send Feedback</h2>
+        </div>
+
+        <div class="feedback-card">
+          <p class="intro-text">
+            We value your opinions and suggestions. Please fill out the form
+            below to help us improve Optra.
+          </p>
+
+          <form id="feedbackForm" novalidate>
+            <div class="form-group">
+              <input type="text" id="name" placeholder="Your Name" />
+            </div>
+
+            <div class="form-group">
+              <input type="email" id="email" placeholder="Email Address" />
+            </div>
+
+            <div class="form-group">
+              <input type="text" id="subject" placeholder="Subject" />
+            </div>
+
+            <div class="form-group">
+              <textarea
+                id="message"
+                placeholder="Write your feedback or suggestions here..."
+              ></textarea>
+            </div>
+
+            <div id="errorBox" class="error-message"></div>
+            <div id="successMessage" class="success-message">
+              <i class="fas fa-check-circle"></i> Thank you! Your feedback has
+              been submitted.
+            </div>
+
+            <div class="btn-wrapper">
+              <button type="submit" class="btn-submit" id="submitBtn">
+                <i class="fas fa-paper-plane"></i> Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const subjectInput = document.getElementById("subject");
+      const messageInput = document.getElementById("message");
+      const errorBox = document.getElementById("errorBox");
+      const successMessage = document.getElementById("successMessage");
+      const submitBtn = document.getElementById("submitBtn");
+      const form = document.getElementById("feedbackForm");
+
+      let currentUser = null;
+
+      function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function showError(message) {
+        errorBox.textContent = message;
+        errorBox.classList.add("show");
+        successMessage.classList.remove("show");
+        clearTimeout(errorBox._timeout);
+        errorBox._timeout = setTimeout(() => {
+          errorBox.classList.remove("show");
+        }, 5000);
+      }
+
+      function showSuccess() {
+        successMessage.classList.add("show");
+        errorBox.classList.remove("show");
+        clearTimeout(successMessage._timeout);
+        successMessage._timeout = setTimeout(() => {
+          successMessage.classList.remove("show");
+        }, 5000);
+      }
+
+      function resetForm() {
+        nameInput.value = "";
+        emailInput.value = "";
+        subjectInput.value = "";
+        messageInput.value = "";
+      }
+
+      async function saveFeedback(feedbackData) {
+        try {
+          const feedbacks = await Optra.get("feedbacks");
+          feedbacks.unshift(feedbackData);
+          await Optra.set("feedbacks", feedbacks);
+          return true;
+        } catch (error) {
+          console.error("Error saving feedback:", error);
+          return false;
+        }
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const subject = subjectInput.value.trim();
+        const message = messageInput.value.trim();
+
+        if (!name || !email || !subject || !message) {
+          showError("All fields are required!");
+          return;
+        }
+
+        if (!validateEmail(email)) {
+          showError("Please enter a valid email address.");
+          return;
+        }
+
+        const user = JSON.parse(localStorage.getItem("currentUser"));
+
+        const feedback = {
+          id: Date.now().toString(),
+          name: name,
+          email: email,
+          subject: subject,
+          message: message,
+          userId: user?.id || user?.email || "unknown",
+          businessId: user?.businessId || "unknown",
+          userRole: user?.role || "unknown",
+          timestamp: new Date().toISOString(),
+          status: "new",
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending';
+
+        const saved = await saveFeedback(feedback);
+        if (saved) {
+          showSuccess();
+          resetForm();
+        } else {
+          showError("Failed to submit feedback. Please try again.");
+        }
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send';
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        currentUser = checkAuth();
+        if (currentUser) {
+          loadUserAvatar();
+          if (currentUser.name) nameInput.value = currentUser.name;
+          if (currentUser.email) emailInput.value = currentUser.email;
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Staff Details · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== DETAILS CARD ===== */
+      .details-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .details-card {
+          padding: 16px 12px;
+        }
+      }
+
+      /* Top Bar */
+      .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .search-wrapper {
+        position: relative;
+        flex: 1;
+        max-width: 350px;
+        min-width: 150px;
+      }
+
+      .search-wrapper i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        font-size: 12px;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 8px 10px 8px 32px;
+        font-size: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        background: white;
+        color: #000000;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--dark-blue);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+      }
+
+      .search-input::placeholder {
+        color: #9ca3af;
+      }
+
+      @media (max-width: 768px) {
+        .top-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .search-wrapper {
+          max-width: 100%;
+          min-width: auto;
+        }
+      }
+
+      /* Desktop Table */
+      .table-wrapper {
+        overflow-x: auto;
+        width: 100%;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--card-border);
+      }
+
+      .desktop-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 800px;
+      }
+
+      .desktop-table th {
+        background: var(--dark-blue);
+        color: white;
+        padding: 10px 8px;
+        font-size: 11px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .desktop-table td {
+        padding: 8px 8px;
+        border-bottom: 1px solid var(--card-border);
+        color: #000000;
+        font-size: 11px;
+      }
+
+      .desktop-table tr:hover {
+        background: var(--dark-blue-bg);
+      }
+
+      .role-badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+        background: var(--dark-blue-bg);
+        color: var(--dark-blue);
+      }
+
+      .action-icon {
+        cursor: pointer;
+        font-size: 15px;
+        margin: 0 4px;
+        transition: var(--transition-smooth);
+        display: inline-block;
+      }
+
+      .action-icon.edit {
+        color: var(--dark-blue);
+      }
+
+      .action-icon.edit:hover {
+        color: var(--dark-blue-light);
+        transform: scale(1.1);
+      }
+
+      .action-icon.delete {
+        color: var(--error);
+      }
+
+      .action-icon.delete:hover {
+        color: #ff5252;
+        transform: scale(1.1);
+      }
+
+      /* Mobile Cards */
+      .mobile-cards {
+        display: none;
+        padding: 8px 0;
+      }
+
+      .staff-card {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-md);
+        padding: 14px;
+        margin-bottom: 10px;
+      }
+
+      .staff-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--dark-blue);
+      }
+
+      .staff-card-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000000;
+      }
+
+      .staff-card-id {
+        background: var(--dark-blue-bg);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--dark-blue);
+      }
+
+      .staff-card-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .staff-card-row:last-of-type {
+        border-bottom: none;
+      }
+
+      .staff-card-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+      }
+
+      .staff-card-value {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+        text-align: right;
+      }
+
+      .staff-card-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .staff-card-actions i {
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .staff-card-actions .edit {
+        color: var(--dark-blue);
+      }
+      .staff-card-actions .delete {
+        color: var(--error);
+      }
+
+      @media (max-width: 768px) {
+        .desktop-table {
+          display: none;
+        }
+        .mobile-cards {
+          display: block;
+        }
+      }
+
+      /* No Results - NO ICON */
+      .no-results {
+        text-align: center;
+        padding: 30px 20px;
+        color: #000000;
+      }
+      .no-results p {
+        color: #000000;
+        font-size: 13px;
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Staff Details</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="details-card">
+          <!-- Top Bar -->
+          <div class="top-bar">
+            <div class="search-wrapper">
+              <i class="fas fa-search"></i>
+              <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="Search by name or role..."
+              />
+            </div>
+          </div>
+
+          <!-- Desktop Table View -->
+          <div class="table-wrapper">
+            <table class="desktop-table">
+              <thead>
+                <tr>
+                  <th>Staff ID</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Date Hired</th>
+                  <th>Salary</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staffTableBody">
+                <tr>
+                  <td colspan="8" class="no-results">
+                    <p>Loading staff members...</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Mobile Cards View -->
+          <div class="mobile-cards" id="mobileCards"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      const staffTableBody = document.getElementById("staffTableBody");
+      const mobileCards = document.getElementById("mobileCards");
+      const searchInput = document.getElementById("searchInput");
+
+      let staffList = [];
+      let currentUser = null;
+
+      function formatMoney(amount) {
+        return isNaN(amount) ? "0" : Number(amount).toLocaleString();
+      }
+
+      async function loadStaff() {
+        try {
+          const allStaff = await Optra.get("staff");
+          if (currentUser && currentUser.businessId) {
+            staffList = allStaff.filter(
+              (s) => s.businessId === currentUser.businessId,
+            );
+          } else {
+            staffList = allStaff;
+          }
+          staffList.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+          renderStaff();
+        } catch (error) {
+          console.error("Error loading staff:", error);
+          staffTableBody.innerHTML = `<tr><td colspan="8" class="no-results"><p>Error loading staff data.</p></td></tr>`;
+          mobileCards.innerHTML = `<div class="no-results"><p>Error loading staff data.</p></div>`;
+        }
+      }
+
+      function renderStaff() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        let filtered = staffList;
+        if (searchTerm) {
+          filtered = staffList.filter(
+            (s) =>
+              (s.name && s.name.toLowerCase().includes(searchTerm)) ||
+              (s.role && s.role.toLowerCase().includes(searchTerm)),
+          );
+        }
+
+        // Desktop table rendering
+        staffTableBody.innerHTML = "";
+        if (filtered.length === 0) {
+          staffTableBody.innerHTML = `<tr><td colspan="8" class="no-results"><p>No staff members found.</p></td></tr>`;
+        } else {
+          filtered.forEach((staff) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+            <td>${staff.staffId || staff.id || ""}</td>
+            <td>${staff.name || ""}</td>
+            <td>${staff.email || ""}</td>
+            <td>${staff.phone || ""}</td>
+            <td>${staff.hireDate || ""}</td>
+            <td>${formatMoney(staff.salary)} UGX</td>
+            <td><span class="role-badge">${staff.role || ""}</span></td>
+            <td>
+              <i class="fas fa-edit action-icon edit" title="Edit Staff" data-id="${staff.id}"></i>
+              <i class="fas fa-trash action-icon delete" title="Delete Staff" data-id="${staff.id}"></i>
+            </td>
+          `;
+            staffTableBody.appendChild(tr);
+          });
+        }
+
+        // Mobile cards rendering
+        mobileCards.innerHTML = "";
+        if (filtered.length === 0) {
+          mobileCards.innerHTML = `<div class="no-results"><p>No staff members found.</p></div>`;
+        } else {
+          filtered.forEach((staff) => {
+            const card = document.createElement("div");
+            card.className = "staff-card";
+            card.innerHTML = `
+            <div class="staff-card-header">
+              <span class="staff-card-name">${staff.name || "N/A"}</span>
+              <span class="staff-card-id">ID: ${staff.staffId || staff.id || "N/A"}</span>
+            </div>
+            <div class="staff-card-row">
+              <span class="staff-card-label">Email</span>
+              <span class="staff-card-value">${staff.email || "N/A"}</span>
+            </div>
+            <div class="staff-card-row">
+              <span class="staff-card-label">Phone</span>
+              <span class="staff-card-value">${staff.phone || "N/A"}</span>
+            </div>
+            <div class="staff-card-row">
+              <span class="staff-card-label">Date Hired</span>
+              <span class="staff-card-value">${staff.hireDate || "N/A"}</span>
+            </div>
+            <div class="staff-card-row">
+              <span class="staff-card-label">Salary</span>
+              <span class="staff-card-value">${formatMoney(staff.salary)} UGX</span>
+            </div>
+            <div class="staff-card-row">
+              <span class="staff-card-label">Role</span>
+              <span class="staff-card-value"><span class="role-badge">${staff.role || ""}</span></span>
+            </div>
+            <div class="staff-card-actions">
+              <i class="fas fa-edit edit" title="Edit Staff" data-id="${staff.id}"></i>
+              <i class="fas fa-trash delete" title="Delete Staff" data-id="${staff.id}"></i>
+            </div>
+          `;
+            mobileCards.appendChild(card);
+          });
+        }
+      }
+
+      // Handle edit and delete actions
+      document.addEventListener("click", async (e) => {
+        const target = e.target.closest("i");
+        if (!target) return;
+        const id = target.dataset.id;
+        if (!id) return;
+
+        if (target.classList.contains("edit")) {
+          window.location.href = `add staff.html?editId=${encodeURIComponent(id)}`;
+        } else if (target.classList.contains("delete")) {
+          if (
+            !confirm(
+              "Are you sure you want to delete this staff member? This action cannot be undone.",
+            )
+          )
+            return;
+          try {
+            const allStaff = await Optra.get("staff");
+            const staffToDelete = allStaff.find((s) => s.id === id);
+            const updatedStaff = allStaff.filter((s) => s.id !== id);
+            await Optra.set("staff", updatedStaff);
+            const notifications = await Optra.get("notifications");
+            notifications.push({
+              id: Date.now().toString(),
+              type: "staff_deleted",
+              message: `Staff member deleted: ${staffToDelete?.name || "Unknown"}`,
+              timestamp: new Date().toISOString(),
+              read: false,
+              businessId: currentUser?.businessId || "default",
+            });
+            await Optra.set("notifications", notifications);
+            await loadStaff();
+            alert("Staff member deleted successfully!");
+          } catch (error) {
+            console.error("Error deleting staff:", error);
+            alert("Failed to delete staff member.");
+          }
+        }
+      });
+
+      searchInput.addEventListener("input", renderStaff);
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        currentUser = checkAuth();
+        if (currentUser) {
+          loadUserAvatar();
+          await loadStaff();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1437 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <title>Add Purchases | Optra</title>
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --icon-gray: #9ca3af;
+        --icon-gray-light: #d1d5db;
+        --primary-grey: #6b7280;
+        --light-grey: #e5e7eb;
+        --bg-grey: #f3f4f6;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #1f2937;
+        --text-mid: #4b5563;
+        --text-light: #6b7280;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+
+        /* Professional navy/dark blue accent */
+        --accent: #1a365d;
+        --accent-light: #2a4a7f;
+        --accent-bg: #ebf0f7;
+
+        /* Keep button colors */
+        --coral: #ef476f;
+        --electric-blue: #118ab2;
+        --sky-blue: #06d6a0;
+        --lilac: #9d4edd;
+        --sunshine: #ffd166;
+        --success: #06d6a0;
+        --error: #ef476f;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      }
+
+      body {
+        background: var(--bg-white);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ====== HEADER - PROFESSIONAL SIZES ====== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      /* Hamburger menu icon - BLACK */
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      /* AVATAR - Smaller than logo */
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+      }
+
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      /* RESPONSIVE HEADER */
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      @media (min-width: 601px) and (max-width: 1024px) {
+        .hamburger-link {
+          font-size: 24px;
+        }
+        .page-title {
+          font-size: 19px;
+        }
+        .avatar-btn {
+          width: 46px;
+          height: 46px;
+        }
+        .avatar-initials {
+          font-size: 17px;
+        }
+        .icon-btn {
+          font-size: 21px;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .hamburger-link {
+          font-size: 28px;
+        }
+        .page-title {
+          font-size: 22px;
+        }
+        .avatar-btn {
+          width: 48px;
+          height: 48px;
+        }
+        .avatar-initials {
+          font-size: 18px;
+        }
+        .icon-btn {
+          font-size: 24px;
+        }
+      }
+
+      /* ====== SCROLLABLE CONTENT ====== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 20px auto 30px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ====== FORM CARD ====== */
+      .form-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 25px 20px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 30px;
+      }
+
+      .form-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--accent);
+      }
+
+      .form-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 25px 40px -16px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Removed .form-header styles since we removed the heading */
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      label i {
+        color: var(--icon-gray);
+        font-size: 15px;
+        width: 20px;
+      }
+
+      .required {
+        color: var(--error);
+        margin-left: 4px;
+      }
+
+      input {
+        padding: 12px 14px;
+        font-size: 15px;
+        border: 2px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        background: white;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+        transform: translateY(-2px);
+      }
+
+      input.error {
+        border-color: var(--error);
+        background-color: rgba(239, 71, 111, 0.05);
+      }
+
+      input.valid {
+        border-color: var(--success);
+        background-color: rgba(6, 214, 160, 0.05);
+      }
+
+      .validation-hint {
+        font-size: 12px;
+        margin-top: 5px;
+        color: var(--text-mid);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .validation-hint i {
+        color: var(--icon-gray);
+        font-size: 12px;
+      }
+
+      .validation-hint.error {
+        color: var(--error);
+      }
+
+      .validation-hint.success {
+        color: var(--success);
+      }
+
+      .validation-hint.hidden {
+        display: none;
+      }
+
+      /* ====== ITEMS SECTION ====== */
+      .items-section {
+        background: var(--accent-bg);
+        border-radius: var(--radius-lg);
+        padding: 20px;
+        margin: 20px 0;
+        border: 2px dashed var(--accent);
+      }
+
+      .items-header {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .items-header h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .items-header h3 i {
+        color: var(--icon-gray);
+        font-size: 20px;
+      }
+
+      .btn {
+        padding: 10px 18px;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.7s;
+      }
+
+      .btn:hover::before {
+        left: 100%;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-add {
+        background: var(--accent);
+        color: white;
+        box-shadow: 0 4px 10px rgba(26, 54, 93, 0.25);
+      }
+
+      .btn-submit {
+        background: var(--accent);
+        color: white;
+        box-shadow: 0 4px 10px rgba(26, 54, 93, 0.25);
+        flex: 1;
+        justify-content: center;
+        font-size: 15px;
+        padding: 14px;
+      }
+
+      .btn-submit:hover {
+        background: var(--accent-light);
+      }
+
+      .btn-reset {
+        background: linear-gradient(45deg, #94a3b8, #64748b);
+        color: white;
+      }
+
+      .btn-remove {
+        background: transparent;
+        border: none;
+        color: var(--error);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 5px 8px;
+        transition: var(--transition);
+      }
+
+      .btn-remove:hover {
+        color: #ff5252;
+        transform: scale(1.15);
+      }
+
+      .table-container {
+        overflow-x: auto;
+        margin: 20px 0;
+        border-radius: var(--radius-sm);
+        background: white;
+        border: 1px solid var(--card-border);
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px;
+      }
+
+      th {
+        background: var(--accent);
+        color: white;
+        padding: 12px 10px;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      td {
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-dark);
+        font-size: 14px;
+      }
+
+      tr:hover {
+        background: var(--accent-bg);
+      }
+
+      /* ====== RESPONSIVE TABLE - CARD STYLE ON SMALL SCREENS ====== */
+      @media (max-width: 600px) {
+        .table-container {
+          overflow-x: visible;
+          border: none;
+          background: transparent;
+          margin: 15px 0;
+        }
+
+        table {
+          min-width: 100%;
+        }
+
+        /* Hide table header on small screens */
+        .desktop-header {
+          display: none;
+        }
+
+        /* Convert rows to cards */
+        table tbody tr {
+          display: block;
+          background: white;
+          border: 1px solid var(--card-border);
+          border-radius: var(--radius-md);
+          padding: 14px;
+          margin-bottom: 12px;
+          box-shadow: var(--card-shadow);
+        }
+
+        table tbody tr td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 8px 4px;
+          border-bottom: 1px solid #f0f0f0;
+          font-size: 13px;
+          text-align: right;
+        }
+
+        table tbody tr td:last-child {
+          border-bottom: none;
+          padding-top: 12px;
+          justify-content: center;
+          gap: 10px;
+        }
+
+        /* Add labels before each cell value */
+        table tbody tr td::before {
+          content: attr(data-label);
+          font-weight: 600;
+          color: var(--text-mid);
+          font-size: 12px;
+          text-align: left;
+        }
+
+        /* Action column - center the button */
+        table tbody tr td:last-child::before {
+          display: none;
+        }
+
+        .btn-remove {
+          font-size: 20px;
+          padding: 8px 12px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        table tbody tr {
+          padding: 10px;
+        }
+        table tbody tr td {
+          font-size: 12px;
+          padding: 6px 2px;
+        }
+        table tbody tr td::before {
+          font-size: 11px;
+        }
+      }
+
+      .totals-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .total-item {
+        background: var(--bg-white);
+        border-radius: var(--radius-sm);
+        padding: 15px;
+        border-left: 4px solid var(--accent);
+        border: 1px solid var(--card-border);
+      }
+
+      .total-item label {
+        color: var(--text-mid);
+        font-size: 12px;
+        margin-bottom: 5px;
+      }
+
+      .total-item .amount {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .total-item .amount i {
+        color: var(--icon-gray);
+        font-size: 18px;
+      }
+
+      /* ====== BUTTON GROUP - SAME ROW ON ALL SCREENS ====== */
+      .button-group {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        margin: 20px 0;
+      }
+
+      .button-group .btn {
+        flex: 1;
+        min-width: 0;
+        justify-content: center;
+      }
+
+      .success-msg {
+        background: var(--accent);
+        color: white;
+        padding: 15px;
+        border-radius: var(--radius-sm);
+        text-align: center;
+        font-weight: 600;
+        margin-top: 20px;
+        animation: slideIn 0.5s ease;
+        font-size: 14px;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ====== FOOTER - BLACK LINKS & ICONS, TEXT NOT BOLD ====== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+        /* Keep icon weight as default (Font Awesome handles this) */
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      .nav-item.active i,
+      .nav-item.active span {
+        color: #000000;
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      /* ====== RESPONSIVE ====== */
+      @media (min-width: 600px) {
+        .main-header {
+          padding: 8px 24px;
+        }
+        .container {
+          margin: 30px auto 40px;
+          padding: 0 20px;
+        }
+        .form-card {
+          padding: 30px;
+        }
+        .form-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+        .items-header {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .btn {
+          width: auto;
+        }
+        .totals-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+        }
+      }
+
+      @media (min-width: 900px) {
+        .form-card {
+          padding: 35px;
+        }
+        label {
+          font-size: 14px;
+        }
+        input {
+          padding: 14px 16px;
+          font-size: 15px;
+        }
+        .btn-submit {
+          font-size: 16px;
+          padding: 16px;
+        }
+        th {
+          padding: 15px 12px;
+          font-size: 14px;
+        }
+        td {
+          padding: 15px 12px;
+          font-size: 14px;
+        }
+        .total-item .amount {
+          font-size: 24px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .form-card {
+          padding: 18px 14px;
+        }
+        .items-header {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+        .items-header .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+
+      <div class="header-center">
+        <span class="page-title">Add Purchases</span>
+      </div>
+
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Scrollable Content -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="form-card">
+          <!-- Removed .form-header with icon and "Purchase Details" heading -->
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label
+                ><i class="fas fa-user-tie"></i> Supplier Name
+                <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="supplier"
+                placeholder="Enter supplier name"
+                oninput="validateNameInput(this)"
+                onblur="validateName(this)"
+                required
+              />
+              <div id="supplierHint" class="validation-hint hidden">
+                <i class="fas fa-info-circle"></i> Name should be at least 2
+                characters
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label
+                ><i class="fas fa-phone"></i> Supplier Contact
+                <span class="required">*</span></label
+              >
+              <input
+                type="text"
+                id="contact"
+                placeholder="+256 XXX XXX XXX"
+                oninput="validatePhoneInput(this)"
+                onblur="validatePhone(this)"
+                required
+              />
+              <div id="contactHint" class="validation-hint hidden">
+                <i class="fas fa-info-circle"></i> Valid formats: 0772123456,
+                0752123456, +256772123456
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label
+                ><i class="fas fa-envelope"></i> Supplier Email
+                <span class="required">*</span></label
+              >
+              <input
+                type="email"
+                id="email"
+                placeholder="supplier@example.com"
+                oninput="validateEmailInput(this)"
+                onblur="validateEmail(this)"
+                required
+              />
+              <div id="emailHint" class="validation-hint hidden">
+                <i class="fas fa-info-circle"></i> Enter a valid email address
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label
+                ><i class="fas fa-calendar"></i> Payment Date
+                <span class="required">*</span></label
+              >
+              <input type="date" id="paymentDate" required />
+            </div>
+          </div>
+
+          <div class="items-section">
+            <div class="items-header">
+              <h3><i class="fas fa-boxes"></i> Add Items</h3>
+              <button class="btn btn-add" onclick="addItem()" id="addItemBtn">
+                <i class="fas fa-plus-circle"></i> Add Item
+              </button>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label
+                  ><i class="fas fa-box"></i> Goods/Item
+                  <span class="required">*</span></label
+                >
+                <input type="text" id="goods" placeholder="Item name" />
+              </div>
+              <div class="form-group">
+                <label
+                  ><i class="fas fa-sort-numeric-up"></i> Quantity
+                  <span class="required">*</span></label
+                >
+                <input type="number" id="quantity" placeholder="0" min="1" />
+              </div>
+              <div class="form-group">
+                <label
+                  ><i class="fas fa-tag"></i> Unit Price (UGX)
+                  <span class="required">*</span></label
+                >
+                <input type="number" id="price" placeholder="0" min="1" />
+              </div>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table id="stockTable">
+              <thead>
+                <tr class="desktop-header">
+                  <th>Goods</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th>Total</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="totals-grid">
+            <div class="total-item">
+              <label>Total Amount</label>
+              <div class="amount">
+                <i class="fas fa-calculator"></i>
+                <span id="totalAmount">0</span> UGX
+              </div>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-money-bill-wave"></i> Amount Paid</label>
+              <input
+                type="number"
+                id="amountPaid"
+                placeholder="0"
+                oninput="calculateBalance()"
+              />
+            </div>
+            <div class="total-item">
+              <label>Balance</label>
+              <div class="amount">
+                <i class="fas fa-balance-scale"></i>
+                <span id="balance">0</span> UGX
+              </div>
+            </div>
+          </div>
+
+          <!-- BUTTON GROUP - SAME ROW ON ALL SCREENS -->
+          <div class="button-group">
+            <button class="btn btn-reset" onclick="resetForm()">
+              <i class="fas fa-undo-alt"></i> Reset
+            </button>
+            <button
+              class="btn btn-submit"
+              onclick="submitForm()"
+              id="submitBtn"
+            >
+              <i class="fas fa-save"></i> Save
+            </button>
+          </div>
+
+          <div id="successMsg" class="success-msg" style="display: none"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER - BLACK LINKS & ICONS, TEXT NOT BOLD -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item">
+          <i class="fas fa-cash-register"></i>
+          <span>Add Sale</span>
+        </a>
+        <a href="inventory.html" class="nav-item">
+          <i class="fas fa-warehouse"></i>
+          <span>Inventory</span>
+        </a>
+        <a href="profit report.html" class="nav-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Profit</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      // ===== LOAD USER AVATAR =====
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+let initials = "";
+        if (nameParts.length >= 2) {
+          initials = (
+            nameParts[0].charAt(0) + nameParts[1].charAt(0)
+          ).toUpperCase();
+        }
+        if (!initials && name) initials = name.charAt(0).toUpperCase();
+        const hasImage = !!(user && user.profileImage);
+        const imageSrc = user && user.profileImage ? user.profileImage : null;
+
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          const user = JSON.parse(currentUser);
+          return user;
+        } catch (error) {
+          console.error(error);
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      function validateName(input) {
+        const name = input.value.trim();
+        const hint = document.getElementById(input.id + "Hint");
+        if (!name || name.length < 2) {
+          input.classList.add("error");
+          input.classList.remove("valid");
+          hint.classList.remove("hidden", "success");
+          hint.classList.add("error");
+          hint.innerHTML =
+            '<i class="fas fa-exclamation-circle"></i> Name must be at least 2 characters';
+          return false;
+        }
+        const validNameRegex = /^[A-Za-z\s\-'&.,()]+$/;
+        if (!validNameRegex.test(name)) {
+          input.classList.add("error");
+          input.classList.remove("valid");
+          hint.classList.remove("hidden", "success");
+          hint.classList.add("error");
+          hint.innerHTML =
+            '<i class="fas fa-exclamation-circle"></i> Invalid characters';
+          return false;
+        }
+        input.classList.remove("error");
+        input.classList.add("valid");
+        hint.classList.remove("hidden", "error");
+        hint.classList.add("success");
+        hint.innerHTML = '<i class="fas fa-check-circle"></i> Valid name';
+        const formattedName = name
+          .split(" ")
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+          .join(" ");
+        input.value = formattedName;
+        return true;
+      }
+
+      function validateNameInput(input) {
+        const hint = document.getElementById(input.id + "Hint");
+        hint.classList.remove("hidden", "error", "success");
+        hint.innerHTML =
+          '<i class="fas fa-info-circle"></i> Name should be at least 2 characters';
+      }
+
+      function validatePhone(input) {
+        const phone = input.value.trim();
+        const hint = document.getElementById(input.id + "Hint");
+        const cleanPhone = phone.replace(/[\s\-\(\)\+]/g, "");
+        const ugandanPhoneRegex = /^(?:0|256)?(7[0-9]{8})$/;
+        if (!cleanPhone || !ugandanPhoneRegex.test(cleanPhone)) {
+          input.classList.add("error");
+          input.classList.remove("valid");
+          hint.classList.remove("hidden", "success");
+          hint.classList.add("error");
+          hint.innerHTML =
+            '<i class="fas fa-exclamation-circle"></i> Invalid Ugandan phone number';
+          return false;
+        }
+        let localNumber = cleanPhone.slice(-9);
+        let formattedPhone = "0" + localNumber;
+        input.classList.remove("error");
+        input.classList.add("valid");
+        hint.classList.remove("hidden", "error");
+        hint.classList.add("success");
+        hint.innerHTML = `<i class="fas fa-check-circle"></i> Valid number: ${formattedPhone}`;
+        input.value = formattedPhone;
+        return true;
+      }
+
+      function validatePhoneInput(input) {
+        const hint = document.getElementById(input.id + "Hint");
+        hint.classList.remove("hidden", "error", "success");
+        hint.innerHTML =
+          '<i class="fas fa-info-circle"></i> Valid formats: 0772123456, 0752123456, +256772123456';
+      }
+
+      function validateEmail(input) {
+        const email = input.value.trim();
+        const hint = document.getElementById(input.id + "Hint");
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+          input.classList.add("error");
+          input.classList.remove("valid");
+          hint.classList.remove("hidden", "success");
+          hint.classList.add("error");
+          hint.innerHTML =
+            '<i class="fas fa-exclamation-circle"></i> Invalid email format';
+          return false;
+        }
+        input.classList.remove("error");
+        input.classList.add("valid");
+        hint.classList.remove("hidden", "error");
+        hint.classList.add("success");
+        hint.innerHTML =
+          '<i class="fas fa-check-circle"></i> Valid email address';
+        return true;
+      }
+
+      function validateEmailInput(input) {
+        const hint = document.getElementById(input.id + "Hint");
+        hint.classList.remove("hidden", "error", "success");
+        hint.innerHTML =
+          '<i class="fas fa-info-circle"></i> Enter a valid email address';
+      }
+
+      function validateAllFields() {
+        return (
+          validateName(document.getElementById("supplier")) &&
+          validatePhone(document.getElementById("contact")) &&
+          validateEmail(document.getElementById("email"))
+        );
+      }
+
+      let items = [];
+      let total = 0;
+      let currentUser = null;
+
+      function addItem() {
+        const goods = document.getElementById("goods").value.trim();
+        const quantity = parseFloat(document.getElementById("quantity").value);
+        const price = parseFloat(document.getElementById("price").value);
+        if (
+          !goods ||
+          isNaN(quantity) ||
+          isNaN(price) ||
+          quantity <= 0 ||
+          price <= 0
+        ) {
+          alert("Please fill all item fields with valid positive numbers.");
+          return;
+        }
+        const itemTotal = quantity * price;
+        total += itemTotal;
+        const item = {
+          id: Date.now() + Math.random(),
+          goods,
+          quantity,
+          price,
+          total: itemTotal,
+        };
+        items.push(item);
+        const tableBody = document.getElementById("tableBody");
+        const row = tableBody.insertRow();
+        row.setAttribute("data-id", item.id);
+
+        // Set data-label attributes for responsive display
+        row.innerHTML = `
+          <td data-label="Goods">${goods}</td>
+          <td data-label="Quantity">${quantity}</td>
+          <td data-label="Unit Price">${price.toLocaleString()} UGX</td>
+          <td data-label="Total">${itemTotal.toLocaleString()} UGX</td>
+          <td data-label="Action"><button class="btn-remove" onclick="removeItem(${item.id})"><i class="fas fa-trash"></i></button></td>
+        `;
+        document.getElementById("totalAmount").textContent =
+          total.toLocaleString();
+        calculateBalance();
+        document.getElementById("goods").value = "";
+        document.getElementById("quantity").value = "";
+        document.getElementById("price").value = "";
+      }
+
+      function removeItem(itemId) {
+        const item = items.find((i) => i.id === itemId);
+        if (item) {
+          total -= item.total;
+          items = items.filter((i) => i.id !== itemId);
+          const row = document.querySelector(`tr[data-id='${itemId}']`);
+          if (row) row.remove();
+          document.getElementById("totalAmount").textContent =
+            total.toLocaleString();
+          calculateBalance();
+        }
+      }
+
+      function calculateBalance() {
+        const paid =
+          parseFloat(document.getElementById("amountPaid").value) || 0;
+        const balance = total - paid;
+        document.getElementById("balance").textContent =
+          balance.toLocaleString();
+      }
+
+      function resetForm() {
+        document.getElementById("supplier").value = "";
+        document.getElementById("contact").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("paymentDate").value = "";
+        document.getElementById("goods").value = "";
+        document.getElementById("quantity").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("amountPaid").value = "";
+        document.getElementById("totalAmount").textContent = "0";
+        document.getElementById("balance").textContent = "0";
+        document.getElementById("tableBody").innerHTML = "";
+        document.getElementById("successMsg").style.display = "none";
+        document.getElementById("supplier").classList.remove("error", "valid");
+        document.getElementById("contact").classList.remove("error", "valid");
+        document.getElementById("email").classList.remove("error", "valid");
+        document.getElementById("supplierHint").classList.add("hidden");
+        document.getElementById("contactHint").classList.add("hidden");
+        document.getElementById("emailHint").classList.add("hidden");
+        total = 0;
+        items = [];
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("paymentDate").value = today;
+      }
+
+      async function submitForm() {
+        if (!validateAllFields()) {
+          alert("Please correct the errors in the form before submitting.");
+          return;
+        }
+        const supplier = document.getElementById("supplier").value.trim();
+        const contact = document.getElementById("contact").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const paymentDate = document.getElementById("paymentDate").value;
+        const amountPaid =
+          parseFloat(document.getElementById("amountPaid").value) || 0;
+        const balance = total - amountPaid;
+        if (!paymentDate) {
+          alert("Please select payment date.");
+          return;
+        }
+        if (items.length === 0) {
+          alert("Please add at least one item.");
+          return;
+        }
+        const user = JSON.parse(localStorage.getItem("currentUser"));
+        const purchase = {
+          id: Date.now().toString(),
+          userId: user.id || user.email,
+          userName: user.name,
+          userRole: user.role,
+          businessId: user.businessId,
+          supplier,
+          contact,
+          email,
+          paymentDate,
+          items: items,
+          totalAmount: total,
+          amountPaid,
+          balance,
+          status:
+            amountPaid >= total
+              ? "Paid"
+              : amountPaid > 0
+                ? "PartialA"
+                : "Unpaid",
+          createdAt: new Date().toISOString(),
+        };
+        const purchases = await Optra.get("purchases");
+        purchases.push(purchase);
+        await Optra.set("purchases", purchases);
+        const successMsg = document.getElementById("successMsg");
+        successMsg.textContent = "✓ Purchase saved successfully!";
+        successMsg.style.display = "block";
+        resetForm();
+        setTimeout(() => {
+          window.location.href = "purchases history.html";
+        }, 1500);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        currentUser = checkAuth();
+        if (currentUser) {
+          const today = new Date().toISOString().split("T")[0];
+          document.getElementById("paymentDate").value = today;
+          loadUserAvatar();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

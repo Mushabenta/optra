@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Login · Optra</title>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --electric-blue: #118ab2;
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --link-blue: #118ab2;
+        --link-blue-hover: #0d6e8f;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #1f2937;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-md: 14px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: none;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      .container {
+        width: 100%;
+        max-width: 460px;
+        margin: 0 auto;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .logo-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .logo-icon img {
+        height: 100px;
+        width: 100px;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+      }
+      .tagline {
+        font-size: 16px;
+        color: var(--text-gray);
+        text-align: center;
+      }
+      .form-container {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 40px 36px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        margin-top: 24px;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s ease;
+      }
+      .form-header {
+        text-align: center;
+        margin-bottom: 36px;
+      }
+      .form-header h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-dark);
+      }
+      .form-header p {
+        color: var(--text-gray);
+        font-size: 15px;
+      }
+      .form-grid {
+        display: grid;
+        gap: 20px;
+      }
+      .input-wrapper {
+        position: relative;
+        border-radius: var(--radius-md);
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        transition: var(--transition-smooth);
+      }
+      .input-wrapper:focus-within {
+        border-color: var(--dark-blue);
+        background: #ffffff;
+      }
+      .input-wrapper.valid {
+        border-color: var(--success);
+      }
+      .input-wrapper.invalid {
+        border-color: var(--error);
+      }
+      .input-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        font-size: 16px;
+      }
+      .input-field {
+        width: 100%;
+        padding: 14px 16px 14px 48px;
+        background: transparent;
+        border: none;
+        font-size: 15px;
+        color: var(--text-dark);
+      }
+      .input-field:focus {
+        outline: none;
+      }
+      .input-field::placeholder {
+        color: #cbd5e1;
+      }
+      .password-toggle {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 16px;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+      .password-toggle:hover {
+        color: var(--dark-blue);
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .validation-message {
+        font-size: 12px;
+        margin-top: 6px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        min-height: 18px;
+        padding-left: 4px;
+      }
+      .validation-message.valid {
+        color: var(--success);
+      }
+      .validation-message.invalid {
+        color: var(--error);
+      }
+      .login-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .remember-me {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .remember-me input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--dark-blue);
+        cursor: pointer;
+      }
+      .remember-me label {
+        font-size: 14px;
+        color: var(--text-gray);
+        cursor: pointer;
+      }
+      .forgot-password {
+        color: var(--link-blue);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .forgot-password:hover {
+        color: var(--link-blue-hover);
+        text-decoration: underline;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--dark-blue);
+        border: none;
+        border-radius: var(--radius-md);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 28px;
+        transition: var(--transition-smooth);
+      }
+      .submit-btn:hover {
+        transform: translateY(-1px);
+        background: var(--dark-blue-light);
+      }
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .toast {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 16px 20px;
+        border: 1px solid #eef2f6;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        max-width: 360px;
+        transform: translateX(120%);
+        opacity: 0;
+        transition: all 0.25s ease;
+        z-index: 1000;
+      }
+      .toast.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      .toast-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .toast-icon {
+        width: auto;
+        height: auto;
+        background: none !important;
+      }
+      .toast-message h4 {
+        margin-bottom: 4px;
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--text-dark);
+      }
+      .toast-message p {
+        color: var(--text-gray);
+        font-size: 13px;
+      }
+      .close-toast {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: none;
+        border: none;
+        color: #9ca3af;
+        cursor: pointer;
+        font-size: 12px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+      }
+      .close-toast:hover {
+        color: var(--error);
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .register-link {
+        text-align: center;
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 1px solid #f0f2f5;
+        font-size: 14px;
+        color: var(--text-gray);
+      }
+      .register-link a {
+        color: var(--link-blue);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .register-link a:hover {
+        color: var(--link-blue-hover);
+        text-decoration: underline;
+      }
+      .welcome-message {
+        text-align: center;
+        margin-bottom: 28px;
+        padding: 14px;
+        background: #fef9e8;
+        border-radius: 14px;
+        border-left: 3px solid #ffd166;
+      }
+
+      /* Business Setup Overlay - slides up from bottom */
+      .business-setup-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 40px 36px;
+        z-index: 10;
+        transform: translateY(100%);
+        transition: transform 0.4s ease;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .business-setup-overlay.show {
+        transform: translateY(0);
+      }
+      .business-setup-overlay .form-header {
+        margin-bottom: 24px;
+      }
+      .business-setup-overlay .form-header h2 {
+        font-size: 24px;
+      }
+      .business-setup-overlay .form-header p {
+        font-size: 14px;
+      }
+      .business-setup-overlay .form-grid {
+        gap: 14px;
+      }
+      .business-setup-overlay .submit-btn {
+        margin-top: 20px;
+      }
+      .business-setup-overlay .skip-btn {
+        background: #f3f4f6;
+        color: var(--text-gray);
+        box-shadow: none;
+        border: 1px solid var(--card-border);
+        margin-top: 8px;
+        width: 100%;
+        padding: 12px;
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .business-setup-overlay .skip-btn:hover {
+        background: #e5e7eb;
+        transform: translateY(-1px);
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 16px;
+        }
+        .form-container {
+          padding: 32px 24px;
+        }
+        .business-setup-overlay {
+          padding: 32px 24px;
+        }
+        .logo-icon img {
+          height: 80px;
+          width: 80px;
+        }
+        .form-header h2 {
+          font-size: 28px;
+        }
+        .toast {
+          left: 16px;
+          right: 16px;
+          bottom: 16px;
+          max-width: none;
+        }
+      }
+      @media (max-width: 480px) {
+        .form-container {
+          padding: 28px 20px;
+        }
+        .business-setup-overlay {
+          padding: 28px 20px;
+        }
+        .logo-icon img {
+          height: 70px;
+          width: 70px;
+        }
+        .input-field {
+          padding: 12px 14px 12px 44px;
+          font-size: 14px;
+        }
+        .business-setup-overlay .form-header h2 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="optra.jpeg" alt="Optra Logo" />
+          </div>
+        </div>
+        <p class="tagline">Welcome back. Sign in to continue.</p>
+      </div>
+      <div class="form-container" id="formContainer">
+        <!-- Main Login Form -->
+        <div id="loginFormWrapper">
+          <div class="form-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your account</p>
+          </div>
+          <div
+            class="welcome-message"
+            id="welcomeMessage"
+            style="display: none"
+          >
+            <h3>Welcome to Optra!</h3>
+            <p>Your account has been successfully created. Please sign in.</p>
+          </div>
+          <form id="loginForm" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <div class="input-wrapper" id="emailWrapper">
+                  <i class="fas fa-envelope input-icon"></i>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="loginIdentifier"
+                    placeholder="Email or username"
+                    required
+                  />
+                </div>
+                <div class="validation-message" id="emailValidation"></div>
+              </div>
+              <div class="form-group">
+                <div class="input-wrapper" id="passwordWrapper">
+                  <i class="fas fa-lock input-icon"></i>
+                  <input
+                    type="password"
+                    class="input-field"
+                    id="password"
+                    placeholder="Password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="password-toggle"
+                    data-target="password"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="validation-message" id="passwordValidation"></div>
+              </div>
+              <div class="login-options">
+                <div class="remember-me">
+                  <input type="checkbox" id="rememberMe" /><label
+                    for="rememberMe"
+                    >Remember me</label
+                  >
+                </div>
+                <a href="#" class="forgot-password" id="forgotPassword"
+                  >Forgot Password?</a
+                >
+              </div>
+              <button type="submit" class="submit-btn" id="submitBtn">
+                <i class="fas fa-sign-in-alt"></i><span>Sign In</span>
+              </button>
+            </div>
+          </form>
+          <p class="register-link">
+            Don't have an account?
+            <a href="register.html" id="registerLink">Create account here</a>
+          </p>
+        </div>
+
+        <!-- Business Setup Overlay (slides up on first login) -->
+        <div class="business-setup-overlay" id="businessSetupOverlay">
+          <div class="form-header">
+            <h2>Business Details</h2>
+            <p>Set up your business information</p>
+          </div>
+          <form id="businessSetupForm" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <div class="input-wrapper">
+                  <i class="fas fa-store input-icon"></i>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="bizName"
+                    placeholder="Enter your business name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-wrapper">
+                  <i class="fas fa-phone input-icon"></i>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="bizContact"
+                    placeholder="Business Phone Number"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-wrapper">
+                  <i class="fas fa-envelope input-icon"></i>
+                  <input
+                    type="email"
+                    class="input-field"
+                    id="bizEmail"
+                    placeholder="Business Email Address"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-wrapper">
+                  <i class="fas fa-map-marker-alt input-icon"></i>
+                  <input
+                    type="text"
+                    class="input-field"
+                    id="bizLocation"
+                    placeholder="Business Location"
+                  />
+                </div>
+              </div>
+              <button type="submit" class="submit-btn" id="saveBizBtn">
+                <i class="fas fa-save"></i><span>Save & Continue</span>
+              </button>
+              <button type="button" class="skip-btn" id="skipBizBtn">
+                <i class="fas fa-forward"></i> Skip for now
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">
+      <div class="toast-content">
+        <div class="toast-icon" id="toastIcon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-message">
+          <h4 id="toastTitle">Success</h4>
+          <p id="toastMessage">Login successful!</p>
+        </div>
+        <button class="close-toast" id="closeToast">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <script src="api-config.js"></script>
+    <script>
+      const API_BASE_URL =
+        window.API_BASE_URL !== undefined
+          ? window.API_BASE_URL
+          : "http://localhost:5000";
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeEventListeners();
+        checkForNewRegistration();
+      });
+
+      // DOM Elements
+      const formContainer = document.getElementById("formContainer");
+      const loginFormWrapper = document.getElementById("loginFormWrapper");
+      const businessSetupOverlay = document.getElementById(
+        "businessSetupOverlay",
+      );
+      const loginForm = document.getElementById("loginForm");
+      const businessSetupForm = document.getElementById("businessSetupForm");
+      const loginIdentifier = document.getElementById("loginIdentifier");
+      const passwordInput = document.getElementById("password");
+      const rememberMe = document.getElementById("rememberMe");
+      const submitBtn = document.getElementById("submitBtn");
+      const emailWrapper = document.getElementById("emailWrapper");
+      const passwordWrapper = document.getElementById("passwordWrapper");
+      const emailValidation = document.getElementById("emailValidation");
+      const passwordValidation = document.getElementById("passwordValidation");
+      const toast = document.getElementById("toast");
+      const bizName = document.getElementById("bizName");
+      const bizContact = document.getElementById("bizContact");
+      const bizEmail = document.getElementById("bizEmail");
+      const bizLocation = document.getElementById("bizLocation");
+      const saveBizBtn = document.getElementById("saveBizBtn");
+      const skipBizBtn = document.getElementById("skipBizBtn");
+
+      let pendingUser = null;
+      let isFirstLogin = false;
+
+      function checkForNewRegistration() {
+        const newRegistration = sessionStorage.getItem("justRegistered");
+        const welcomeMessage = document.getElementById("welcomeMessage");
+        if (newRegistration === "true") {
+          welcomeMessage.style.display = "block";
+          sessionStorage.removeItem("justRegistered");
+          const lastRegisteredEmail = localStorage.getItem(
+            "lastRegisteredEmail",
+          );
+          if (lastRegisteredEmail) {
+            loginIdentifier.value = lastRegisteredEmail;
+            passwordInput.focus();
+          }
+        }
+      }
+
+      function initializeEventListeners() {
+        document
+          .querySelectorAll(".password-toggle")
+          .forEach((t) =>
+            t.addEventListener("click", togglePasswordVisibility),
+          );
+        loginIdentifier.addEventListener("input", validateLoginIdentifier);
+        passwordInput.addEventListener("input", validatePassword);
+        loginForm.addEventListener("submit", handleLoginSubmit);
+        businessSetupForm.addEventListener("submit", handleBusinessSetupSubmit);
+        document
+          .getElementById("closeToast")
+          .addEventListener("click", () => toast.classList.remove("show"));
+        document
+          .getElementById("registerLink")
+          .addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.href = "register.html";
+          });
+        document
+          .getElementById("forgotPassword")
+          .addEventListener("click", (e) => {
+            e.preventDefault();
+            handleForgotPassword();
+          });
+
+        // FIXED: Skip button now uses "My Business" as default instead of user's name
+        skipBizBtn.addEventListener("click", function () {
+          // Use whatever the user typed, or "My Business" as fallback
+          const name = bizName.value.trim() || "My Business";
+          const contact = bizContact.value.trim() || "";
+          const email = bizEmail.value.trim() || "";
+          const location = bizLocation.value.trim() || "";
+          saveBusinessInfo(name, contact, email, location);
+          proceedToMenu();
+        });
+        loadRememberedCredentials();
+      }
+
+      function loadRememberedCredentials() {
+        const remembered = localStorage.getItem("rememberedLogin");
+        if (remembered) {
+          try {
+            const data = JSON.parse(remembered);
+            loginIdentifier.value = data.email || data.identifier || "";
+            rememberMe.checked = true;
+          } catch (error) {
+            localStorage.removeItem("rememberedLogin");
+          }
+        }
+      }
+
+      function validateLoginIdentifier() {
+        const value = loginIdentifier.value.trim();
+        if (!value) {
+          emailWrapper.classList.remove("valid", "invalid");
+          emailValidation.textContent = "";
+          return false;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const usernameRegex = /^[a-zA-Z0-9_]{3,20}$/;
+        if (!emailRegex.test(value) && !usernameRegex.test(value)) {
+          emailWrapper.classList.remove("valid");
+          emailWrapper.classList.add("invalid");
+          emailValidation.textContent =
+            "✗ Please enter a valid email or username";
+          emailValidation.className = "validation-message invalid";
+          return false;
+        }
+        emailWrapper.classList.remove("invalid");
+        emailWrapper.classList.add("valid");
+        emailValidation.innerHTML = '<i class="fas fa-check"></i> Valid';
+        emailValidation.className = "validation-message valid";
+        return true;
+      }
+
+      function validatePassword() {
+        const password = passwordInput.value;
+        if (!password) {
+          passwordWrapper.classList.remove("valid", "invalid");
+          passwordValidation.textContent = "";
+          return false;
+        }
+        if (password.length < 8) {
+          passwordWrapper.classList.remove("valid");
+          passwordWrapper.classList.add("invalid");
+          passwordValidation.textContent =
+            "✗ Password must be at least 8 characters";
+          passwordValidation.className = "validation-message invalid";
+          return false;
+        }
+        passwordWrapper.classList.remove("invalid");
+        passwordWrapper.classList.add("valid");
+        passwordValidation.innerHTML =
+          '<i class="fas fa-check"></i> Valid password';
+        passwordValidation.className = "validation-message valid";
+        return true;
+      }
+
+      function togglePasswordVisibility(e) {
+        const targetId = e.currentTarget.dataset.target;
+        const input = document.getElementById(targetId);
+        const icon = e.currentTarget.querySelector("i");
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          input.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
+
+      function showToast(title, message, type = "success") {
+        const toastTitle = document.getElementById("toastTitle");
+        const toastMessage = document.getElementById("toastMessage");
+        const toastIcon = document.getElementById("toastIcon");
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        toast.className = `toast ${type}`;
+        if (type === "success")
+          toastIcon.innerHTML =
+            '<i class="fas fa-check-circle" style="color: #10b981;"></i>';
+        else if (type === "error")
+          toastIcon.innerHTML =
+            '<i class="fas fa-exclamation-circle" style="color: #ef4444;"></i>';
+        else
+          toastIcon.innerHTML =
+            '<i class="fas fa-info-circle" style="color: #3b82f6;"></i>';
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 5000);
+      }
+
+      function handleLoginSubmit(e) {
+        e.preventDefault();
+        const validations = [validateLoginIdentifier(), validatePassword()];
+        if (!validations.every((v) => v === true)) {
+          if (!loginIdentifier.value.trim()) validateLoginIdentifier();
+          if (!passwordInput.value) validatePassword();
+          showToast(
+            "Validation Error",
+            "Please fix all errors before submitting",
+            "error",
+          );
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i><span>Signing In...</span>';
+
+        const formData = {
+          identifier: loginIdentifier.value.trim(),
+          password: passwordInput.value,
+        };
+
+        fetch(`${API_BASE_URL}/api/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        })
+          .then(async (res) => {
+            const data = await res.json();
+            if (!res.ok) throw data;
+            return data;
+          })
+          .then((data) => {
+            const user = data.user;
+
+            if (rememberMe.checked) {
+              localStorage.setItem(
+                "rememberedLogin",
+                JSON.stringify({
+                  email: user.email,
+                  identifier: formData.identifier,
+                }),
+              );
+            } else {
+              localStorage.removeItem("rememberedLogin");
+            }
+
+            localStorage.setItem("optra_token", data.token);
+
+            const userData = {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              username: user.username,
+              role: user.role,
+              businessId: user.businessId,
+              approved: user.approved,
+              createdAt: user.createdAt,
+            };
+
+            // Save user session
+            sessionStorage.setItem("currentUser", JSON.stringify(userData));
+            localStorage.setItem("currentUser", JSON.stringify(userData));
+            localStorage.setItem("userRole", user.role);
+            localStorage.setItem("userName", user.name);
+            localStorage.setItem("userEmail", user.email);
+            localStorage.setItem("userBusinessId", user.businessId);
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("userApproved", user.approved ? "true" : "false");
+
+            pendingUser = userData;
+
+            if (user.approved !== true || data.needsApproval) {
+              showToast(
+                "Pending Approval",
+                "Your account is awaiting administrator approval.",
+                "info",
+              );
+              setTimeout(() => {
+                window.location.href = "pending approval.html";
+              }, 1200);
+              return;
+            }
+
+            // Check if business setup is needed (client-side for now)
+            const hasSetup = localStorage.getItem(
+              "bizmate_business_setup_" + user.businessId,
+            );
+
+            if (!hasSetup) {
+              // First time login - show business setup overlay
+              isFirstLogin = true;
+              businessSetupOverlay.classList.add("show");
+              submitBtn.disabled = false;
+              submitBtn.innerHTML =
+                '<i class="fas fa-sign-in-alt"></i><span>Sign In</span>';
+              showToast(
+                "Welcome!",
+                "Please set up your business details",
+                "info",
+              );
+              // Leave all fields empty for the user to enter their business info
+              bizName.value = "";
+              bizContact.value = "";
+              bizEmail.value = "";
+              bizLocation.value = "";
+              bizName.focus();
+            } else {
+              // Already set up - go to menu
+              submitBtn.disabled = false;
+              submitBtn.innerHTML =
+                '<i class="fas fa-sign-in-alt"></i><span>Sign In</span>';
+              showToast(
+                "Welcome!",
+                `Signed in as ${user.name}`,
+                "success",
+              );
+              setTimeout(() => {
+                window.location.href = "menu.html";
+              }, 800);
+            }
+          })
+          .catch((err) => {
+            if (err.needsApproval) {
+              showToast(
+                "Pending Approval",
+                err.error || "Your account is awaiting admin approval.",
+                "info",
+              );
+              submitBtn.disabled = false;
+              submitBtn.innerHTML =
+                '<i class="fas fa-sign-in-alt"></i><span>Sign In</span>';
+              setTimeout(() => {
+                window.location.href = "pending approval.html";
+              }, 1200);
+              return;
+            }
+            showToast(
+              "Login Failed",
+              (err && err.error) || "Invalid credentials.",
+              "error",
+            );
+            submitBtn.disabled = false;
+            submitBtn.innerHTML =
+              '<i class="fas fa-sign-in-alt"></i><span>Sign In</span>';
+          });
+      }
+
+      async function handleForgotPassword() {
+        const identifier = loginIdentifier.value.trim();
+        if (!identifier) {
+          showToast(
+            "Forgot Password",
+            "Please enter your email or username first",
+            "info",
+          );
+          loginIdentifier.focus();
+          return;
+        }
+        try {
+          const res = await Optra.resetRequest(identifier);
+          showToast(
+            "Reset Code",
+            res.message ||
+              "If that account exists, a reset code has been sent to its email",
+            "success",
+          );
+        } catch (err) {
+          showToast(
+            "Reset Failed",
+            (err && err.data && err.data.error) || "Unable to send reset code",
+            "error",
+          );
+        }
+      }
+
+      async function saveBusinessInfo(name, contact, email, location) {
+        // Persist in backend business_data store
+        try {
+          await Optra.set("business_info", {
+            name,
+            contact,
+            email: email || "",
+            location: location || "",
+            savedAt: new Date().toISOString(),
+            hasSetupBusiness: true,
+          });
+        } catch (e) {}
+        // Save each field vertically as separate key-value pairs in localStorage
+        localStorage.setItem("bizmate_business_name", name);
+        localStorage.setItem("bizmate_business_contact", contact);
+        localStorage.setItem("bizmate_business_email", email);
+        localStorage.setItem("bizmate_business_location", location);
+        localStorage.setItem(
+          "bizmate_business_savedAt",
+          new Date().toISOString(),
+        );
+        localStorage.setItem("bizmate_business_hasSetup", "true");
+
+        // Also save individual fields with business-specific keys for multi-business support
+        if (pendingUser && pendingUser.businessId) {
+          localStorage.setItem(
+            "bizmate_business_name_" + pendingUser.businessId,
+            name,
+          );
+          localStorage.setItem(
+            "bizmate_business_contact_" + pendingUser.businessId,
+            contact,
+          );
+          localStorage.setItem(
+            "bizmate_business_email_" + pendingUser.businessId,
+            email,
+          );
+          localStorage.setItem(
+            "bizmate_business_location_" + pendingUser.businessId,
+            location,
+          );
+          localStorage.setItem(
+            "bizmate_business_setup_" + pendingUser.businessId,
+            "true",
+          );
+        }
+        return true;
+      }
+
+      function proceedToMenu() {
+        // Hide the business setup overlay
+        businessSetupOverlay.classList.remove("show");
+        showToast("Welcome!", "Business setup complete!", "success");
+        setTimeout(() => {
+          window.location.href = "menu.html";
+        }, 800);
+      }
+
+      async function handleBusinessSetupSubmit(e) {
+        e.preventDefault();
+
+        const name = bizName.value.trim();
+        const contact = bizContact.value.trim();
+        const email = bizEmail.value.trim();
+        const location = bizLocation.value.trim();
+
+        if (!name) {
+          showToast(
+            "Validation Error",
+            "Please enter your business name",
+            "error",
+          );
+          bizName.focus();
+          return;
+        }
+
+        // Save business info vertically (separate keys)
+        await saveBusinessInfo(name, contact, email, location);
+        proceedToMenu();
+      }
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

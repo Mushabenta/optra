@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Profile · Optra</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+
+    <style>
+      /* ===== ROOT - matches Expenses History ===== */
+      :root {
+        --icon-gray: #9ca3af;
+        --icon-gray-light: #d1d5db;
+        --primary-grey: #6b7280;
+        --light-grey: #e5e7eb;
+        --bg-grey: #f3f4f6;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #000000;
+        --text-mid: #000000;
+        --text-light: #000000;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-light: #2a4a7f;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --electric-blue: #118ab2;
+        --sky-blue: #06d6a0;
+        --success: #10b981;
+        --error: #ef4444;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scroll-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 16px auto 24px;
+        padding: 0 12px;
+        width: 100%;
+      }
+
+      /* ===== PROFILE CARD ===== */
+      .profile-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-md);
+        padding: 16px 14px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--card-border);
+      }
+
+      .card-header h2 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #000000;
+      }
+
+      /* ===== AVATAR SECTION ===== */
+      .avatar-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0 14px 0;
+        border-bottom: 2px solid var(--card-border);
+        margin-bottom: 16px;
+      }
+
+      .avatar-container {
+        position: relative;
+        width: 130px;
+        height: 130px;
+        margin-bottom: 8px;
+      }
+
+      .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--accent);
+        background: var(--accent);
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .avatar:hover {
+        transform: scale(1.03);
+        opacity: 0.9;
+      }
+
+      .upload-btn {
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--accent);
+        border: 2px solid white;
+        color: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        transition: var(--transition);
+      }
+
+      .upload-btn:hover {
+        transform: scale(1.1);
+        background: var(--accent-light);
+      }
+
+      .avatar-hint {
+        font-size: 11px;
+        color: #000000;
+      }
+
+      #fileInput {
+        display: none;
+      }
+
+      /* ===== MESSAGE ===== */
+      .message {
+        margin: 0 0 12px 0;
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 500;
+        text-align: center;
+        display: none;
+        color: #000000;
+      }
+
+      .message.success {
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid var(--success);
+      }
+
+      .message.error {
+        background: rgba(239, 68, 68, 0.12);
+        border: 1px solid var(--error);
+      }
+
+      /* ===== INFO FIELDS - NO ICONS ===== */
+      .info-section {
+        margin-bottom: 14px;
+      }
+
+      .field {
+        margin-bottom: 10px;
+      }
+
+      .field label {
+        display: block;
+        font-size: 10px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 2px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+
+      .field .value {
+        background: var(--bg-grey);
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        color: #000000;
+        font-weight: 500;
+        border: 1px solid var(--card-border);
+      }
+
+      /* ===== INFO BOX - NO ICONS ===== */
+      .info-box {
+        background: var(--bg-grey);
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        margin-bottom: 14px;
+        border-left: 3px solid var(--accent);
+      }
+
+      .info-box h4 {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #000000;
+      }
+
+      .info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      .info-row:last-child {
+        border-bottom: none;
+      }
+
+      .info-row .label {
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .info-row .value {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+      }
+
+      /* ===== DELETE LINK ===== */
+      .delete-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 6px 16px;
+        background: rgba(239, 68, 68, 0.08);
+        color: var(--error);
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+        border: 1px solid var(--error);
+        transition: var(--transition);
+        width: auto;
+        margin: 0 auto;
+      }
+
+      .delete-link:hover {
+        background: var(--error);
+        color: white;
+      }
+
+      .delete-section {
+        display: flex;
+        justify-content: center;
+        padding-top: 4px;
+      }
+
+      /* ===== MODAL ===== */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+      }
+
+      .modal-img {
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 10px;
+        border: 3px solid white;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 36px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .modal-close:hover {
+        color: var(--coral);
+        transform: scale(1.1);
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+      }
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      .nav-item.active i,
+      .nav-item.active span {
+        color: #000000;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 600px) {
+        .container {
+          margin: 12px auto 16px;
+          padding: 0 10px;
+        }
+        .profile-card {
+          padding: 14px 12px;
+        }
+        .avatar-container {
+          width: 110px;
+          height: 110px;
+        }
+        .upload-btn {
+          width: 30px;
+          height: 30px;
+          font-size: 12px;
+        }
+        .field .value {
+          font-size: 12px;
+          padding: 6px 10px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .container {
+          padding: 0 6px;
+          margin: 10px auto 12px;
+        }
+        .profile-card {
+          padding: 10px 8px;
+        }
+        .avatar-container {
+          width: 90px;
+          height: 90px;
+        }
+        .upload-btn {
+          width: 26px;
+          height: 26px;
+          font-size: 11px;
+        }
+        .field .value {
+          font-size: 11px;
+          padding: 5px 8px;
+        }
+        .field label {
+          font-size: 9px;
+        }
+        .info-row .label,
+        .info-row .value {
+          font-size: 11px;
+        }
+        .delete-link {
+          font-size: 11px;
+          padding: 5px 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Profile</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- SCROLLABLE CONTENT -->
+    <div class="scroll-content">
+      <div class="container">
+        <div class="profile-card">
+          <!-- Avatar Section -->
+          <div class="avatar-section">
+            <div class="avatar-container">
+              <img
+                id="avatar"
+                class="avatar"
+                src=""
+                alt="Profile"
+                onclick="openModal()"
+              />
+              <button
+                class="upload-btn"
+                onclick="document.getElementById('fileInput').click()"
+              >
+                <i class="fas fa-camera"></i>
+              </button>
+            </div>
+            <div class="avatar-hint">
+              Click photo to enlarge | Click camera to change
+            </div>
+          </div>
+
+          <input type="file" id="fileInput" accept="image/*" />
+
+          <div id="message" class="message"></div>
+
+          <!-- Info Fields - No Icons -->
+          <div class="info-section">
+            <div class="field">
+              <label>Business ID</label>
+              <div class="value" id="businessId">-</div>
+            </div>
+
+            <div class="field">
+              <label>Full Name</label>
+              <div class="value" id="fullName">-</div>
+            </div>
+
+            <div class="field">
+              <label>Email Address</label>
+              <div class="value" id="email">-</div>
+            </div>
+
+            <div class="field">
+              <label>Username</label>
+              <div class="value" id="username">-</div>
+            </div>
+
+            <div class="field">
+              <label>Role</label>
+              <div class="value" id="role">-</div>
+            </div>
+          </div>
+
+          <!-- Account Info - No Icons -->
+          <div class="info-box">
+            <h4>Account Information</h4>
+            <div class="info-row">
+              <span class="label">Member Since</span>
+              <span class="value" id="memberSince">-</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Account Status</span>
+              <span class="value">Active</span>
+            </div>
+          </div>
+
+          <!-- Delete Account -->
+          <div class="delete-section">
+            <a href="delete account.html" class="delete-link">
+              <i class="fas fa-trash-alt"></i> Delete Account
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for Image Enlargement -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <div class="modal-content">
+        <img id="modalImage" class="modal-img" src="" alt="Enlarged Profile" />
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="profit report.html" class="nav-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Profit</span>
+        </a>
+        <a href="new sales form.html" class="nav-item">
+          <i class="fas fa-cash-register"></i>
+          <span>Add Sale</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      // ===== AVATAR FUNCTIONS =====
+      const avatar = document.getElementById("avatar");
+      const fileInput = document.getElementById("fileInput");
+      const messageDiv = document.getElementById("message");
+      const modal = document.getElementById("imageModal");
+      const modalImage = document.getElementById("modalImage");
+
+      function showMessage(text, isSuccess = true) {
+        messageDiv.innerText = text;
+        messageDiv.className = isSuccess ? "message success" : "message error";
+        messageDiv.style.display = "block";
+        setTimeout(() => {
+          messageDiv.style.display = "none";
+        }, 3000);
+      }
+// ===== HEADER AVATAR =====
+      function loadHeaderAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = Optra.getCurrentUser();
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      let avatarHasImage = false;
+
+      function renderAvatarPlaceholder(name) {
+        const canvas = document.createElement("canvas");
+        canvas.width = 260;
+        canvas.height = 260;
+        const ctx = canvas.getContext("2d");
+        const gradient = ctx.createLinearGradient(0, 0, 260, 260);
+        gradient.addColorStop(0, "#1a365d");
+        gradient.addColorStop(1, "#2a4a7f");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 260, 260);
+
+        const parts = (name || "U").trim().split(" ");
+        let initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 110px Poppins, sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(initials, 130, 140);
+        return canvas.toDataURL("image/png");
+      }
+
+      function openModal() {
+        if (avatarHasImage && avatar.src) {
+          modalImage.src = avatar.src;
+          modal.style.display = "flex";
+        }
+      }
+
+      function closeModal() {
+        modal.style.display = "none";
+        modalImage.src = "";
+      }
+
+      // ===== PROFILE LOAD =====
+      async function loadProfile() {
+        try {
+          const p = await Optra.myProfile();
+
+          document.getElementById("businessId").textContent = p.businessId || "-";
+          document.getElementById("fullName").textContent = p.name || "-";
+          document.getElementById("email").textContent = p.email || "-";
+          document.getElementById("username").textContent = p.username || "-";
+          document.getElementById("role").textContent = p.role || "-";
+
+          const memberSince = document.getElementById("memberSince");
+          if (p.createdAt) {
+            const d = new Date(p.createdAt);
+            memberSince.textContent = isNaN(d.getTime())
+              ? p.createdAt
+              : d.toLocaleDateString();
+          }
+
+          avatarHasImage = false;
+          if (p.profileImage) {
+            avatar.src = p.profileImage;
+            avatarHasImage = true;
+          } else {
+            avatar.src = renderAvatarPlaceholder(p.name);
+          }
+
+          Optra.setSessionUser(Object.assign(Optra.getCurrentUser(), p));
+          loadHeaderAvatar();
+        } catch (error) {
+          showMessage(
+            (error.data && error.data.error) ||
+              error.message ||
+              "Failed to load profile.",
+            false,
+          );
+        }
+      }
+
+      // ===== AVATAR UPLOAD & SAVE =====
+      fileInput.addEventListener("change", function () {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) return;
+
+        if (!file.type || file.type.indexOf("image") === -1) {
+          showMessage("Please choose an image file.", false);
+          fileInput.value = "";
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function (ev) {
+          const img = new Image();
+          img.onload = function () {
+            saveProfileImage(img);
+          };
+          img.onerror = function () {
+            showMessage("Could not read the selected image.", false);
+            fileInput.value = "";
+          };
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      async function saveProfileImage(img) {
+        try {
+          const canvas = document.createElement("canvas");
+          const MAX = 512;
+          let width = img.naturalWidth || img.width;
+          let height = img.naturalHeight || img.height;
+          const scale = Math.min(1, MAX / Math.max(width, height));
+          width = Math.round(width * scale);
+          height = Math.round(height * scale);
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+
+          const currentUser = Optra.getCurrentUser();
+          const updated = await Optra.saveProfile({
+            name: currentUser.name,
+            email: currentUser.email,
+            profileImage: dataUrl,
+          });
+
+          Optra.setSessionUser(Object.assign(Optra.getCurrentUser(), updated));
+
+          avatarHasImage = true;
+          avatar.src = dataUrl;
+          loadHeaderAvatar();
+          showMessage("Profile updated successfully!", true);
+        } catch (error) {
+          showMessage(
+            (error.data && error.data.error) ||
+              error.message ||
+              "Failed to update profile.",
+            false,
+          );
+        } finally {
+          fileInput.value = "";
+        }
+      }
+
+      // ===== INIT =====
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = checkAuth();
+        if (user) {
+          loadHeaderAvatar();
+          loadProfile();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

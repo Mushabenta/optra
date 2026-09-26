@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Settings · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== SETTINGS CARD ===== */
+      .settings-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .settings-card {
+          padding: 16px 12px;
+        }
+      }
+
+      /* User Summary */
+      .user-summary {
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        border-left: 4px solid var(--dark-blue);
+      }
+
+      .summary-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--dark-blue);
+        color: white;
+        font-size: 22px;
+        font-weight: 600;
+        flex-shrink: 0;
+        text-transform: uppercase;
+      }
+
+      .summary-info h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 2px;
+      }
+
+      .summary-info p {
+        font-size: 13px;
+        color: #000000;
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 480px) {
+        .user-summary {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      /* Settings Menu */
+      .settings-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .settings-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 14px;
+        background: #ffffff;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        color: #000000;
+        transition: var(--transition-smooth);
+        gap: 14px;
+      }
+
+      .settings-item:hover {
+        border-color: var(--dark-blue);
+        transform: translateX(4px);
+        box-shadow: 0 2px 8px rgba(26, 54, 93, 0.08);
+      }
+
+      .settings-icon {
+        font-size: 18px;
+        color: #000000;
+        width: 24px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .settings-content {
+        flex: 1;
+      }
+
+      .settings-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 1px;
+      }
+
+      .settings-desc {
+        font-size: 11px;
+        color: #000000;
+      }
+
+      .settings-arrow {
+        color: #9ca3af;
+        font-size: 14px;
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: var(--transition-smooth);
+      }
+
+      .settings-item:hover .settings-arrow {
+        opacity: 1;
+        transform: translateX(0);
+        color: var(--dark-blue);
+      }
+
+      /* Danger item - only left border */
+      .settings-item.danger {
+        border-left: 4px solid var(--error);
+      }
+
+      .settings-item.danger:hover {
+        border-color: var(--error);
+      }
+
+      .settings-item.danger .settings-arrow {
+        color: #9ca3af;
+      }
+
+      .settings-item.danger:hover .settings-arrow {
+        color: var(--error);
+      }
+
+      @media (max-width: 480px) {
+        .settings-item {
+          padding: 10px 12px;
+          gap: 10px;
+        }
+        .settings-title {
+          font-size: 13px;
+        }
+        .settings-desc {
+          font-size: 10px;
+        }
+        .settings-icon {
+          font-size: 16px;
+          width: 20px;
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Settings</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="settings-card">
+          <!-- User Summary -->
+          <div class="user-summary" id="userSummary">
+            <div class="summary-avatar" id="summaryAvatar">U</div>
+            <div class="summary-info">
+              <h4 id="summaryName">User</h4>
+              <p id="summaryEmail">user@email.com</p>
+            </div>
+          </div>
+
+          <!-- Settings Menu -->
+          <div class="settings-menu">
+            <a href="profile.html" class="settings-item">
+              <i class="fas fa-user settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Profile</div>
+                <div class="settings-desc">
+                  View and edit your personal information
+                </div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="change password.html" class="settings-item">
+              <i class="fas fa-lock settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Change Password</div>
+                <div class="settings-desc">Update your account password</div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="feedback.html" class="settings-item">
+              <i class="fas fa-comment-dots settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Feedback</div>
+                <div class="settings-desc">
+                  Share your suggestions or report issues
+                </div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="privacy policy.html" class="settings-item">
+              <i class="fas fa-shield-alt settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Privacy Policy</div>
+                <div class="settings-desc">Learn how we protect your data</div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="#" id="subscriptionLink" class="settings-item">
+              <i class="fas fa-crown settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Subscription</div>
+                <div class="settings-desc">Manage your plan and billing</div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="about.html" class="settings-item">
+              <i class="fas fa-info-circle settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">About</div>
+                <div class="settings-desc">Learn more about Optra</div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="terms.html" class="settings-item">
+              <i class="fas fa-file-contract settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Terms of Service</div>
+                <div class="settings-desc">Read our terms and conditions</div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="help and faq.html" class="settings-item">
+              <i class="fas fa-question-circle settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Help & FAQs</div>
+                <div class="settings-desc">Get answers to common questions</div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+
+            <a href="#" id="logoutLink" class="settings-item danger">
+              <i class="fas fa-sign-out-alt settings-icon"></i>
+              <div class="settings-content">
+                <div class="settings-title">Logout</div>
+                <div class="settings-desc">Sign out of your account</div>
+              </div>
+              <i class="fas fa-chevron-right settings-arrow"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="inventory.html" class="nav-item"
+          ><i class="fas fa-warehouse"></i><span>Inventory</span></a
+        >
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      function loadUserSummary() {
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const email = user.email || "No email";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        document.getElementById("summaryName").textContent = name;
+        document.getElementById("summaryEmail").textContent = email;
+        document.getElementById("summaryAvatar").textContent = initials;
+      }
+
+      function logout() {
+        Optra.logoutLocal();
+        window.location.href = "index.html";
+      }
+
+      function handleSubscription(e) {
+        e.preventDefault();
+        const messageDiv = document.createElement("div");
+        messageDiv.style.position = "fixed";
+        messageDiv.style.top = "50%";
+        messageDiv.style.left = "50%";
+        messageDiv.style.transform = "translate(-50%, -50%)";
+        messageDiv.style.background = "white";
+        messageDiv.style.padding = "25px";
+        messageDiv.style.borderRadius = "20px";
+        messageDiv.style.boxShadow = "0 20px 40px rgba(0,0,0,0.2)";
+        messageDiv.style.zIndex = "10000";
+        messageDiv.style.maxWidth = "350px";
+        messageDiv.style.width = "90%";
+        messageDiv.style.textAlign = "center";
+        messageDiv.style.borderTop = "6px solid var(--dark-blue)";
+        messageDiv.innerHTML = `
+        <div style="font-size: 44px; color: var(--dark-blue); margin-bottom: 15px;"><i class="fas fa-crown"></i></div>
+        <h3 style="font-size: 20px; font-weight: 700; color: #000000; margin-bottom: 12px;">Subscription</h3>
+        <p style="color: #000000; line-height: 1.5; margin-bottom: 20px; font-size: 13px;">
+          Optra is currently <strong>completely free</strong> with no subscription required. 
+          All features are available to all users. If we introduce premium features in the future, 
+          we'll notify you!
+        </p>
+        <button onclick="this.parentElement.remove()" style="background: var(--dark-blue); color: white; border: none; padding: 10px 25px; border-radius: 30px; font-weight: 600; cursor: pointer;">Got it</button>
+      `;
+        document.body.appendChild(messageDiv);
+        setTimeout(() => {
+          if (messageDiv.parentElement) messageDiv.remove();
+        }, 8000);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = checkAuth();
+        if (user) {
+          loadUserAvatar();
+          loadUserSummary();
+          document
+            .getElementById("subscriptionLink")
+            .addEventListener("click", handleSubscription);
+          document
+            .getElementById("logoutLink")
+            .addEventListener("click", (e) => {
+              e.preventDefault();
+              if (confirm("Are you sure you want to logout?")) logout();
+            });
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

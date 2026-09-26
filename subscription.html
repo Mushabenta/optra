@@ -1,0 +1,1598 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Subscription · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .page-header h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        white-space: nowrap;
+      }
+
+      @media (max-width: 480px) {
+        .page-header h2 {
+          font-size: 18px;
+        }
+      }
+
+      /* ===== SUBSCRIPTION CARD ===== */
+      .subscription-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .subscription-card {
+          padding: 16px 12px;
+        }
+      }
+
+      /* Current Plan */
+      .current-plan {
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 15px;
+        border-left: 4px solid var(--dark-blue);
+      }
+
+      .plan-info h3 {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 4px;
+      }
+
+      .plan-info .plan-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000000;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .plan-badge {
+        display: inline-block;
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .badge-free {
+        background: #94a3b8;
+        color: white;
+      }
+      .badge-premium {
+        background: var(--dark-blue);
+        color: white;
+      }
+      .badge-business {
+        background: #f59e0b;
+        color: white;
+      }
+      .badge-lifetime {
+        background: var(--error);
+        color: white;
+      }
+
+      .plan-features {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .feature-item i {
+        color: var(--success);
+      }
+
+      @media (max-width: 480px) {
+        .current-plan {
+          flex-direction: column;
+          text-align: center;
+        }
+        .plan-features {
+          justify-content: center;
+        }
+      }
+
+      /* Plans Grid */
+      .plans-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .plan-card {
+        background: white;
+        border-radius: var(--radius-md);
+        padding: 18px 16px;
+        border: 1px solid var(--card-border);
+        transition: var(--transition-smooth);
+        position: relative;
+      }
+
+      .plan-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--dark-blue);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      }
+
+      .plan-card.popular {
+        border-color: var(--dark-blue);
+      }
+
+      .popular-badge {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        background: var(--dark-blue);
+        color: white;
+        padding: 2px 10px;
+        border-radius: 20px;
+        font-size: 9px;
+        font-weight: 600;
+      }
+
+      .plan-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 6px;
+      }
+
+      .plan-price {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: baseline;
+        gap: 5px;
+      }
+
+      .plan-price span {
+        font-size: 12px;
+        font-weight: 400;
+        color: #000000;
+      }
+
+      .plan-description {
+        color: #000000;
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 12px;
+      }
+
+      .plan-features-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 16px;
+      }
+
+      .plan-features-list li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #000000;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .plan-features-list li i {
+        font-size: 12px;
+        width: 16px;
+      }
+
+      .plan-features-list li .check {
+        color: var(--success);
+      }
+      .plan-features-list li .times {
+        color: #9ca3af;
+      }
+
+      .plan-btn {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+      }
+
+      .plan-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .plan-btn.btn-free {
+        background: #94a3b8;
+        color: white;
+      }
+      .plan-btn.btn-premium {
+        background: var(--dark-blue);
+        color: white;
+      }
+      .plan-btn.btn-business {
+        background: #f59e0b;
+        color: white;
+      }
+      .plan-btn.btn-lifetime {
+        background: var(--error);
+        color: white;
+      }
+      .plan-btn.btn-current {
+        background: #e5e7eb;
+        color: #6b7280;
+        cursor: not-allowed;
+      }
+
+      @media (min-width: 600px) {
+        .plans-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 900px) {
+        .plans-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      /* Payment Section */
+      .payment-section {
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-md);
+        padding: 18px 16px;
+        margin-top: 20px;
+        border: 1px solid var(--dark-blue);
+      }
+
+      .payment-section h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 12px;
+      }
+
+      .payment-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 4px;
+      }
+
+      .network-options {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .network-option {
+        flex: 1;
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 2px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition-smooth);
+      }
+
+      .network-option:hover {
+        border-color: var(--dark-blue);
+        background: rgba(26, 54, 93, 0.04);
+      }
+
+      .network-option.selected {
+        border-color: var(--dark-blue);
+        background: rgba(26, 54, 93, 0.08);
+      }
+
+      .network-logo.mtn-logo {
+        color: #ffcc00;
+      }
+      .network-logo.airtel-logo {
+        color: #ed1c24;
+      }
+
+      .network-name {
+        font-weight: 600;
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .network-radio {
+        margin-left: auto;
+      }
+
+      input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--dark-blue);
+      }
+
+      input[type="text"],
+      input[readonly] {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 13px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        background: white;
+        color: #000000;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: var(--dark-blue);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+      }
+
+      input[readonly] {
+        background: #f9fafb;
+      }
+
+      .phone-hint {
+        font-size: 10px;
+        color: #000000;
+        margin-top: 4px;
+      }
+
+      .payment-btn {
+        padding: 12px;
+        background: var(--dark-blue);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        margin-top: 4px;
+      }
+
+      .payment-btn:hover {
+        background: var(--dark-blue-light);
+        transform: translateY(-2px);
+      }
+
+      .payment-security {
+        font-size: 10px;
+        color: #000000;
+        margin-top: 8px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .cancel-btn {
+        padding: 10px;
+        background: #fef2f2;
+        color: var(--error);
+        border: 1px solid var(--error);
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        margin-top: 12px;
+        width: 100%;
+      }
+
+      .cancel-btn:hover {
+        background: var(--error);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* Message */
+      .message {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        font-size: 13px;
+        font-weight: 500;
+        text-align: center;
+        display: none;
+      }
+
+      .message.success {
+        background: #d1fae5;
+        color: #065f46;
+        display: block;
+        border-left: 4px solid var(--success);
+      }
+
+      .message.error {
+        background: #fee2e2;
+        color: #991b1b;
+        display: block;
+        border-left: 4px solid var(--error);
+      }
+
+      /* Features Comparison */
+      .features-comparison {
+        margin-top: 24px;
+      }
+
+      .features-comparison h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        margin-bottom: 12px;
+      }
+
+      .comparison-table {
+        overflow-x: auto;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--card-border);
+      }
+
+      .comparison-table table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        font-size: 11px;
+        min-width: 500px;
+      }
+
+      .comparison-table th {
+        background: var(--dark-blue);
+        color: white;
+        padding: 10px 8px;
+        font-weight: 600;
+        text-align: center;
+        border-bottom: 1px solid var(--card-border);
+      }
+
+      .comparison-table td {
+        padding: 8px 8px;
+        border-bottom: 1px solid #f0f2f5;
+        color: #000000;
+        text-align: center;
+      }
+
+      .comparison-table .feature-name {
+        font-weight: 600;
+        color: #000000;
+        text-align: left;
+      }
+
+      .check {
+        color: var(--success);
+        font-size: 14px;
+      }
+      .times {
+        color: #9ca3af;
+        font-size: 14px;
+      }
+
+      @media (max-width: 768px) {
+        .comparison-table table,
+        .comparison-table thead,
+        .comparison-table tbody,
+        .comparison-table th,
+        .comparison-table td,
+        .comparison-table tr {
+          display: block;
+        }
+        .comparison-table thead {
+          display: none;
+        }
+        .comparison-table tbody tr {
+          margin-bottom: 10px;
+          border: 1px solid var(--card-border);
+          border-radius: var(--radius-sm);
+          padding: 10px;
+        }
+        .comparison-table td {
+          display: flex;
+          align-items: center;
+          padding: 6px 8px;
+          border: none;
+          border-bottom: 1px solid #f0f2f5;
+          text-align: left;
+        }
+        .comparison-table td:last-child {
+          border-bottom: none;
+        }
+        .comparison-table td::before {
+          content: attr(data-label);
+          font-weight: 600;
+          width: 90px;
+          min-width: 90px;
+          color: #000000;
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Subscription</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="page-header">
+          <h2>Subscription Plans</h2>
+        </div>
+
+        <div class="subscription-card">
+          <!-- Current Plan Display -->
+          <div class="current-plan" id="currentPlanSection">
+            <div class="plan-info">
+              <h3>Current Plan</h3>
+              <div class="plan-name">
+                <span id="currentPlanName">Free</span>
+                <span class="plan-badge badge-free" id="currentPlanBadge"
+                  >Free</span
+                >
+              </div>
+            </div>
+            <div class="plan-features" id="currentPlanFeatures">
+              <div class="feature-item">
+                <i class="fas fa-check-circle"></i><span>Basic Features</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plans Grid -->
+          <div class="plans-grid">
+            <div class="plan-card" id="freePlan">
+              <h3>Free</h3>
+              <div class="plan-price">UGX 0 <span>forever</span></div>
+              <div class="plan-description">Perfect for small businesses</div>
+              <ul class="plan-features-list">
+                <li><i class="fas fa-check check"></i> Basic Sales Tracking</li>
+                <li>
+                  <i class="fas fa-check check"></i> Basic Inventory (50 items)
+                </li>
+                <li><i class="fas fa-check check"></i> Single User</li>
+                <li><i class="fas fa-times times"></i> Staff Management</li>
+                <li><i class="fas fa-times times"></i> Data Export</li>
+              </ul>
+              <button
+                class="plan-btn btn-free"
+                id="selectFreeBtn"
+                onclick="selectPlan('free')"
+              >
+                Current Plan
+              </button>
+            </div>
+
+            <div class="plan-card popular" id="premiumPlan">
+              <span class="popular-badge">Most Popular</span>
+              <h3>Premium</h3>
+              <div class="plan-price">UGX 7,000 <span>/month</span></div>
+              <div class="plan-description">
+                Advanced features for growing businesses
+              </div>
+              <ul class="plan-features-list">
+                <li>
+                  <i class="fas fa-check check"></i> Unlimited Transactions
+                </li>
+                <li><i class="fas fa-check check"></i> Staff Management</li>
+                <li><i class="fas fa-check check"></i> Multi-User (3 users)</li>
+                <li>
+                  <i class="fas fa-check check"></i> Data Export (PDF/Excel)
+                </li>
+                <li><i class="fas fa-check check"></i> Inventory Alerts</li>
+              </ul>
+              <button
+                class="plan-btn btn-premium"
+                id="selectPremiumBtn"
+                onclick="selectPlan('premium')"
+              >
+                Upgrade to Premium
+              </button>
+            </div>
+
+            <div class="plan-card" id="businessPlan">
+              <h3>Business</h3>
+              <div class="plan-price">UGX 84,000 <span>/year</span></div>
+              <div class="plan-description">
+                Complete solution for established businesses
+              </div>
+              <ul class="plan-features-list">
+                <li>
+                  <i class="fas fa-check check"></i> Everything in Premium
+                </li>
+                <li><i class="fas fa-check check"></i> Unlimited Users</li>
+                <li><i class="fas fa-check check"></i> Multi-Branch Support</li>
+                <li><i class="fas fa-check check"></i> Custom Reports</li>
+                <li><i class="fas fa-check check"></i> API Access</li>
+              </ul>
+              <button
+                class="plan-btn btn-business"
+                id="selectBusinessBtn"
+                onclick="selectPlan('business')"
+              >
+                Go Business
+              </button>
+            </div>
+
+            <div class="plan-card" id="lifetimePlan">
+              <h3>Lifetime</h3>
+              <div class="plan-price">UGX 300,000 <span>one-time</span></div>
+              <div class="plan-description">One payment, lifetime access</div>
+              <ul class="plan-features-list">
+                <li>
+                  <i class="fas fa-check check"></i> Everything in Business
+                </li>
+                <li><i class="fas fa-check check"></i> Lifetime Updates</li>
+                <li><i class="fas fa-check check"></i> Forever Access</li>
+                <li><i class="fas fa-check check"></i> VIP Support</li>
+                <li><i class="fas fa-check check"></i> Special Badge</li>
+              </ul>
+              <button
+                class="plan-btn btn-lifetime"
+                id="selectLifetimeBtn"
+                onclick="selectPlan('lifetime')"
+              >
+                Get Lifetime
+              </button>
+            </div>
+          </div>
+
+          <!-- Payment Section -->
+          <div
+            class="payment-section"
+            id="paymentSection"
+            style="display: none"
+          >
+            <h3>Complete Payment</h3>
+            <div class="payment-form">
+              <div class="form-group">
+                <label>Select Network</label>
+                <div class="network-options" id="networkOptions">
+                  <div
+                    class="network-option selected"
+                    id="mtnOption"
+                    onclick="selectNetwork('MTN')"
+                  >
+                    <div class="network-logo mtn-logo">
+                      <i class="fas fa-check-circle"></i>
+                    </div>
+                    <span class="network-name">MTN Uganda</span>
+                    <div class="network-radio">
+                      <input type="radio" name="network" value="MTN" checked />
+                    </div>
+                  </div>
+                  <div
+                    class="network-option"
+                    id="airtelOption"
+                    onclick="selectNetwork('AIRTEL')"
+                  >
+                    <div class="network-logo airtel-logo">
+                      <i class="fas fa-check-circle"></i>
+                    </div>
+                    <span class="network-name">Airtel Uganda</span>
+                    <div class="network-radio">
+                      <input type="radio" name="network" value="AIRTEL" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Mobile Money Number</label>
+                <input
+                  type="text"
+                  id="paymentPhone"
+                  placeholder="e.g., 0772123456"
+                  value="0772123456"
+                />
+                <div class="phone-hint">
+                  <i class="fas fa-info-circle"></i> Enter your MTN or Airtel
+                  number
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Selected Plan</label>
+                <input type="text" id="selectedPlanDisplay" readonly />
+              </div>
+
+              <div class="form-group">
+                <label>Amount to Pay</label>
+                <input type="text" id="amountDisplay" readonly />
+              </div>
+
+              <button class="payment-btn" onclick="processPayment()">
+                Pay with Mobile Money
+              </button>
+              <div class="payment-security">
+                <i class="fas fa-lock"></i> Secured by MTN MoMo & Airtel Money
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="cancel-btn"
+            id="cancelBtn"
+            onclick="cancelSubscription()"
+            style="display: none"
+          >
+            Cancel Subscription
+          </button>
+          <div class="message" id="message"></div>
+
+          <!-- Features Comparison -->
+          <div class="features-comparison">
+            <h3>Feature Comparison</h3>
+            <div class="comparison-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Feature</th>
+                    <th>Free</th>
+                    <th>Premium</th>
+                    <th>Business</th>
+                    <th>Lifetime</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="feature-name" data-label="Feature">
+                      Basic Sales Tracking
+                    </td>
+                    <td data-label="Free">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Premium">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Business">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Lifetime">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="feature-name" data-label="Feature">
+                      Unlimited Transactions
+                    </td>
+                    <td data-label="Free">
+                      <i class="fas fa-times times"></i>
+                    </td>
+                    <td data-label="Premium">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Business">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Lifetime">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="feature-name" data-label="Feature">
+                      Staff Management
+                    </td>
+                    <td data-label="Free">
+                      <i class="fas fa-times times"></i>
+                    </td>
+                    <td data-label="Premium">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Business">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Lifetime">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="feature-name" data-label="Feature">
+                      Multi-User Support
+                    </td>
+                    <td data-label="Free">1 user</td>
+                    <td data-label="Premium">3 users</td>
+                    <td data-label="Business">Unlimited</td>
+                    <td data-label="Lifetime">Unlimited</td>
+                  </tr>
+                  <tr>
+                    <td class="feature-name" data-label="Feature">
+                      Data Export (PDF/Excel)
+                    </td>
+                    <td data-label="Free">
+                      <i class="fas fa-times times"></i>
+                    </td>
+                    <td data-label="Premium">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Business">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Lifetime">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="feature-name" data-label="Feature">
+                      Multi-Branch Support
+                    </td>
+                    <td data-label="Free">
+                      <i class="fas fa-times times"></i>
+                    </td>
+                    <td data-label="Premium">
+                      <i class="fas fa-times times"></i>
+                    </td>
+                    <td data-label="Business">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Lifetime">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="feature-name" data-label="Feature">
+                      API Access
+                    </td>
+                    <td data-label="Free">
+                      <i class="fas fa-times times"></i>
+                    </td>
+                    <td data-label="Premium">
+                      <i class="fas fa-times times"></i>
+                    </td>
+                    <td data-label="Business">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                    <td data-label="Lifetime">
+                      <i class="fas fa-check check"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      let currentSubscription = {
+        plan: "free",
+        name: "Free",
+        badge: "badge-free",
+      };
+      let selectedPlan = null;
+      let selectedNetwork = "MTN";
+
+      async function loadSubscription() {
+        const saved = await Optra.get("subscription");
+        if (saved && saved.plan) {
+          currentSubscription = saved;
+        }
+        updateUI();
+      }
+
+      async function saveSubscription() {
+        await Optra.set("subscription", currentSubscription);
+      }
+
+      function updateUI() {
+        document.getElementById("currentPlanName").innerText =
+          currentSubscription.name;
+        const badge = document.getElementById("currentPlanBadge");
+        badge.innerText = currentSubscription.name;
+        badge.className = `plan-badge ${currentSubscription.badge}`;
+        const features = document.getElementById("currentPlanFeatures");
+        if (currentSubscription.plan === "free") {
+          features.innerHTML = `<div class="feature-item"><i class="fas fa-check-circle"></i><span>Basic Features</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>30-day History</span></div>`;
+        } else if (currentSubscription.plan === "premium") {
+          features.innerHTML = `<div class="feature-item"><i class="fas fa-check-circle"></i><span>Unlimited Transactions</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>Staff Management</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>3 Users</span></div>`;
+        } else if (currentSubscription.plan === "business") {
+          features.innerHTML = `<div class="feature-item"><i class="fas fa-check-circle"></i><span>Unlimited Users</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>Multi-Branch</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>1-Year History</span></div>`;
+        } else if (currentSubscription.plan === "lifetime") {
+          features.innerHTML = `<div class="feature-item"><i class="fas fa-check-circle"></i><span>Lifetime Access</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>All Features</span></div><div class="feature-item"><i class="fas fa-check-circle"></i><span>VIP Support</span></div>`;
+        }
+        updateButtons();
+        document.getElementById("cancelBtn").style.display =
+          currentSubscription.plan !== "free" ? "block" : "none";
+      }
+
+      function updateButtons() {
+        const btns = {
+          free: "selectFreeBtn",
+          premium: "selectPremiumBtn",
+          business: "selectBusinessBtn",
+          lifetime: "selectLifetimeBtn",
+        };
+        for (let [plan, id] of Object.entries(btns)) {
+          const btn = document.getElementById(id);
+          if (currentSubscription.plan === plan) {
+            btn.className = "plan-btn btn-current";
+            btn.innerText = "Current Plan";
+          } else {
+            if (plan === "free") btn.className = "plan-btn btn-free";
+            else if (plan === "premium") btn.className = "plan-btn btn-premium";
+            else if (plan === "business")
+              btn.className = "plan-btn btn-business";
+            else if (plan === "lifetime")
+              btn.className = "plan-btn btn-lifetime";
+            if (plan === "free") btn.innerText = "Select Free";
+            else if (plan === "premium") btn.innerText = "Upgrade to Premium";
+            else if (plan === "business") btn.innerText = "Go Business";
+            else if (plan === "lifetime") btn.innerText = "Get Lifetime";
+          }
+        }
+      }
+
+      window.selectNetwork = function (network) {
+        selectedNetwork = network;
+        const mtn = document.getElementById("mtnOption"),
+          airtel = document.getElementById("airtelOption");
+        if (network === "MTN") {
+          mtn.classList.add("selected");
+          airtel.classList.remove("selected");
+          document.querySelector('input[value="MTN"]').checked = true;
+        } else {
+          airtel.classList.add("selected");
+          mtn.classList.remove("selected");
+          document.querySelector('input[value="AIRTEL"]').checked = true;
+        }
+      };
+
+      function showMessage(text, isSuccess = true) {
+        const msg = document.getElementById("message");
+        msg.innerText = text;
+        msg.className = isSuccess ? "message success" : "message error";
+        clearTimeout(msg._timeout);
+        msg._timeout = setTimeout(() => {
+          msg.style.display = "none";
+          msg.className = "message";
+        }, 4000);
+      }
+
+      window.selectPlan = async function (plan) {
+        if (plan === currentSubscription.plan) {
+          showMessage("You are already on this plan", false);
+          return;
+        }
+        if (plan === "free") {
+          if (
+            confirm("Downgrade to Free plan? You'll lose premium features.")
+          ) {
+            currentSubscription = {
+              plan: "free",
+              name: "Free",
+              badge: "badge-free",
+              startDate: null,
+              expiryDate: null,
+            };
+            await saveSubscription();
+            updateUI();
+            showMessage("You are now on the Free plan", true);
+          }
+          return;
+        }
+        selectedPlan = plan;
+        document.getElementById("paymentSection").style.display = "block";
+        const display = document.getElementById("selectedPlanDisplay"),
+          amount = document.getElementById("amountDisplay");
+        if (plan === "premium") {
+          display.value = "Premium Monthly";
+          amount.value = "7,000 UGX";
+        } else if (plan === "business") {
+          display.value = "Business Yearly";
+          amount.value = "84,000 UGX";
+        } else if (plan === "lifetime") {
+          display.value = "Lifetime Deal";
+          amount.value = "300,000 UGX";
+        }
+        selectNetwork("MTN");
+        document
+          .getElementById("paymentSection")
+          .scrollIntoView({ behavior: "smooth" });
+      };
+
+      function validateUgandaPhone(phone) {
+        const clean = phone.replace(/[\s-]/g, "");
+        if (clean.match(/^(0|256|\+256)[0-9]{9}$/)) {
+          let local = clean;
+          if (local.startsWith("256")) local = "0" + local.substring(3);
+          if (local.startsWith("+256")) local = "0" + local.substring(4);
+          const prefix = local.substring(0, 3);
+          if (["077", "078", "079"].includes(prefix))
+            return { valid: true, network: "MTN" };
+          if (["070", "074", "075"].includes(prefix))
+            return { valid: true, network: "AIRTEL" };
+        }
+        return { valid: false };
+      }
+
+      window.processPayment = async function () {
+        const phone = document.getElementById("paymentPhone").value.trim();
+        if (!phone) {
+          showMessage("Enter your mobile money number", false);
+          return;
+        }
+        const validation = validateUgandaPhone(phone);
+        if (!validation.valid) {
+          showMessage("Enter a valid MTN or Airtel number", false);
+          return;
+        }
+        if (!selectedPlan) {
+          showMessage("No plan selected", false);
+          return;
+        }
+        let formattedPhone = phone.replace(/[\s-]/g, "");
+        if (formattedPhone.startsWith("0"))
+          formattedPhone = "256" + formattedPhone.substring(1);
+        const payBtn = document.querySelector(".payment-btn");
+        payBtn.disabled = true;
+        payBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        setTimeout(async () => {
+          const today = new Date();
+          let expiry = new Date(),
+            planDetails = {};
+          const txAmount =
+            selectedPlan === "premium"
+              ? 7000
+              : selectedPlan === "business"
+                ? 84000
+                : 300000;
+          if (selectedPlan === "premium") {
+            expiry.setMonth(expiry.getMonth() + 1);
+            planDetails = {
+              plan: "premium",
+              name: "Premium",
+              badge: "badge-premium",
+              startDate: today.toISOString(),
+              expiryDate: expiry.toISOString(),
+              paymentNetwork: selectedNetwork,
+              paymentPhone: formattedPhone,
+            };
+          } else if (selectedPlan === "business") {
+            expiry.setFullYear(expiry.getFullYear() + 1);
+            planDetails = {
+              plan: "business",
+              name: "Business",
+              badge: "badge-business",
+              startDate: today.toISOString(),
+              expiryDate: expiry.toISOString(),
+              paymentNetwork: selectedNetwork,
+              paymentPhone: formattedPhone,
+            };
+          } else if (selectedPlan === "lifetime") {
+            planDetails = {
+              plan: "lifetime",
+              name: "Lifetime",
+              badge: "badge-lifetime",
+              startDate: today.toISOString(),
+              expiryDate: "Never",
+              paymentNetwork: selectedNetwork,
+              paymentPhone: formattedPhone,
+            };
+          }
+          currentSubscription = planDetails;
+          await saveSubscription();
+          const transactions = await Optra.get("transactions");
+          transactions.push({
+            id: Date.now().toString(),
+            date: today.toISOString(),
+            plan: currentSubscription.name,
+            amount: txAmount,
+            network: selectedNetwork,
+            phone: formattedPhone,
+            status: "completed",
+          });
+          await Optra.set("transactions", transactions);
+          document.getElementById("paymentSection").style.display = "none";
+          selectedPlan = null;
+          updateUI();
+          payBtn.disabled = false;
+          payBtn.innerHTML = "Pay with Mobile Money";
+          showMessage(
+            `Payment successful! You are now on the ${currentSubscription.name} plan`,
+            true,
+          );
+        }, 2000);
+      };
+
+      window.cancelSubscription = async function () {
+        if (
+          confirm("Cancel your subscription? You'll be downgraded to Free.")
+        ) {
+          currentSubscription = {
+            plan: "free",
+            name: "Free",
+            badge: "badge-free",
+            startDate: null,
+            expiryDate: null,
+          };
+          await saveSubscription();
+          updateUI();
+          showMessage("You are now on the Free plan", true);
+        }
+      };
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const user = checkAuth();
+        if (user) {
+          loadUserAvatar();
+          await loadSubscription();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

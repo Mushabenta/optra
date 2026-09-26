@@ -1,0 +1,1621 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Income · Optra</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      :root {
+        --icon-gray: #9ca3af;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #1f2937;
+        --text-mid: #4b5563;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-light: #2a4a7f;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --sky-blue: #06d6a0;
+        --success: #059669;
+      }
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+      .hamburger-link i {
+        color: #000000;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+      .hamburger-link:hover i {
+        color: var(--accent);
+      }
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #000000;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn i {
+        color: #000000;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+      .icon-btn:hover i {
+        color: var(--accent);
+      }
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+        cursor: pointer;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .container {
+        max-width: 780px;
+        margin: 12px auto 16px;
+        padding: 0 12px;
+        width: 100%;
+      }
+
+      /* ===== PAGE HEADER ===== */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .page-header h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #000000;
+        white-space: nowrap;
+      }
+      @media (max-width: 480px) {
+        .page-header h2 {
+          font-size: 18px;
+        }
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-radius: var(--radius-md);
+        padding: 12px 14px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        margin-bottom: 10px;
+      }
+      @media (max-width: 480px) {
+        .card {
+          padding: 10px 8px;
+        }
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--card-border);
+      }
+      .card-header h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000000;
+      }
+
+      /* ===== SUMMARY GRID ===== */
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        margin-bottom: 10px;
+      }
+      .summary-card {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 8px 10px;
+        border: 1px solid var(--card-border);
+        text-align: center;
+      }
+      .summary-card .label {
+        font-size: 8px;
+        font-weight: 600;
+        color: var(--text-mid);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .summary-card .amount {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000000;
+        margin-top: 2px;
+      }
+      .summary-card .amount.positive {
+        color: var(--success);
+      }
+      @media (max-width: 768px) {
+        .summary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .summary-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 4px;
+        }
+        .summary-card {
+          padding: 6px 6px;
+        }
+        .summary-card .amount {
+          font-size: 12px;
+        }
+        .summary-card .label {
+          font-size: 7px;
+        }
+      }
+
+      /* ===== FORM SECTION - COMPACT ===== */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      @media (max-width: 600px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+      .form-group label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 3px;
+      }
+      .form-group input {
+        padding: 6px 10px;
+        font-size: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        background: white;
+        width: 100%;
+        box-sizing: border-box;
+        color: var(--text-dark);
+        height: 34px;
+      }
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+      }
+
+      .btn-add {
+        padding: 6px 18px;
+        background: var(--success);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        height: 34px;
+        margin-top: 4px;
+      }
+      .btn-add:hover {
+        background: #047857;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+
+      /* ===== CONTROLS BAR ===== */
+      .controls-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        align-items: center;
+        padding: 6px 10px;
+        background: var(--accent-bg);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--card-border);
+        margin-bottom: 10px;
+      }
+      @media (max-width: 768px) {
+        .controls-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+      .filter-group {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+        flex: 1;
+      }
+      @media (max-width: 768px) {
+        .filter-group {
+          justify-content: center;
+        }
+      }
+      .filter-btn {
+        padding: 4px 8px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        font-size: 9px;
+        font-weight: 700;
+        cursor: pointer;
+        background: white;
+        color: #000000;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        height: 26px;
+      }
+      .filter-btn i {
+        font-size: 10px;
+        color: #000000;
+      }
+      @media (max-width: 480px) {
+        .filter-btn {
+          font-size: 8px;
+          padding: 2px 6px;
+          height: 22px;
+        }
+        .filter-btn span {
+          display: none;
+        }
+      }
+      .filter-btn:hover {
+        border-color: var(--accent);
+      }
+      .filter-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+      .filter-btn.active i {
+        color: white;
+      }
+      .export-group {
+        display: flex;
+        gap: 4px;
+        margin-left: auto;
+      }
+      @media (max-width: 768px) {
+        .export-group {
+          justify-content: center;
+          margin-left: 0;
+        }
+      }
+      .export-btn {
+        padding: 4px 8px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 9px;
+        font-weight: 700;
+        cursor: pointer;
+        height: 26px;
+        transition: var(--transition);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .export-btn i {
+        font-size: 10px;
+        color: white;
+      }
+      @media (max-width: 480px) {
+        .export-btn {
+          font-size: 8px;
+          padding: 2px 6px;
+          height: 22px;
+        }
+        .export-btn span {
+          display: none;
+        }
+      }
+      .export-btn:hover {
+        transform: scale(1.04);
+      }
+      .excel-btn {
+        background: #2e7d32;
+      }
+      .pdf-btn {
+        background: #d32f2f;
+      }
+
+      .search-section {
+        display: none;
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 8px 10px;
+        border: 1px solid var(--card-border);
+        margin-bottom: 10px;
+      }
+      .search-group {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      @media (max-width: 480px) {
+        .search-group {
+          flex-direction: column;
+        }
+      }
+      .search-input,
+      .date-input {
+        padding: 4px 8px;
+        font-size: 11px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        background: white;
+        color: #000000;
+        height: 28px;
+        flex: 1;
+        min-width: 100px;
+      }
+      @media (max-width: 480px) {
+        .search-input,
+        .date-input {
+          width: 100%;
+          min-width: auto;
+        }
+      }
+      .search-input:focus,
+      .date-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .clear-btn {
+        padding: 4px 10px;
+        background: var(--coral);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        height: 28px;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .clear-btn i {
+        font-size: 10px;
+        color: white;
+      }
+      .clear-btn:hover {
+        opacity: 0.85;
+      }
+
+      /* ===== TABLE ===== */
+      .table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--card-border);
+        background: white;
+        margin: 6px 0;
+        width: 100%;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 500px;
+      }
+      .data-table th {
+        background: var(--accent);
+        color: white;
+        padding: 8px 6px;
+        font-size: 10px;
+        font-weight: 700;
+        text-align: left;
+        white-space: nowrap;
+      }
+      .data-table td {
+        padding: 8px 6px;
+        border-bottom: 1px solid var(--card-border);
+        color: #000000;
+        font-size: 11px;
+        font-weight: 500;
+      }
+      .data-table tr:hover {
+        background: var(--accent-bg);
+      }
+
+      @media screen and (max-width: 640px) {
+        .data-table,
+        .data-table thead,
+        .data-table tbody,
+        .data-table th,
+        .data-table td,
+        .data-table tr {
+          display: block;
+        }
+        .data-table {
+          min-width: 0;
+        }
+        .table-wrapper {
+          overflow-x: visible;
+        }
+        .data-table thead {
+          display: none;
+        }
+        .data-table tbody tr {
+          display: block;
+          margin-bottom: 8px;
+          border: 1px solid var(--card-border);
+          border-radius: var(--radius-sm);
+          padding: 10px 12px;
+          background: white;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        }
+        .data-table tbody tr:hover {
+          background: white;
+        }
+        .data-table td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5px 0;
+          border: none;
+          border-bottom: 1px solid #f0f0f0;
+          font-size: 11px;
+        }
+        .data-table td:last-child {
+          border-bottom: none;
+        }
+        .data-table td::before {
+          content: attr(data-label);
+          font-weight: 700;
+          color: #000000;
+          font-size: 9px;
+          text-transform: uppercase;
+          letter-spacing: 0.3px;
+          flex-shrink: 0;
+          margin-right: 10px;
+        }
+        .data-table td:first-child::before {
+          content: "No";
+        }
+        .data-table td:nth-child(2)::before {
+          content: "Date";
+        }
+        .data-table td:nth-child(3)::before {
+          content: "Source";
+        }
+        .data-table td:nth-child(4)::before {
+          content: "Description";
+        }
+        .data-table td:nth-child(5)::before {
+          content: "Amount";
+        }
+        .no-data {
+          padding: 20px 12px !important;
+          display: block !important;
+          text-align: center !important;
+        }
+      }
+
+      .no-data {
+        text-align: center;
+        padding: 30px 20px;
+        color: var(--text-mid);
+      }
+      .no-data h4 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 4px;
+      }
+      .no-data p {
+        font-size: 12px;
+        color: #000000;
+        font-weight: 500;
+      }
+
+      /* ===== CHART ===== */
+      .chart-wrapper {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 10px;
+        border: 1px solid var(--card-border);
+        margin-top: 10px;
+      }
+      .chart-wrapper h3 {
+        font-size: 13px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 8px;
+      }
+      canvas {
+        width: 100% !important;
+        max-height: 180px;
+      }
+
+      /* ===== MESSAGE ===== */
+      .message {
+        margin-top: 8px;
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        font-weight: 500;
+        text-align: center;
+        animation: slideIn 0.3s ease;
+        display: none;
+      }
+      .message.success {
+        background: #d1fae5;
+        color: #065f46;
+        display: block;
+        border-left: 4px solid var(--success);
+      }
+      .message.error {
+        background: #fee2e2;
+        color: #991b1b;
+        display: block;
+        border-left: 4px solid var(--error);
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        border-radius: 12px;
+      }
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+      }
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .controls-bar,
+        .main-footer {
+          display: none !important;
+        }
+        .table-wrapper {
+          display: block !important;
+        }
+      }
+
+      .page-header h2,
+      .card-header h3,
+      .summary-card .amount,
+      .filter-btn,
+      .data-table td,
+      .no-data h4,
+      .no-data p,
+      .chart-wrapper h3 {
+        color: #000000 !important;
+        font-weight: 700 !important;
+      }
+
+      .hamburger-link,
+      .page-title,
+      .avatar-initials,
+      .icon-btn,
+      .nav-item span {
+        color: #000000 !important;
+        font-weight: 400 !important;
+      }
+
+      .hamburger-link i,
+      .icon-btn i,
+      .nav-item i {
+        color: #000000;
+      }
+
+      .data-table th {
+        background: #1a365d;
+        color: white;
+        font-weight: 700;
+      }
+      .summary-card .label {
+        font-weight: 600;
+        color: #4b5563;
+      }
+      .filter-btn {
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Income</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="page-header"><h2>Income</h2></div>
+
+        <!-- Summary Cards -->
+        <div class="summary-grid">
+          <div class="summary-card">
+            <div class="label">Total Income</div>
+            <div class="amount positive" id="totalIncome">UGX 0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">This Month</div>
+            <div class="amount positive" id="monthIncome">UGX 0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">This Week</div>
+            <div class="amount positive" id="weekIncome">UGX 0</div>
+          </div>
+          <div class="summary-card">
+            <div class="label">Total Count</div>
+            <div class="amount" id="incomeCount">0</div>
+          </div>
+        </div>
+
+        <!-- Add Income Form -->
+        <div class="card">
+          <div class="card-header"><h3>Add Income</h3></div>
+          <form id="incomeForm" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <label
+                  >Income Source
+                  <span style="color: var(--error)">*</span></label
+                >
+                <input
+                  type="text"
+                  id="incomeSource"
+                  placeholder="e.g., Sales"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  >Amount (UGX)
+                  <span style="color: var(--error)">*</span></label
+                >
+                <input
+                  type="number"
+                  id="amount"
+                  placeholder="0"
+                  min="0"
+                  step="100"
+                />
+              </div>
+              <div class="form-group">
+                <label>Date <span style="color: var(--error)">*</span></label>
+                <input type="date" id="date" />
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <input type="text" id="description" placeholder="Optional" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-add" onclick="addIncome()">
+                Save Income
+              </button>
+              <div
+                id="formMessage"
+                class="message"
+                style="margin-top: 0; flex: 1"
+              ></div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="controls-bar">
+          <div class="filter-group">
+            <button
+              class="filter-btn"
+              onclick="showDailyFilter()"
+              id="dailyFilterBtn"
+            >
+              <i class="fas fa-calendar-day"></i><span> Daily</span>
+            </button>
+            <button
+              class="filter-btn"
+              onclick="showRangeFilter()"
+              id="rangeFilterBtn"
+            >
+              <i class="fas fa-calendar-alt"></i><span> Range</span>
+            </button>
+            <button
+              class="filter-btn"
+              onclick="showSearchFilter()"
+              id="searchFilterBtn"
+            >
+              <i class="fas fa-search"></i><span> Search</span>
+            </button>
+            <button
+              class="filter-btn"
+              onclick="resetFilters()"
+              id="resetFilterBtn"
+            >
+              <i class="fas fa-undo-alt"></i><span> Reset</span>
+            </button>
+          </div>
+          <div class="export-group">
+            <button class="export-btn excel-btn" onclick="exportToExcel()">
+              <i class="fas fa-file-excel"></i><span> Excel</span>
+            </button>
+            <button class="export-btn pdf-btn" onclick="exportToPDF()">
+              <i class="fas fa-file-pdf"></i><span> PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Sections -->
+        <div class="search-section" id="dailyFilterSection">
+          <div class="search-group">
+            <input
+              type="date"
+              id="dailyDate"
+              class="date-input"
+              onchange="filterByDaily()"
+            />
+            <button class="clear-btn" onclick="clearDailyFilter()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="search-section" id="rangeFilterSection">
+          <div class="search-group">
+            <input
+              type="date"
+              id="startDate"
+              class="date-input"
+              onchange="filterByRange()"
+            />
+            <span style="color: var(--text-mid); font-size: 11px">to</span>
+            <input
+              type="date"
+              id="endDate"
+              class="date-input"
+              onchange="filterByRange()"
+            />
+            <button class="clear-btn" onclick="clearRangeFilter()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="search-section" id="searchFilterSection">
+          <div class="search-group">
+            <input
+              type="text"
+              id="searchText"
+              class="search-input"
+              placeholder="Search income..."
+              oninput="filterBySearch()"
+            />
+            <button class="clear-btn" onclick="clearSearchFilter()">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Income History Table -->
+        <div class="card">
+          <div class="card-header"><h3>Income History</h3></div>
+          <div class="table-wrapper">
+            <table class="data-table" id="incomeTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Date</th>
+                  <th>Source</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody id="incomeTableBody">
+                <tr>
+                  <td colspan="5" class="no-data">
+                    <h4>No Income Found</h4>
+                    <p>Add income to see it here.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-wrapper">
+          <h3>Income Breakdown</h3>
+          <canvas id="incomeChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="inventory.html" class="nav-item">
+          <i class="fas fa-warehouse"></i><span>Inventory</span>
+        </a>
+        <a href="new sales form.html" class="nav-item">
+          <i class="fas fa-cash-register"></i><span>Add Sale</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i><span>Settings</span>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      function checkAuth() {
+        var isLoggedIn = localStorage.getItem("isLoggedIn");
+        var currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      function loadUserAvatar() {
+        var avatarImg = document.getElementById("profileAvatar");
+        var initialsSpan = document.getElementById("avatarInitials");
+        var user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        var name = user.name || "User";
+        var parts = name.trim().split(" ");
+        var initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+        var hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      var allIncome = [],
+        filteredIncome = [],
+        currentUser = null,
+        chartInstance = null;
+      var tableBody = document.getElementById("incomeTableBody");
+      var totalIncomeSpan = document.getElementById("totalIncome");
+      var monthIncomeSpan = document.getElementById("monthIncome");
+      var weekIncomeSpan = document.getElementById("weekIncome");
+      var incomeCountSpan = document.getElementById("incomeCount");
+
+      var dailySection = document.getElementById("dailyFilterSection");
+      var rangeSection = document.getElementById("rangeFilterSection");
+      var searchSection = document.getElementById("searchFilterSection");
+      var dailyDate = document.getElementById("dailyDate");
+      var startDate = document.getElementById("startDate");
+      var endDate = document.getElementById("endDate");
+      var searchText = document.getElementById("searchText");
+
+      dailySection.style.display = "none";
+      rangeSection.style.display = "none";
+      searchSection.style.display = "none";
+
+      function formatNumber(num) {
+        return isNaN(num) ? "0" : Number(num).toLocaleString("en-UG");
+      }
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        var parts = dateStr.split("-");
+        return parts[2] + "/" + parts[1] + "/" + parts[0];
+      }
+
+      async function loadIncome() {
+        try {
+          var user = JSON.parse(localStorage.getItem("currentUser"));
+          if (!user || !user.businessId) return;
+          var allIncomeData = await Optra.get("income");
+          allIncome = allIncomeData.filter(function (e) {
+            return e.businessId === user.businessId;
+          });
+          allIncome.sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+          });
+          filteredIncome = allIncome.slice();
+          renderTable();
+          updateSummary();
+          drawChart();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function updateSummary() {
+        var total = filteredIncome.reduce(function (sum, inc) {
+          return sum + inc.amount;
+        }, 0);
+        totalIncomeSpan.textContent = "UGX " + formatNumber(total);
+        var now = new Date();
+        var currentMonth = now.getMonth(),
+          currentYear = now.getFullYear();
+        var monthTotal = filteredIncome
+          .filter(function (inc) {
+            var d = new Date(inc.date);
+            return (
+              d.getMonth() === currentMonth && d.getFullYear() === currentYear
+            );
+          })
+          .reduce(function (sum, inc) {
+            return sum + inc.amount;
+          }, 0);
+        monthIncomeSpan.textContent = "UGX " + formatNumber(monthTotal);
+        var startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay());
+        startOfWeek.setHours(0, 0, 0, 0);
+        var weekTotal = filteredIncome
+          .filter(function (inc) {
+            return new Date(inc.date) >= startOfWeek;
+          })
+          .reduce(function (sum, inc) {
+            return sum + inc.amount;
+          }, 0);
+        weekIncomeSpan.textContent = "UGX " + formatNumber(weekTotal);
+        incomeCountSpan.textContent = filteredIncome.length;
+      }
+
+      function renderTable() {
+        if (filteredIncome.length === 0) {
+          tableBody.innerHTML =
+            '<tr><td colspan="5" class="no-data"><h4>No Income Found</h4><p>Add income to see it here.</p></td></tr>';
+          return;
+        }
+        tableBody.innerHTML = "";
+        filteredIncome.forEach(function (inc, index) {
+          var row = document.createElement("tr");
+          row.innerHTML =
+            '<td data-label="No">' +
+            (index + 1) +
+            '</td><td data-label="Date">' +
+            formatDate(inc.date) +
+            '</td><td data-label="Source">' +
+            (inc.source || "Other") +
+            '</td><td data-label="Description">' +
+            (inc.description || inc.name || "N/A") +
+            '</td><td data-label="Amount">UGX ' +
+            formatNumber(inc.amount) +
+            "</td>";
+          tableBody.appendChild(row);
+        });
+      }
+
+      function drawChart() {
+        var ctx = document.getElementById("incomeChart").getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+        if (filteredIncome.length === 0) return;
+        var incomeGroups = {};
+        filteredIncome.forEach(function (inc) {
+          incomeGroups[inc.source || "Other"] =
+            (incomeGroups[inc.source || "Other"] || 0) + inc.amount;
+        });
+        var labels = Object.keys(incomeGroups);
+        var data = Object.values(incomeGroups);
+        var colors = [
+          "#059669",
+          "#06d6a0",
+          "#118ab2",
+          "#ffd166",
+          "#9d4edd",
+          "#ff6b6b",
+          "#4ecdc4",
+          "#45b7d1",
+          "#96ceb4",
+          "#f7dc6f",
+        ];
+        chartInstance = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                data: data,
+                backgroundColor: colors.slice(0, labels.length),
+                borderWidth: 2,
+                borderColor: "white",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: {
+                position: window.innerWidth < 600 ? "bottom" : "right",
+              },
+            },
+          },
+        });
+      }
+
+      function showFormMessage(text, isSuccess) {
+        var msg = document.getElementById("formMessage");
+        msg.textContent = text;
+        msg.className = isSuccess ? "message success" : "message error";
+        msg.style.display = "block";
+        msg.style.marginTop = "0";
+        msg.style.flex = "1";
+        setTimeout(function () {
+          msg.style.display = "none";
+        }, 3000);
+      }
+
+      window.addIncome = async function () {
+        var source = document.getElementById("incomeSource").value.trim();
+        var amount = document.getElementById("amount").value.trim();
+        var date = document.getElementById("date").value;
+        var description = document.getElementById("description").value.trim();
+
+        if (!source) {
+          showFormMessage("Please enter the income source.", false);
+          return;
+        }
+        if (!amount || Number(amount) <= 0) {
+          showFormMessage(
+            "Please enter a valid amount greater than zero.",
+            false,
+          );
+          return;
+        }
+        if (!date) {
+          showFormMessage("Please select a date.", false);
+          return;
+        }
+
+        var user = JSON.parse(localStorage.getItem("currentUser"));
+        if (!user || !user.businessId) {
+          showFormMessage("Business ID not found.", false);
+          return;
+        }
+
+        var newIncome = {
+          id: Date.now().toString(),
+          source: source,
+          name: source,
+          amount: Number(amount),
+          date: date,
+          description: description || "",
+          businessId: user.businessId,
+          createdBy: user.name || user.email,
+          createdAt: new Date().toISOString(),
+        };
+
+        try {
+          var income = await Optra.get("income");
+          income.push(newIncome);
+          await Optra.set("income", income);
+          await loadIncome();
+          document.getElementById("incomeSource").value = "";
+          document.getElementById("amount").value = "";
+          document.getElementById("description").value = "";
+          var today = new Date().toISOString().split("T")[0];
+          document.getElementById("date").value = today;
+          showFormMessage("Income added successfully!", true);
+        } catch (error) {
+          console.error("Error adding income:", error);
+          showFormMessage("Failed to add income.", false);
+        }
+      };
+
+      function showDailyFilter() {
+        dailySection.style.display =
+          dailySection.style.display === "none" ? "block" : "none";
+        rangeSection.style.display = "none";
+        searchSection.style.display = "none";
+        if (!dailyDate.value)
+          dailyDate.value = new Date().toISOString().split("T")[0];
+      }
+      function showRangeFilter() {
+        rangeSection.style.display =
+          rangeSection.style.display === "none" ? "block" : "none";
+        dailySection.style.display = "none";
+        searchSection.style.display = "none";
+      }
+      function showSearchFilter() {
+        searchSection.style.display =
+          searchSection.style.display === "none" ? "block" : "none";
+        dailySection.style.display = "none";
+        rangeSection.style.display = "none";
+      }
+
+      function filterByDaily() {
+        if (dailyDate.value) {
+          filteredIncome = allIncome.filter(function (inc) {
+            return inc.date === dailyDate.value;
+          });
+          renderTable();
+          updateSummary();
+          drawChart();
+        }
+      }
+      function filterByRange() {
+        if (startDate.value && endDate.value) {
+          filteredIncome = allIncome.filter(function (inc) {
+            return inc.date >= startDate.value && inc.date <= endDate.value;
+          });
+          renderTable();
+          updateSummary();
+          drawChart();
+        }
+      }
+      function filterBySearch() {
+        var term = searchText.value.trim().toLowerCase();
+        filteredIncome = term
+          ? allIncome.filter(function (inc) {
+              return (
+                (inc.description || inc.name || "")
+                  .toLowerCase()
+                  .includes(term) ||
+                (inc.source || "").toLowerCase().includes(term)
+              );
+            })
+          : allIncome.slice();
+        renderTable();
+        updateSummary();
+        drawChart();
+      }
+      function resetFilters() {
+        filteredIncome = allIncome.slice();
+        renderTable();
+        updateSummary();
+        drawChart();
+        dailySection.style.display = "none";
+        rangeSection.style.display = "none";
+        searchSection.style.display = "none";
+        dailyDate.value = "";
+        startDate.value = "";
+        endDate.value = "";
+        searchText.value = "";
+      }
+      function clearDailyFilter() {
+        dailyDate.value = "";
+        resetFilters();
+      }
+      function clearRangeFilter() {
+        startDate.value = "";
+        endDate.value = "";
+        resetFilters();
+      }
+      function clearSearchFilter() {
+        searchText.value = "";
+        resetFilters();
+      }
+
+      async function exportToExcel() {
+        if (filteredIncome.length === 0) {
+          alert("No income to export.");
+          return;
+        }
+        var biz = await Optra.get("business_info");
+        var wsData = [
+          ["Business Name:", biz.name || "Optra Business"],
+          ["Contact:", biz.contact || ""],
+          ["Email:", biz.email || ""],
+          ["Location:", biz.location || ""],
+          [],
+          ["No", "Date", "Source", "Description", "Amount (UGX)"],
+        ];
+        filteredIncome.forEach(function (inc, index) {
+          wsData.push([
+            index + 1,
+            inc.date,
+            inc.source || "Other",
+            inc.description || inc.name || "N/A",
+            inc.amount,
+          ]);
+        });
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, "Income");
+        XLSX.writeFile(
+          wb,
+          "Income_History_" + new Date().toISOString().split("T")[0] + ".xlsx",
+        );
+      }
+
+      async function exportToPDF() {
+        if (filteredIncome.length === 0) {
+          alert("No income to export.");
+          return;
+        }
+        var biz = await Optra.get("business_info");
+        var doc = new window.jspdf.jsPDF();
+        doc.setFontSize(18);
+        doc.setTextColor("#1a365d");
+        doc.text(biz.name || "Optra Business", 14, 15);
+        doc.setFontSize(10);
+        doc.setTextColor("#4b5563");
+        doc.text("Contact: " + (biz.contact || ""), 14, 23);
+        doc.text("Email: " + (biz.email || ""), 14, 30);
+        doc.text("Location: " + (biz.location || ""), 14, 37);
+        doc.setFontSize(14);
+        doc.setTextColor("#059669");
+        doc.text("Income History Report", 14, 47);
+        doc.setFontSize(9);
+        doc.setTextColor("#4b5563");
+        doc.text("Generated: " + new Date().toLocaleString(), 14, 54);
+        var tableData = filteredIncome.map(function (inc, index) {
+          return [
+            index + 1,
+            inc.date,
+            inc.source || "Other",
+            inc.description || inc.name || "N/A",
+            "UGX " + formatNumber(inc.amount),
+          ];
+        });
+        var total = filteredIncome.reduce(function (sum, inc) {
+          return sum + inc.amount;
+        }, 0);
+        tableData.push(["", "", "", "TOTAL", "UGX " + formatNumber(total)]);
+        doc.autoTable({
+          startY: 60,
+          head: [["No", "Date", "Source", "Description", "Amount"]],
+          body: tableData,
+          styles: { fontSize: 8, cellPadding: 3 },
+          headStyles: { fillColor: [26, 54, 93], textColor: 255 },
+          footStyles: { fillColor: [240, 240, 240], textColor: [26, 54, 93] },
+          columnStyles: { 3: { cellWidth: "auto" } },
+        });
+        var finalY = doc.lastAutoTable.finalY + 8;
+        doc.setFontSize(8);
+        doc.setTextColor("#9ca3af");
+        doc.text("Generated by Optra Business Management System", 14, finalY);
+        doc.save(
+          "Income_History_" + new Date().toISOString().split("T")[0] + ".pdf",
+        );
+      }
+
+      window.addEventListener("resize", function () {
+        if (filteredIncome.length > 0) drawChart();
+      });
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        currentUser = checkAuth();
+        if (currentUser) {
+          loadUserAvatar();
+          var today = new Date().toISOString().split("T")[0];
+          document.getElementById("date").value = today;
+          await loadIncome();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

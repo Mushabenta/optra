@@ -1,0 +1,1703 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Purchases · Optra</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+      /* ===== INVENTORY STYLE EXTENDED ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      }
+
+      :root {
+        --icon-gray: #9ca3af;
+        --primary-grey: #6b7280;
+        --light-grey: #e5e7eb;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #1f2937;
+        --text-mid: #4b5563;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --electric-blue: #118ab2;
+        --sky-blue: #06d6a0;
+        --sunshine: #ffd166;
+        --lilac: #9d4edd;
+        --success: #06d6a0;
+        --error: #ef476f;
+        --pdf-red: #d32f2f;
+        --green-600: #16a34a;
+      }
+
+      body {
+        background: var(--bg-white);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER (identical to inventory) ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+      @media (min-width: 601px) and (max-width: 1024px) {
+        .hamburger-link {
+          font-size: 24px;
+        }
+        .page-title {
+          font-size: 19px;
+        }
+        .avatar-btn {
+          width: 46px;
+          height: 46px;
+        }
+        .avatar-initials {
+          font-size: 17px;
+        }
+        .icon-btn {
+          font-size: 21px;
+        }
+      }
+      @media (min-width: 1025px) {
+        .hamburger-link {
+          font-size: 28px;
+        }
+        .page-title {
+          font-size: 22px;
+        }
+        .avatar-btn {
+          width: 48px;
+          height: 48px;
+        }
+        .avatar-initials {
+          font-size: 18px;
+        }
+        .icon-btn {
+          font-size: 24px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 20px auto 30px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== CARD (like inventory card) ===== */
+      .purchase-card-main {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 25px 20px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 30px;
+      }
+
+      .purchase-card-main::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--accent);
+      }
+
+      .purchase-card-main:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 25px 40px -16px rgba(0, 0, 0, 0.12);
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--card-border);
+      }
+      .card-header h1 {
+        font-size: clamp(22px, 5vw, 28px);
+        font-weight: 700;
+        color: #000000;
+      }
+
+      /* ===== SEARCH / CONTROLS (re-arranged - cleaner) ===== */
+      .search-section {
+        margin-bottom: 20px;
+      }
+
+      .search-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f8fafc;
+        border-radius: 50px;
+        padding: 0 12px 0 20px;
+        border: 1px solid #eef2f6;
+        transition: var(--transition);
+        margin-bottom: 10px;
+      }
+      .search-row:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.08);
+      }
+      .search-row .search-input {
+        flex: 1;
+        padding: 10px 0;
+        border: none;
+        background: transparent;
+        font-size: 14px;
+        outline: none;
+        color: var(--text-dark);
+        min-width: 60px;
+        font-weight: 400;
+      }
+      .search-row .search-input::placeholder {
+        color: var(--icon-gray);
+        font-weight: 400;
+      }
+      .search-row .search-btn {
+        background: transparent;
+        border: none;
+        color: var(--icon-gray);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 8px 4px;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+      .search-row .search-btn:hover {
+        color: var(--accent);
+        transform: scale(1.08);
+      }
+
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        background: #f8fafc;
+        border-radius: var(--radius-md);
+        padding: 8px 14px;
+        border: 1px solid #eef2f6;
+      }
+
+      .filter-bar .filter-group {
+        display: flex;
+        gap: 4px;
+        flex-wrap: wrap;
+      }
+
+      .filter-bar .filter-btn {
+        padding: 4px 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        background: white;
+        color: #000000;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 30px;
+      }
+      .filter-bar .filter-btn:hover {
+        border-color: var(--accent);
+      }
+      .filter-bar .filter-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      .filter-bar .date-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-left: auto;
+      }
+
+      .filter-bar .date-input {
+        padding: 4px 10px;
+        border: 1px solid #e2e8f0;
+        border-radius: var(--radius-sm);
+        font-size: 12px;
+        background: white;
+        color: var(--text-dark);
+        height: 30px;
+        min-width: 120px;
+      }
+      .filter-bar .date-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .filter-bar .date-label {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--text-mid);
+      }
+
+      .filter-bar .action-icons {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        margin-left: 4px;
+      }
+
+      .filter-bar .action-btn {
+        padding: 4px 12px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 30px;
+        color: white;
+      }
+      .filter-bar .action-btn:hover {
+        transform: translateY(-2px);
+      }
+      .filter-bar .action-btn.excel {
+        background: #2e7d32;
+      }
+      .filter-bar .action-btn.excel:hover {
+        background: #1b5e20;
+      }
+      .filter-bar .action-btn.pdf {
+        background: #d32f2f;
+      }
+      .filter-bar .action-btn.pdf:hover {
+        background: #b71c1c;
+      }
+      .filter-bar .action-btn.clear {
+        background: var(--coral);
+      }
+      .filter-bar .action-btn.clear:hover {
+        background: #c0392b;
+      }
+
+      @media (max-width: 768px) {
+        .filter-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .filter-bar .filter-group {
+          justify-content: center;
+        }
+        .filter-bar .date-group {
+          margin-left: 0;
+          justify-content: center;
+        }
+        .filter-bar .action-icons {
+          justify-content: center;
+          margin-left: 0;
+        }
+        .filter-bar .date-input {
+          min-width: 100px;
+          flex: 1;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .search-row {
+          border-radius: var(--radius-md);
+          padding: 0 10px;
+        }
+        .search-row .search-input {
+          font-size: 12px;
+          padding: 8px 0;
+        }
+        .filter-bar {
+          padding: 6px 10px;
+        }
+        .filter-bar .filter-btn {
+          font-size: 10px;
+          padding: 3px 8px;
+          height: 26px;
+        }
+        .filter-bar .date-input {
+          font-size: 11px;
+          padding: 3px 8px;
+          min-width: 80px;
+          height: 26px;
+        }
+        .filter-bar .action-btn {
+          font-size: 10px;
+          padding: 3px 8px;
+          height: 26px;
+        }
+        .filter-bar .date-label {
+          font-size: 10px;
+        }
+      }
+
+      /* ===== TABLE (like inventory) ===== */
+      .table-container {
+        overflow-x: visible;
+        margin: 15px 0;
+        border-radius: var(--radius-sm);
+        background: white;
+        border: 1px solid var(--card-border);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        background: var(--accent);
+        color: white;
+        padding: 10px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      td {
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-dark);
+        font-size: 13px;
+        font-weight: 400;
+      }
+
+      tr:hover {
+        background: var(--accent-bg);
+      }
+
+      .balance-positive {
+        color: var(--coral);
+        font-weight: 700;
+      }
+      .balance-zero {
+        color: var(--sky-blue);
+        font-weight: 700;
+      }
+
+      .payment-btn {
+        background: none;
+        border: none;
+        color: var(--accent);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 5px;
+        transition: var(--transition);
+      }
+      .payment-btn:hover {
+        color: var(--coral);
+        transform: scale(1.1);
+      }
+
+      .no-records {
+        text-align: center;
+        padding: 30px;
+        color: var(--text-mid);
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      /* Mobile Cards */
+      .mobile-cards {
+        display: none;
+        padding: 12px;
+      }
+
+      .purchase-card {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-md);
+        padding: 15px;
+        margin-bottom: 12px;
+      }
+
+      .purchase-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--accent);
+      }
+
+      .purchase-card-supplier {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .purchase-card-status {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .status-debtor {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .status-paid {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .purchase-card-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .purchase-card-row:last-of-type {
+        border-bottom: none;
+      }
+
+      .purchase-card-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-mid);
+        text-transform: uppercase;
+      }
+      .purchase-card-value {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-dark);
+        text-align: right;
+      }
+      .purchase-card-value.balance-positive {
+        color: var(--coral);
+      }
+      .purchase-card-value.balance-zero {
+        color: var(--sky-blue);
+      }
+
+      .purchase-card-items-section {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed var(--card-border);
+      }
+      .purchase-items-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-mid);
+        margin-bottom: 8px;
+      }
+      .purchase-item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 8px;
+        background: var(--bg-grey);
+        border-radius: var(--radius-sm);
+        margin-bottom: 5px;
+      }
+      .purchase-item-name {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .purchase-item-details {
+        font-size: 10px;
+        color: var(--text-mid);
+      }
+      .purchase-item-total {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--coral);
+      }
+
+      .purchase-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid var(--card-border);
+      }
+      .balance-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-mid);
+      }
+      .balance-value {
+        font-size: 16px;
+        font-weight: 800;
+      }
+      .balance-value.positive {
+        color: var(--coral);
+      }
+      .balance-value.zero {
+        color: var(--sky-blue);
+      }
+
+      .purchase-action {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .purchase-action:hover {
+        background: var(--accent-light);
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        .desktop-table {
+          display: none;
+        }
+        .mobile-cards {
+          display: block;
+        }
+      }
+
+      /* Payment Popup */
+      .payment-popup {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .popup-content {
+        background: white;
+        border-radius: var(--radius-lg);
+        padding: 25px;
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+      }
+
+      .popup-header i {
+        font-size: 48px;
+        color: var(--accent);
+      }
+      .popup-header h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-top: 10px;
+      }
+
+      .debt-amount {
+        margin: 15px 0;
+        font-size: 14px;
+      }
+      .debt-amount span {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--coral);
+        display: block;
+      }
+
+      .payment-input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 2px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        margin-bottom: 20px;
+      }
+      .payment-input:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+
+      .popup-buttons {
+        display: flex;
+        gap: 12px;
+      }
+      .popup-btn {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+      .popup-btn:hover {
+        transform: translateY(-2px);
+      }
+      .submit-payment {
+        background: var(--accent);
+        color: white;
+      }
+      .submit-payment:hover {
+        background: var(--accent-light);
+      }
+      .cancel-payment {
+        background: var(--bg-grey);
+        color: var(--text-dark);
+      }
+      .cancel-payment:hover {
+        background: var(--card-border);
+      }
+
+      /* ===== FOOTER (identical to inventory) ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 300px;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+        .nav-icons {
+          max-width: 260px;
+        }
+      }
+
+      /* ===== RESPONSIVE TWEAKS ===== */
+      @media (max-width: 640px) {
+        .container {
+          padding: 0 6px;
+          margin: 10px auto 16px;
+        }
+        .purchase-card-main {
+          padding: 14px 10px;
+          border-radius: var(--radius-lg);
+        }
+        .card-header {
+          margin-bottom: 12px;
+          padding-bottom: 10px;
+        }
+        .card-header h1 {
+          font-size: 18px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .purchase-card-main {
+          padding: 10px 6px;
+        }
+        .card-header h1 {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Purchases</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="purchase-card-main">
+          <div class="card-header">
+            <h1>Purchase History</h1>
+          </div>
+
+          <!-- ===== SEARCH SECTION ===== -->
+          <div class="search-section">
+            <!-- Row 1: Search -->
+            <div class="search-row">
+              <input
+                type="text"
+                class="search-input"
+                id="searchSupplier"
+                placeholder="Search by supplier..."
+                oninput="filterPurchases()"
+              />
+              <button
+                class="search-btn"
+                onclick="clearSearch()"
+                title="Clear search"
+              >
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <!-- Row 2: Filter bar -->
+            <div class="filter-bar">
+              <div class="filter-group">
+                <button
+                  class="filter-btn active"
+                  id="allFilter"
+                  onclick="setFilter('all')"
+                >
+                  <i class="fas fa-list"></i> All
+                </button>
+                <button
+                  class="filter-btn"
+                  id="debtorFilter"
+                  onclick="setFilter('debtor')"
+                >
+                  <i class="fas fa-user-times"></i> Debtors
+                </button>
+                <button
+                  class="filter-btn"
+                  id="paidFilter"
+                  onclick="setFilter('paid')"
+                >
+                  <i class="fas fa-check-circle"></i> Paid
+                </button>
+              </div>
+
+              <div class="date-group">
+                <span class="date-label"
+                  ><i class="fas fa-calendar-alt"></i> From</span
+                >
+                <input
+                  type="date"
+                  class="date-input"
+                  id="startDate"
+                  onchange="filterPurchases()"
+                />
+                <span class="date-label">To</span>
+                <input
+                  type="date"
+                  class="date-input"
+                  id="endDate"
+                  onchange="filterPurchases()"
+                />
+              </div>
+
+              <div class="action-icons">
+                <button class="action-btn excel" onclick="exportExcel()">
+                  <i class="fas fa-file-excel"></i> Excel
+                </button>
+                <button class="action-btn pdf" onclick="exportPDF()">
+                  <i class="fas fa-file-pdf"></i> PDF
+                </button>
+                <button class="action-btn clear" onclick="resetFilters()">
+                  <i class="fas fa-undo-alt"></i> Reset
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== TABLE ===== -->
+          <div class="table-container">
+            <table class="desktop-table">
+              <thead>
+                <tr>
+                  <th>Supplier</th>
+                  <th>Contact</th>
+                  <th>Email</th>
+                  <th>Date</th>
+                  <th>Goods</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Total</th>
+                  <th>Paid</th>
+                  <th>Balance</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody">
+                <tr>
+                  <td colspan="11" class="no-records">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>No purchase records found.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Mobile Cards -->
+            <div class="mobile-cards" id="mobileCards"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Popup -->
+    <div id="paymentPopup" class="payment-popup">
+      <div class="popup-content">
+        <div class="popup-header">
+          <i class="fas fa-money-bill-wave"></i>
+          <h3>Record Payment</h3>
+        </div>
+        <div class="debt-amount">
+          Outstanding Balance:<span id="popupBalance">0 UGX</span>
+        </div>
+        <input
+          type="number"
+          id="paymentAmount"
+          class="payment-input"
+          placeholder="Enter payment amount"
+          min="0"
+          step="1000"
+        />
+        <div class="popup-buttons">
+          <button class="popup-btn submit-payment" id="submitPaymentBtn">
+            <i class="fas fa-check"></i> Submit
+          </button>
+          <button class="popup-btn cancel-payment" id="cancelPaymentBtn">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item">
+          <i class="fas fa-cash-register"></i>
+          <span>Add Sale</span>
+        </a>
+        <a href="profit report.html" class="nav-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Profit</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      // ===== AVATAR =====
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const parts = name.trim().split(" ");
+        let initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          const user = JSON.parse(currentUser);
+          loadUserAvatar();
+          return user;
+        } catch (_) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      // ===== PURCHASES DATA =====
+      const user = checkAuth();
+      const businessId = user ? user.businessId || "demoBiz" : "demoBiz";
+
+      let purchases = [],
+        filteredPurchases = [],
+        currentFilter = "all",
+        selectedPurchaseIndex = -1;
+
+      function formatMoney(amt) {
+        return isNaN(amt) ? "0" : Number(amt).toLocaleString("en-UG");
+      }
+
+      async function loadPurchases() {
+        try {
+          const all = await Optra.get("purchases");
+          purchases = user?.businessId
+            ? all.filter((p) => p.businessId === user.businessId)
+            : all;
+          purchases.sort(
+            (a, b) => new Date(b.paymentDate) - new Date(a.paymentDate),
+          );
+          filteredPurchases = [...purchases];
+          renderTable();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function renderTable() {
+        const tbody = document.getElementById("historyBody");
+        const mobileContainer = document.getElementById("mobileCards");
+        if (!filteredPurchases.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="11" class="no-records"><i class="fas fa-shopping-cart"></i><p>No purchase records found.</p></td></tr>';
+          mobileContainer.innerHTML =
+            '<div class="no-records"><i class="fas fa-shopping-cart"></i><p>No purchase records found.</p></div>';
+          return;
+        }
+        tbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        filteredPurchases.forEach((p, idx) => {
+          const status = p.balance > 0 ? "debtor" : "paid";
+          const statusLabel = p.balance > 0 ? "Debtor" : "Paid";
+
+          if (p.items && Array.isArray(p.items)) {
+            p.items.forEach((item) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${p.supplier || ""}</td>
+                <td>${p.contact || ""}</td>
+                <td>${p.email || ""}</td>
+                <td>${p.paymentDate || ""}</td>
+                <td>${item.goods || ""}</td>
+                <td>${item.quantity || ""}</td>
+                <td>${formatMoney(item.price)} UGX</td>
+                <td>${formatMoney(item.total)} UGX</td>
+                <td>${formatMoney(p.amountPaid)} UGX</td>
+                <td class="${p.balance > 0 ? "balance-positive" : "balance-zero"}">${formatMoney(p.balance)} UGX</td>
+                <td><button class="payment-btn" onclick="showPaymentPopup(${idx})"><i class="fas fa-money-bill-wave"></i></button></td>
+              `;
+              tbody.appendChild(row);
+            });
+
+            let itemsHtml = "";
+            p.items.forEach((item) => {
+              itemsHtml += `
+                <div class="purchase-item-row">
+                  <div>
+                    <div class="purchase-item-name">${item.goods || ""}</div>
+                    <div class="purchase-item-details">Qty: ${item.quantity || ""} × ${formatMoney(item.price)} UGX</div>
+                  </div>
+                  <div class="purchase-item-total">${formatMoney(item.total)} UGX</div>
+                </div>
+              `;
+            });
+
+            const card = document.createElement("div");
+            card.className = "purchase-card";
+            card.innerHTML = `
+              <div class="purchase-card-header">
+                <span class="purchase-card-supplier">${p.supplier || "Unknown"}</span>
+                <span class="purchase-card-status ${status === "debtor" ? "status-debtor" : "status-paid"}">${statusLabel}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Contact</span>
+                <span class="purchase-card-value">${p.contact || "-"}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Date</span>
+                <span class="purchase-card-value">${p.paymentDate || "-"}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Email</span>
+                <span class="purchase-card-value">${p.email || "-"}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Amount Paid</span>
+                <span class="purchase-card-value">${formatMoney(p.amountPaid)} UGX</span>
+              </div>
+              <div class="purchase-card-items-section">
+                <div class="purchase-items-title">Items:</div>
+                ${itemsHtml}
+              </div>
+              <div class="purchase-card-footer">
+                <div>
+                  <div class="balance-label">Balance</div>
+                  <div class="balance-value ${p.balance > 0 ? "positive" : "zero"}">${formatMoney(p.balance)} UGX</div>
+                </div>
+                <button class="purchase-action" onclick="showPaymentPopup(${idx})"><i class="fas fa-money-bill-wave"></i></button>
+              </div>
+            `;
+            mobileContainer.appendChild(card);
+          } else {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${p.supplier || ""}</td>
+              <td>${p.contact || ""}</td>
+              <td>${p.email || ""}</td>
+              <td>${p.paymentDate || ""}</td>
+              <td>${p.goods || ""}</td>
+              <td>${p.quantity || ""}</td>
+              <td>${formatMoney(p.price)} UGX</td>
+              <td>${formatMoney(p.total)} UGX</td>
+              <td>${formatMoney(p.amountPaid)} UGX</td>
+              <td class="${p.balance > 0 ? "balance-positive" : "balance-zero"}">${formatMoney(p.balance)} UGX</td>
+              <td><button class="payment-btn" onclick="showPaymentPopup(${idx})"><i class="fas fa-money-bill-wave"></i></button></td>
+            `;
+            tbody.appendChild(row);
+
+            const card = document.createElement("div");
+            card.className = "purchase-card";
+            card.innerHTML = `
+              <div class="purchase-card-header">
+                <span class="purchase-card-supplier">${p.supplier || "Unknown"}</span>
+                <span class="purchase-card-status ${status === "debtor" ? "status-debtor" : "status-paid"}">${statusLabel}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Contact</span>
+                <span class="purchase-card-value">${p.contact || "-"}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Date</span>
+                <span class="purchase-card-value">${p.paymentDate || "-"}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Goods</span>
+                <span class="purchase-card-value">${p.goods || ""}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Quantity</span>
+                <span class="purchase-card-value">${p.quantity || ""}</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Unit Price</span>
+                <span class="purchase-card-value">${formatMoney(p.price)} UGX</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Total</span>
+                <span class="purchase-card-value">${formatMoney(p.total)} UGX</span>
+              </div>
+              <div class="purchase-card-row">
+                <span class="purchase-card-label">Amount Paid</span>
+                <span class="purchase-card-value">${formatMoney(p.amountPaid)} UGX</span>
+              </div>
+              <div class="purchase-card-footer">
+                <div>
+                  <div class="balance-label">Balance</div>
+                  <div class="balance-value ${p.balance > 0 ? "positive" : "zero"}">${formatMoney(p.balance)} UGX</div>
+                </div>
+                <button class="purchase-action" onclick="showPaymentPopup(${idx})"><i class="fas fa-money-bill-wave"></i></button>
+              </div>
+            `;
+            mobileContainer.appendChild(card);
+          }
+        });
+      }
+
+      function filterPurchases() {
+        const supplierTerm = document
+          .getElementById("searchSupplier")
+          .value.trim()
+          .toLowerCase();
+        const startDate = document.getElementById("startDate").value;
+        const endDate = document.getElementById("endDate").value;
+
+        let filtered = [...purchases];
+
+        if (supplierTerm) {
+          filtered = filtered.filter((p) =>
+            p.supplier?.toLowerCase().includes(supplierTerm),
+          );
+        }
+
+        if (startDate) {
+          filtered = filtered.filter((p) => p.paymentDate >= startDate);
+        }
+        if (endDate) {
+          filtered = filtered.filter((p) => p.paymentDate <= endDate);
+        }
+
+        if (currentFilter === "debtor") {
+          filtered = filtered.filter((p) => p.balance > 0);
+        } else if (currentFilter === "paid") {
+          filtered = filtered.filter((p) => p.balance === 0);
+        }
+
+        filteredPurchases = filtered;
+        renderTable();
+      }
+
+      function setFilter(type) {
+        currentFilter = type;
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        if (type === "all")
+          document.getElementById("allFilter").classList.add("active");
+        else if (type === "debtor")
+          document.getElementById("debtorFilter").classList.add("active");
+        else if (type === "paid")
+          document.getElementById("paidFilter").classList.add("active");
+        filterPurchases();
+      }
+
+      function clearSearch() {
+        document.getElementById("searchSupplier").value = "";
+        filterPurchases();
+      }
+
+      function resetFilters() {
+        document.getElementById("searchSupplier").value = "";
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+        setFilter("all");
+      }
+
+      function showPaymentPopup(index) {
+        selectedPurchaseIndex = index;
+        const p = filteredPurchases[index];
+        document.getElementById("popupBalance").innerHTML =
+          `${formatMoney(p.balance)} UGX`;
+        document.getElementById("paymentAmount").value = "";
+        document.getElementById("paymentPopup").style.display = "flex";
+      }
+
+      function hidePaymentPopup() {
+        document.getElementById("paymentPopup").style.display = "none";
+        selectedPurchaseIndex = -1;
+      }
+
+      async function confirmPayment() {
+        if (selectedPurchaseIndex === -1) return;
+        const p = filteredPurchases[selectedPurchaseIndex];
+        const payment = parseFloat(
+          document.getElementById("paymentAmount").value,
+        );
+        if (isNaN(payment) || payment <= 0) {
+          alert("Enter a valid amount");
+          return;
+        }
+        if (payment > p.balance) {
+          alert(`Payment cannot exceed ${formatMoney(p.balance)} UGX`);
+          return;
+        }
+        p.amountPaid = (p.amountPaid || 0) + payment;
+        p.balance = p.total - p.amountPaid;
+        const all = await Optra.get("purchases");
+        const idx = all.findIndex((x) => x.id === p.id);
+        if (idx !== -1) {
+          all[idx] = p;
+          await Optra.set("purchases", all);
+        }
+        await loadPurchases();
+        hidePaymentPopup();
+        alert(`Payment of ${formatMoney(payment)} UGX recorded!`);
+      }
+
+      async function exportExcel() {
+        if (!filteredPurchases.length) {
+          alert("No data to export");
+          return;
+        }
+        const biz = await Optra.get("business_info");
+        const wsData = [
+          ["Business Name:", biz.name],
+          ["Contact:", biz.contact],
+          ["Email:", biz.email],
+          ["Location:", biz.location],
+          [],
+          [
+            "Supplier",
+            "Contact",
+            "Email",
+            "Date",
+            "Goods",
+            "Quantity",
+            "Unit Price",
+            "Total",
+            "Amount Paid",
+            "Balance",
+            "Status",
+          ],
+        ];
+        filteredPurchases.forEach((p) => {
+          if (p.items) {
+            p.items.forEach((i) => {
+              wsData.push([
+                p.supplier || "",
+                p.contact || "",
+                p.email || "",
+                p.paymentDate || "",
+                i.goods || "",
+                i.quantity || "",
+                i.price || "",
+                i.total || "",
+                p.amountPaid || "",
+                p.balance || "",
+                p.balance > 0 ? "Debtor" : "Paid",
+              ]);
+            });
+          } else {
+            wsData.push([
+              p.supplier || "",
+              p.contact || "",
+              p.email || "",
+              p.paymentDate || "",
+              p.goods || "",
+              p.quantity || "",
+              p.price || "",
+              p.total || "",
+              p.amountPaid || "",
+              p.balance || "",
+              p.balance > 0 ? "Debtor" : "Paid",
+            ]);
+          }
+        });
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, "Purchases");
+        XLSX.writeFile(
+          wb,
+          `Purchases_${new Date().toISOString().split("T")[0]}.xlsx`,
+        );
+      }
+
+      async function exportPDF() {
+        if (!filteredPurchases.length) {
+          alert("No data to export");
+          return;
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const biz = await Optra.get("business_info");
+
+        // Business Name
+        doc.setFontSize(18);
+        doc.setTextColor("#1a365d");
+        doc.text(biz.name || "Optra Business", 14, 15);
+
+        // Contact - separate row
+        doc.setFontSize(10);
+        doc.setTextColor("#4b5563");
+        doc.text("Contact: " + (biz.contact || ""), 14, 23);
+
+        // Email - separate row
+        doc.text("Email: " + (biz.email || ""), 14, 30);
+
+        // Location - separate row
+        doc.text("Location: " + (biz.location || ""), 14, 37);
+
+        // Report Title
+        doc.setFontSize(14);
+        doc.setTextColor("#1a365d");
+        doc.text("Purchases Report", 14, 47);
+
+        // Generated date
+        doc.setFontSize(9);
+        doc.setTextColor("#4b5563");
+        doc.text("Generated: " + new Date().toLocaleDateString(), 14, 54);
+
+        const rows = [];
+        filteredPurchases.forEach((p) => {
+          if (p.items) {
+            p.items.forEach((i) => {
+              rows.push([
+                p.supplier || "",
+                p.paymentDate || "",
+                i.goods || "",
+                i.quantity || "",
+                formatMoney(i.price),
+                formatMoney(i.total),
+                formatMoney(p.amountPaid),
+                formatMoney(p.balance),
+              ]);
+            });
+          } else {
+            rows.push([
+              p.supplier || "",
+              p.paymentDate || "",
+              p.goods || "",
+              p.quantity || "",
+              formatMoney(p.price),
+              formatMoney(p.total),
+              formatMoney(p.amountPaid),
+              formatMoney(p.balance),
+            ]);
+          }
+        });
+
+        doc.autoTable({
+          startY: 60,
+          head: [
+            [
+              "Supplier",
+              "Date",
+              "Goods",
+              "Qty",
+              "Unit Price",
+              "Total",
+              "Paid",
+              "Balance",
+            ],
+          ],
+          body: rows,
+          styles: { fontSize: 8 },
+          headStyles: { fillColor: [26, 54, 93] },
+        });
+
+        var finalY = doc.lastAutoTable.finalY + 8;
+        doc.setFontSize(8);
+        doc.setTextColor("#9ca3af");
+        doc.text("Generated by Optra Business Management System", 14, finalY);
+
+        doc.save(`Purchases_${new Date().toISOString().split("T")[0]}.pdf`);
+      }
+
+      document
+        .getElementById("submitPaymentBtn")
+        .addEventListener("click", confirmPayment);
+      document
+        .getElementById("cancelPaymentBtn")
+        .addEventListener("click", hidePaymentPopup);
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadPurchases();
+      });
+
+      window.showPaymentPopup = showPaymentPopup;
+      window.filterPurchases = filterPurchases;
+      window.clearSearch = clearSearch;
+      window.resetFilters = resetFilters;
+      window.setFilter = setFilter;
+      window.exportExcel = exportExcel;
+      window.exportPDF = exportPDF;
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

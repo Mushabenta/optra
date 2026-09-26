@@ -1,0 +1,1269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"
+    />
+    <title>Manage Users · Optra</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="bizmate-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="bizmate-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="bizmate-48.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="bizmate-180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="bizmate-192.png" />
+    <link rel="shortcut icon" href="bizmate32.png" />
+
+    <!-- Font Awesome & Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ===== ROOT ===== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      }
+
+      :root {
+        --icon-gray: #9ca3af;
+        --bg-white: #ffffff;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.08);
+        --text-dark: #1f2937;
+        --text-mid: #4b5563;
+        --radius-xl: 24px;
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 10px;
+        --transition: all 0.2s ease;
+        --accent: #1a365d;
+        --accent-light: #2a4a7f;
+        --accent-bg: #ebf0f7;
+        --coral: #ef476f;
+        --electric-blue: #118ab2;
+        --sky-blue: #06d6a0;
+        --sunshine: #ffd166;
+        --lilac: #9d4edd;
+        --success: #06d6a0;
+        --error: #ef476f;
+        --green-600: #16a34a;
+      }
+
+      body {
+        background: var(--bg-white);
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--accent);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition);
+        background: var(--bg-white);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--accent);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-white);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+      @media (min-width: 601px) and (max-width: 1024px) {
+        .hamburger-link {
+          font-size: 24px;
+        }
+        .page-title {
+          font-size: 19px;
+        }
+        .avatar-btn {
+          width: 46px;
+          height: 46px;
+        }
+        .avatar-initials {
+          font-size: 17px;
+        }
+        .icon-btn {
+          font-size: 21px;
+        }
+      }
+      @media (min-width: 1025px) {
+        .hamburger-link {
+          font-size: 28px;
+        }
+        .page-title {
+          font-size: 22px;
+        }
+        .avatar-btn {
+          width: 48px;
+          height: 48px;
+        }
+        .avatar-initials {
+          font-size: 18px;
+        }
+        .icon-btn {
+          font-size: 24px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 80px;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 20px auto 30px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== USERS CARD ===== */
+      .users-card {
+        background: var(--card-bg);
+        border-radius: var(--radius-xl);
+        padding: 25px 20px;
+        border: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 30px;
+      }
+
+      .users-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--accent);
+      }
+
+      .users-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 25px 40px -16px rgba(0, 0, 0, 0.12);
+      }
+
+      /* ===== SEARCH with icon ===== */
+      .search-section {
+        margin-bottom: 20px;
+      }
+      .search-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f8fafc;
+        border-radius: 50px;
+        padding: 0 16px 0 20px;
+        border: 1px solid #eef2f6;
+        transition: var(--transition);
+        flex-wrap: nowrap;
+      }
+      .search-container:focus-within {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.08);
+      }
+      .search-input {
+        flex: 1;
+        padding: 10px 0;
+        border: none;
+        background: transparent;
+        font-size: 14px;
+        outline: none;
+        color: var(--text-dark);
+        min-width: 60px;
+      }
+      .search-input::placeholder {
+        color: var(--icon-gray);
+      }
+      .search-icon-btn {
+        background: transparent;
+        border: none;
+        color: var(--icon-gray);
+        font-size: 18px;
+        cursor: pointer;
+        padding: 8px 4px;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+      .search-icon-btn:hover {
+        color: var(--accent);
+        transform: scale(1.08);
+      }
+
+      /* ===== STATUS BADGES ===== */
+      .status-badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 30px;
+        font-size: 10px;
+        font-weight: 600;
+      }
+
+      .status-approved {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .status-pending {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .status-admin {
+        background: #e0e7ff;
+        color: #3730a3;
+      }
+
+      /* ===== ACTION BUTTONS ===== */
+      .action-buttons {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 5px 12px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        white-space: nowrap;
+        color: white;
+      }
+
+      .action-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-approve {
+        background: var(--accent);
+        color: white;
+      }
+
+      .btn-approve:hover {
+        background: var(--accent-light);
+      }
+
+      .btn-unapprove {
+        background: #d97706;
+        color: white;
+      }
+
+      .btn-unapprove:hover {
+        background: #b45309;
+      }
+
+      .btn-delete {
+        background: var(--error);
+        color: white;
+        padding: 5px 8px;
+      }
+
+      .btn-delete:hover {
+        background: #e53935;
+      }
+
+      .current-user-badge {
+        color: var(--electric-blue);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .no-records {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-mid);
+      }
+
+      .no-records i {
+        font-size: 48px;
+        color: var(--icon-gray);
+        display: block;
+        margin-bottom: 15px;
+      }
+
+      .no-records h3 {
+        font-size: 18px;
+        color: var(--text-dark);
+        margin-bottom: 6px;
+      }
+
+      .no-records p {
+        font-size: 14px;
+      }
+
+      /* ===== TOAST ===== */
+      .toast {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: white;
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+        border-left: 4px solid var(--accent);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        max-width: 350px;
+        transform: translateX(120%);
+        opacity: 0;
+        transition: var(--transition);
+        z-index: 1000;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      .toast.success {
+        border-left-color: var(--success);
+      }
+      .toast.error {
+        border-left-color: var(--error);
+      }
+
+      .toast-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .toast-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .toast.success .toast-icon {
+        background: var(--success);
+      }
+      .toast.error .toast-icon {
+        background: var(--error);
+      }
+
+      .toast-message h4 {
+        margin-bottom: 2px;
+        color: var(--text-dark);
+        font-weight: 700;
+        font-size: 14px;
+      }
+
+      .toast-message p {
+        color: var(--text-mid);
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .close-toast {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        background: none;
+        border: none;
+        color: var(--icon-gray);
+        cursor: pointer;
+        font-size: 12px;
+        padding: 4px;
+        transition: var(--transition);
+      }
+
+      .close-toast:hover {
+        color: var(--error);
+        transform: rotate(90deg);
+      }
+
+      /* ===== TABLE - DESKTOP ===== */
+      .desktop-table-wrapper {
+        display: block;
+        overflow-x: auto;
+        margin: 15px 0;
+        border-radius: var(--radius-sm);
+        background: white;
+        border: 1px solid var(--card-border);
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table.desktop-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+      }
+
+      .desktop-table th {
+        background: var(--accent);
+        color: white;
+        padding: 10px 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .desktop-table td {
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--card-border);
+        color: var(--text-dark);
+        font-size: 13px;
+        vertical-align: middle;
+      }
+
+      .desktop-table tr:hover {
+        background: var(--accent-bg);
+      }
+
+      /* ===== MOBILE CARDS ===== */
+      .mobile-cards-container {
+        display: none;
+        padding: 8px 0;
+      }
+
+      .user-mobile-card {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      }
+
+      .mobile-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--accent);
+        margin-bottom: 10px;
+      }
+
+      .mobile-card-title {
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--text-dark);
+      }
+
+      .mobile-card-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      .mobile-card-actions .action-btn {
+        font-size: 10px;
+        padding: 4px 10px;
+      }
+      .mobile-card-actions .btn-delete {
+        padding: 4px 8px;
+      }
+
+      .mobile-card-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .mobile-card-row:last-child {
+        border-bottom: none;
+      }
+
+      .mobile-card-label {
+        font-weight: 600;
+        font-size: 11px;
+        color: var(--text-mid);
+      }
+
+      .mobile-card-value {
+        font-size: 13px;
+        color: var(--text-dark);
+        text-align: right;
+        font-weight: 500;
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 10px 0 12px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition);
+      }
+
+      .nav-item:hover {
+        color: var(--accent);
+        transform: translateY(-3px);
+        background: var(--accent-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--accent);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--accent);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 768px) {
+        .desktop-table-wrapper {
+          display: none;
+        }
+        .mobile-cards-container {
+          display: block;
+        }
+
+        .container {
+          padding: 0 8px;
+          margin: 12px auto 20px;
+        }
+        .users-card {
+          padding: 16px 12px;
+        }
+
+        .search-container {
+          border-radius: var(--radius-md);
+          padding: 0 12px 0 16px;
+          flex-wrap: wrap;
+          gap: 4px;
+        }
+        .search-input {
+          font-size: 13px;
+          padding: 8px 0;
+          min-width: 50px;
+        }
+        .search-icon-btn {
+          font-size: 16px;
+          padding: 4px 2px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 6px;
+        }
+        .users-card {
+          padding: 12px 8px;
+        }
+        .search-container {
+          padding: 0 8px 0 12px;
+        }
+        .search-input {
+          font-size: 12px;
+          padding: 6px 0;
+          min-width: 40px;
+        }
+        .search-icon-btn {
+          font-size: 14px;
+          padding: 3px 2px;
+        }
+        .mobile-card-title {
+          font-size: 13px;
+        }
+        .mobile-card-value {
+          font-size: 12px;
+        }
+        .mobile-card-actions .action-btn {
+          font-size: 9px;
+          padding: 3px 7px;
+        }
+        .mobile-card-actions .btn-delete {
+          padding: 3px 6px;
+          font-size: 10px;
+        }
+        .toast {
+          left: 16px;
+          right: 16px;
+          max-width: none;
+        }
+        .no-records i {
+          font-size: 36px;
+        }
+        .no-records h3 {
+          font-size: 16px;
+        }
+        .no-records p {
+          font-size: 13px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .main-header {
+          padding: 4px 8px;
+        }
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 14px;
+        }
+        .avatar-btn {
+          width: 34px;
+          height: 34px;
+        }
+        .avatar-initials {
+          font-size: 12px;
+        }
+        .icon-btn {
+          font-size: 16px;
+          width: 32px;
+          height: 32px;
+          padding: 3px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Manage Users</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="users-card">
+          <!-- search with icon -->
+          <div class="search-section">
+            <div class="search-container">
+              <input
+                type="text"
+                class="search-input"
+                id="searchInput"
+                placeholder="Search by name, email, or role..."
+                oninput="filterUsers()"
+              />
+              <button class="search-icon-btn" onclick="filterUsers()">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- DESKTOP TABLE -->
+          <div class="desktop-table-wrapper">
+            <table class="desktop-table" id="desktopTable">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="desktopTableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- MOBILE CARDS -->
+          <div class="mobile-cards-container" id="mobileCardsContainer"></div>
+
+          <!-- No records message -->
+          <div id="noRecordsMsg" class="no-records" style="display: none">
+            <i class="fas fa-users"></i>
+            <h3>No Users Found</h3>
+            <p>No users have been registered yet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+      <div class="toast-content">
+        <div class="toast-icon" id="toastIcon">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="toast-message">
+          <h4 id="toastTitle">Success</h4>
+          <p id="toastMessage">Operation completed successfully</p>
+        </div>
+        <button class="close-toast" id="closeToast">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="inventory.html" class="nav-item"
+          ><i class="fas fa-warehouse"></i><span>Inventory</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script src="api-config.js"></script>
+    <script src="api.js"></script>
+    <script>
+      // ===== AVATAR =====
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const parts = name.trim().split(" ");
+        let initials =
+          parts.length >= 2
+            ? (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase()
+            : parts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--bg-white)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          const user = JSON.parse(currentUser);
+          loadUserAvatar();
+          return user;
+        } catch (_) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      // ===== TOAST =====
+      function showToast(title, message, type = "success") {
+        const toast = document.getElementById("toast");
+        const toastTitle = document.getElementById("toastTitle");
+        const toastMessage = document.getElementById("toastMessage");
+        const toastIcon = document.getElementById("toastIcon");
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        toast.className = `toast ${type}`;
+        toastIcon.innerHTML =
+          type === "success"
+            ? '<i class="fas fa-check"></i>'
+            : '<i class="fas fa-exclamation"></i>';
+        toast.classList.add("show");
+        setTimeout(() => {
+          if (toast.classList.contains("show")) toast.classList.remove("show");
+        }, 4000);
+      }
+
+      document.getElementById("closeToast").addEventListener("click", () => {
+        document.getElementById("toast").classList.remove("show");
+      });
+
+      // ===== USERS LOGIC =====
+      const currentUser = checkAuth();
+      const businessId = currentUser
+        ? currentUser.businessId || "demoBiz"
+        : "demoBiz";
+      let allUsers = [];
+
+      async function loadAllUsers() {
+        try {
+          allUsers = await Optra.listUsers();
+          renderUserTable();
+        } catch (error) {
+          showToast("Error", "Failed to load users data", "error");
+        }
+      }
+
+      function renderUserTable(filter = "") {
+        const desktopBody = document.getElementById("desktopTableBody");
+        const mobileContainer = document.getElementById("mobileCardsContainer");
+        const noMsg = document.getElementById("noRecordsMsg");
+        desktopBody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+        noMsg.style.display = "none";
+
+        const lowerFilter = filter.toLowerCase();
+        let filteredUsers = allUsers;
+
+        if (lowerFilter) {
+          filteredUsers = allUsers.filter(
+            (user) =>
+              user.name.toLowerCase().includes(lowerFilter) ||
+              user.email.toLowerCase().includes(lowerFilter) ||
+              user.role.toLowerCase().includes(lowerFilter),
+          );
+        }
+
+        if (filteredUsers.length === 0) {
+          noMsg.style.display = "block";
+          noMsg.innerHTML = `
+          <i class="fas fa-users"></i>
+          <h3>${lowerFilter ? "No Matching Users" : "No Users Found"}</h3>
+          <p>${lowerFilter ? "No users match your search criteria." : "No users have been registered yet."}</p>
+        `;
+          return;
+        }
+
+        filteredUsers.forEach((user) => {
+          const isCurrentUser =
+            user.email === currentUser.email && user.role === currentUser.role;
+
+          let statusClass = "status-pending";
+          let statusText = "Pending";
+          if (user.role === "Admin") {
+            statusClass = "status-admin";
+            statusText = "Admin";
+          } else if (user.approved) {
+            statusClass = "status-approved";
+            statusText = "Approved";
+          }
+
+          // Desktop row
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+          <td>${user.name}${isCurrentUser ? ' <span style="color:var(--electric-blue);font-size:11px;font-weight:600;">(You)</span>' : ""}</td>
+          <td>${user.email}</td>
+          <td>${user.role}</td>
+          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+          <td></td>
+        `;
+          desktopBody.appendChild(tr);
+
+          const actionsTd = tr.querySelector("td:last-child");
+          if (!isCurrentUser) {
+            if (user.role !== "Admin") {
+              const approveBtn = document.createElement("button");
+              approveBtn.className = `action-btn ${user.approved ? "btn-unapprove" : "btn-approve"}`;
+              approveBtn.innerHTML = user.approved ? "Unapprove" : "Approve";
+              approveBtn.onclick = () => toggleApproval(user);
+              actionsTd.appendChild(approveBtn);
+            }
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "action-btn btn-delete";
+            deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+            deleteBtn.title = "Delete User";
+            deleteBtn.onclick = () => deleteUser(user);
+            actionsTd.appendChild(deleteBtn);
+          } else {
+            const span = document.createElement("span");
+            span.style.cssText =
+              "color:var(--electric-blue);font-size:11px;font-weight:600;";
+            span.textContent = "You";
+            actionsTd.appendChild(span);
+          }
+
+          // Mobile card
+          const card = document.createElement("div");
+          card.className = "user-mobile-card";
+          let actionsHtml = "";
+          if (!isCurrentUser) {
+            if (user.role !== "Admin") {
+              actionsHtml += `<button class="action-btn ${user.approved ? "btn-unapprove" : "btn-approve"}" onclick="toggleApprovalFromCard('${user.email}','${user.role}')">${user.approved ? "Unapprove" : "Approve"}</button>`;
+            }
+            actionsHtml += `<button class="action-btn btn-delete" onclick="deleteUserFromCard('${user.email}','${user.role}')"><i class="fas fa-trash"></i></button>`;
+          } else {
+            actionsHtml = `<span style="color:var(--electric-blue);font-size:11px;font-weight:600;">You</span>`;
+          }
+
+          card.innerHTML = `
+          <div class="mobile-card-header">
+            <span class="mobile-card-title">${user.name}</span>
+            <div class="mobile-card-actions">${actionsHtml}</div>
+          </div>
+          <div class="mobile-card-row">
+            <span class="mobile-card-label">Email</span>
+            <span class="mobile-card-value">${user.email}</span>
+          </div>
+          <div class="mobile-card-row">
+            <span class="mobile-card-label">Role</span>
+            <span class="mobile-card-value">${user.role}</span>
+          </div>
+          <div class="mobile-card-row">
+            <span class="mobile-card-label">Status</span>
+            <span class="mobile-card-value"><span class="status-badge ${statusClass}">${statusText}</span></span>
+          </div>
+        `;
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      // Helper functions for mobile card actions
+      function findUserByEmailRole(email, role) {
+        return allUsers.find((u) => u.email === email && u.role === role);
+      }
+
+      window.toggleApprovalFromCard = function (email, role) {
+        const user = findUserByEmailRole(email, role);
+        if (user) toggleApproval(user);
+      };
+
+      window.deleteUserFromCard = function (email, role) {
+        const user = findUserByEmailRole(email, role);
+        if (user) deleteUser(user);
+      };
+
+      async function toggleApproval(user) {
+        try {
+          await Optra.updateUser(user.id, { approved: !user.approved });
+          if (user.approved) {
+            showToast("Unapproved", `${user.name} has been unapproved`, "info");
+          } else {
+            showToast("Approved", `${user.name} has been approved`, "success");
+          }
+          loadAllUsers();
+        } catch (error) {
+          showToast("Error", "Failed to update approval status", "error");
+        }
+      }
+
+      async function deleteUser(user) {
+        if (user.email === currentUser.email) {
+          showToast(
+            "Cannot Delete",
+            "You cannot delete your own account",
+            "error",
+          );
+          return;
+        }
+        if (
+          !confirm(
+            `Are you sure you want to delete ${user.name} (${user.role})?`,
+          )
+        )
+          return;
+
+        try {
+          await Optra.deleteUser(user.id);
+          showToast(
+            "Deleted",
+            `${user.name} has been removed from the system`,
+            "success",
+          );
+          loadAllUsers();
+        } catch (error) {
+          showToast("Error", "Failed to delete user", "error");
+        }
+      }
+
+      function filterUsers() {
+        renderUserTable(document.getElementById("searchInput").value.trim());
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        if (currentUser) {
+          if (currentUser.role !== "Admin") {
+            showToast(
+              "Access Denied",
+              "Only Admin users can access this page",
+              "error",
+            );
+            setTimeout(() => {
+              window.location.href = "menu.html";
+            }, 2000);
+            return;
+          }
+          loadAllUsers();
+        }
+      });
+    </script>
+  </body>
+</html>

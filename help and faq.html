@@ -1,0 +1,1268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <title>Help & FAQ · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --icon-gray: #9ca3af;
+        --link-blue: #118ab2;
+        --link-blue-hover: #0d6e8f;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: var(--icon-gray);
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 0 10px;
+          margin: 12px auto 16px;
+        }
+      }
+
+      /* ===== HELP CARD ===== */
+      .help-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .help-card {
+          padding: 16px 12px;
+        }
+      }
+
+      /* Search Section */
+      .search-section {
+        margin-bottom: 20px;
+      }
+
+      .search-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        transition: var(--transition-smooth);
+      }
+
+      .search-wrapper:focus-within {
+        border-color: var(--dark-blue);
+        box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 10px 38px 10px 14px;
+        font-size: 14px;
+        border: none;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: #000000;
+        outline: none;
+        min-height: 42px;
+      }
+
+      .search-input::placeholder {
+        color: #9ca3af;
+      }
+
+      .search-icon-btn {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--icon-gray);
+        cursor: pointer;
+        font-size: 16px;
+        padding: 6px;
+        transition: var(--transition-smooth);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .search-icon-btn:hover {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 480px) {
+        .search-input {
+          padding: 8px 34px 8px 12px;
+          font-size: 13px;
+          min-height: 38px;
+        }
+        .search-icon-btn {
+          font-size: 14px;
+          right: 10px;
+        }
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 20px;
+        color: #000000;
+        font-style: italic;
+        font-size: 14px;
+      }
+
+      /* Quick Links */
+      .quick-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+        margin-bottom: 24px;
+        justify-content: center;
+        padding: 0 4px;
+      }
+
+      .quick-link {
+        color: var(--link-blue);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: var(--transition-smooth);
+        padding: 2px 0;
+      }
+
+      .quick-link:hover {
+        color: var(--link-blue-hover);
+        text-decoration: underline;
+      }
+
+      @media (max-width: 480px) {
+        .quick-links {
+          gap: 4px 12px;
+          justify-content: flex-start;
+        }
+        .quick-link {
+          font-size: 13px;
+        }
+      }
+
+      /* Help Sections */
+      .help-section {
+        margin-bottom: 24px;
+      }
+
+      .help-section h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--dark-blue-bg);
+      }
+
+      .help-section h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #000000;
+        margin: 14px 0 8px;
+      }
+
+      .help-section p {
+        color: #000000;
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 10px;
+      }
+
+      .help-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .help-list li {
+        color: #000000;
+        font-size: 14px;
+        margin-bottom: 8px;
+        padding-left: 2px;
+        line-height: 1.6;
+      }
+
+      .help-list li strong {
+        color: #000000;
+      }
+
+      /* Steps List - NO NUMBERING */
+      .steps-list {
+        list-style: none;
+        padding: 0;
+        margin: 12px 0;
+      }
+
+      .steps-list li {
+        color: #000000;
+        font-size: 14px;
+        margin-bottom: 10px;
+        line-height: 1.6;
+        padding-left: 2px;
+      }
+
+      .steps-list li strong {
+        color: #000000;
+      }
+
+      .help-section a {
+        color: var(--link-blue);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .help-section a:hover {
+        color: var(--link-blue-hover);
+        text-decoration: underline;
+      }
+
+      /* FAQ Section */
+      .faq-section {
+        margin-top: 24px;
+      }
+
+      .faq-section h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 14px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--dark-blue-bg);
+      }
+
+      .faq-item {
+        margin-bottom: 8px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+        transition: var(--transition-smooth);
+      }
+
+      .faq-item:hover {
+        border-color: var(--dark-blue);
+      }
+
+      .faq-question {
+        background: var(--dark-blue-bg);
+        padding: 12px 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 600;
+        color: #000000;
+        transition: var(--transition-smooth);
+        font-size: 14px;
+        gap: 10px;
+      }
+
+      .faq-question:hover {
+        background: rgba(26, 54, 93, 0.08);
+      }
+
+      .faq-question i {
+        color: var(--icon-gray);
+        transition: transform 0.3s ease;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .faq-question.active i {
+        transform: rotate(180deg);
+      }
+
+      .faq-answer {
+        padding: 0 16px;
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.3s ease,
+          padding 0.3s ease;
+        background: white;
+      }
+
+      .faq-answer.show {
+        padding: 12px 16px;
+        max-height: 300px;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .faq-answer p {
+        color: #000000;
+        line-height: 1.7;
+        font-size: 14px;
+      }
+
+      /* Contact Card */
+      .contact-card {
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-md);
+        padding: 20px 18px;
+        margin-top: 24px;
+        border-left: 4px solid var(--dark-blue);
+      }
+
+      .contact-card h3 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 10px;
+      }
+
+      .contact-card p {
+        color: #000000;
+        font-size: 14px;
+        margin-bottom: 14px;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 12px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .contact-item i {
+        font-size: 18px;
+        color: var(--icon-gray);
+        width: 24px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+
+      .contact-info h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 2px;
+      }
+
+      .contact-info p,
+      .contact-info a {
+        color: #000000;
+        text-decoration: none;
+        font-size: 13px;
+      }
+
+      .contact-info a {
+        color: var(--link-blue);
+      }
+
+      .contact-info a:hover {
+        color: var(--link-blue-hover);
+        text-decoration: underline;
+      }
+
+      @media (min-width: 600px) {
+        .contact-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 900px) {
+        .contact-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .contact-card {
+          padding: 14px 12px;
+        }
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+        .contact-item i {
+          font-size: 16px;
+          width: 20px;
+        }
+        .contact-info h4 {
+          font-size: 13px;
+        }
+        .contact-info p {
+          font-size: 12px;
+        }
+      }
+
+      .send-message-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        background: var(--dark-blue);
+        color: white;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: var(--transition-smooth);
+        margin-top: 14px;
+        box-shadow: 0 4px 12px rgba(26, 54, 93, 0.2);
+      }
+
+      .send-message-btn:hover {
+        background: var(--dark-blue-light);
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 480px) {
+        .send-message-btn {
+          width: 100%;
+          justify-content: center;
+          padding: 12px;
+          font-size: 14px;
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Help & FAQ</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="help-card">
+          <!-- Search Section -->
+          <div class="search-section">
+            <div class="search-wrapper">
+              <input
+                type="text"
+                class="search-input"
+                id="searchInput"
+                placeholder="Search for help topics..."
+                oninput="searchHelp()"
+              />
+              <button class="search-icon-btn" onclick="searchHelp()">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="quick-links">
+            <a href="#getting-started" class="quick-link">Getting Started</a>
+            <a href="#account" class="quick-link">Account</a>
+            <a href="#subscription" class="quick-link">Subscription</a>
+            <a href="#payments" class="quick-link">Payments</a>
+            <a href="#features" class="quick-link">Features</a>
+            <a href="#troubleshooting" class="quick-link">Troubleshooting</a>
+            <a href="#faq" class="quick-link">FAQs</a>
+            <a href="#contact" class="quick-link">Contact</a>
+          </div>
+
+          <!-- Getting Started -->
+          <section id="getting-started" class="help-section">
+            <h2>Getting Started</h2>
+            <h3>Welcome to Optra!</h3>
+            <p>
+              Optra is a comprehensive business management solution designed to
+              help you track sales, manage inventory, process staff payments,
+              and analyze your business performance - all with a privacy-first
+              approach where your data stays on your device.
+            </p>
+            <h3>Quick Start Guide</h3>
+            <ul class="steps-list">
+              <li>
+                <strong>Create Your Account:</strong> Go to the registration
+                page and fill in your details. The first person to register with
+                a Business ID becomes the Admin.
+              </li>
+              <li>
+                <strong>Set Up Your Business:</strong> After logging in, go to
+                any page and enter your business information.
+              </li>
+              <li>
+                <strong>Add Products:</strong> Use the "Add Purchases" page to
+                record items you buy.
+              </li>
+              <li>
+                <strong>Start Selling:</strong> Go to "New Sales" to record
+                customer purchases.
+              </li>
+              <li>
+                <strong>Track Expenses:</strong> Record your business expenses
+                to see complete profit/loss analysis.
+              </li>
+            </ul>
+          </section>
+
+          <!-- Account -->
+          <section id="account" class="help-section">
+            <h2>Account Management</h2>
+            <h3>Registration & Login</h3>
+            <ul class="help-list">
+              <li>
+                <strong>Registration:</strong> Fill in your details including
+                Business ID. The first user with a Business ID becomes Admin
+                automatically.
+              </li>
+              <li>
+                <strong>Login:</strong> Use your email/username and password.
+              </li>
+              <li>
+                <strong>Password Reset:</strong> If you forget your password,
+                use the "Forgot Password" link on the login page.
+              </li>
+              <li>
+                <strong>Delete Account:</strong> You can permanently delete your
+                account from the Profile page.
+              </li>
+            </ul>
+          </section>
+
+          <!-- Subscription -->
+          <section id="subscription" class="help-section">
+            <h2>Subscription Plans</h2>
+            <h3>Free Plan</h3>
+            <ul class="help-list">
+              <li>Basic Sales Tracking</li>
+              <li>Basic Expense Tracking</li>
+              <li>Basic Inventory (50 items)</li>
+              <li>Single User</li>
+            </ul>
+            <h3>Premium Plan - 7,000 UGX/month</h3>
+            <ul class="help-list">
+              <li>Everything in Free</li>
+              <li>Unlimited Transactions</li>
+              <li>Staff Management</li>
+              <li>Data Export (PDF/Excel)</li>
+            </ul>
+            <h3>Business Plan - 84,000 UGX/year</h3>
+            <ul class="help-list">
+              <li>Everything in Premium</li>
+              <li>Unlimited Users</li>
+              <li>Multi-Branch Support</li>
+            </ul>
+            <h3>Lifetime Plan - 300,000 UGX (one-time)</h3>
+            <ul class="help-list">
+              <li>Everything in Business</li>
+              <li>Lifetime Updates</li>
+              <li>VIP Support</li>
+            </ul>
+            <p><a href="subscription.html">View Subscription Page →</a></p>
+          </section>
+
+          <!-- Payments -->
+          <section id="payments" class="help-section">
+            <h2>Payments</h2>
+            <h3>How to Pay</h3>
+            <ul class="steps-list">
+              <li>
+                <strong>Select a Plan:</strong> Go to the Subscription page and
+                choose your preferred plan.
+              </li>
+              <li>
+                <strong>Choose Network:</strong> Select either MTN or Airtel.
+              </li>
+              <li>
+                <strong>Enter Phone Number:</strong> Enter your mobile money
+                number.
+              </li>
+              <li>
+                <strong>Confirm Payment:</strong> Check your phone for the
+                payment prompt and enter PIN.
+              </li>
+            </ul>
+            <h3>Supported Networks</h3>
+            <ul class="help-list">
+              <li><strong>MTN Uganda:</strong> 077, 078, 079 prefixes</li>
+              <li><strong>Airtel Uganda:</strong> 070, 074, 075 prefixes</li>
+            </ul>
+          </section>
+
+          <!-- Features -->
+          <section id="features" class="help-section">
+            <h2>Key Features</h2>
+            <h3>Sales Management</h3>
+            <ul class="help-list">
+              <li>Record sales with multiple items</li>
+              <li>Print professional receipts</li>
+              <li>Track payments and balances</li>
+            </ul>
+            <h3>Inventory Management</h3>
+            <ul class="help-list">
+              <li>Automatic stock updates</li>
+              <li>Low stock alerts</li>
+              <li>Stock value calculation</li>
+            </ul>
+            <h3>Staff Management</h3>
+            <ul class="help-list">
+              <li>Add and manage staff members</li>
+              <li>Process salary payments</li>
+              <li>Track attendance</li>
+            </ul>
+          </section>
+
+          <!-- Troubleshooting -->
+          <section id="troubleshooting" class="help-section">
+            <h2>Troubleshooting</h2>
+            <h3>Can't Log In?</h3>
+            <ul class="help-list">
+              <li>Check your email/username and password</li>
+              <li>Use "Forgot Password" to reset</li>
+            </ul>
+            <h3>Data Not Saving?</h3>
+            <ul class="help-list">
+              <li>Optra uses localStorage - data is stored in your browser</li>
+              <li>Clearing browser data will delete Optra information</li>
+              <li>Always export important data as backup</li>
+            </ul>
+          </section>
+
+          <!-- FAQ -->
+          <section id="faq" class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+              <div class="faq-question">
+                What happens if I enter a Business ID that already exists?
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  You can still register, but you must wait for the admin to
+                  approve your access before you can log in.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                Who becomes the admin? <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  The first person to register a unique Business ID is
+                  automatically considered the admin for that business.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                How can I change my password?
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Use the "Forgot Password" feature on the login page, or go to
+                  Settings → Change Password.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                How do I subscribe for full access?
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Go to Settings → Subscription and choose your preferred plan.
+                  Pay using MTN or Airtel mobile money.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                Can I use Optra on my phone? <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Yes! Optra is fully responsive and works on smartphones,
+                  tablets, and desktop computers.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                Is my data safe? <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Absolutely! All your data is stored locally in your browser.
+                  No data is sent to external servers.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact -->
+          <section id="contact" class="contact-card">
+            <h3>Still Need Help?</h3>
+            <p>
+              Our support team is ready to assist you with any questions or
+              issues.
+            </p>
+            <div class="contact-grid">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <div class="contact-info">
+                  <h4>Email</h4>
+                  <p>
+                    <a href="mailto:brainstack212@gmail.com"
+                      >brainstack212@gmail.com</a
+                    >
+                  </p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-comment"></i>
+                <div class="contact-info">
+                  <h4>Feedback</h4>
+                  <p><a href="feedback.html">Send Feedback</a></p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-clock"></i>
+                <div class="contact-info">
+                  <h4>Response Time</h4>
+                  <p>Within 24 hours</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-globe"></i>
+                <div class="contact-info">
+                  <h4>Website</h4>
+                  <p>
+                    <a
+                      href="https://brainstackstudios.infinityfreeapp.com"
+                      target="_blank"
+                      >Brain Stack Studios</a
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div style="text-align: center">
+              <a href="feedback.html" class="send-message-btn"
+                >Send a Message</a
+              >
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          const user = JSON.parse(currentUser);
+          loadUserAvatar();
+          return user;
+        } catch (error) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      document.querySelectorAll(".faq-question").forEach((question) => {
+        question.addEventListener("click", () => {
+          question.classList.toggle("active");
+          const answer = question.nextElementSibling;
+          answer.classList.toggle("show");
+          const icon = question.querySelector("i");
+          if (icon.classList.contains("fa-chevron-down")) {
+            icon.classList.remove("fa-chevron-down");
+            icon.classList.add("fa-chevron-up");
+          } else {
+            icon.classList.remove("fa-chevron-up");
+            icon.classList.add("fa-chevron-down");
+          }
+        });
+      });
+
+      window.searchHelp = function () {
+        const searchTerm = document
+          .getElementById("searchInput")
+          .value.toLowerCase()
+          .trim();
+        document
+          .querySelectorAll(".help-section, .faq-section")
+          .forEach((section) => {
+            section.style.display = "block";
+          });
+        if (!searchTerm) return;
+
+        let resultsFound = false;
+        document
+          .querySelectorAll(".help-section, .faq-section")
+          .forEach((section) => {
+            const sectionText = section.textContent.toLowerCase();
+            if (!sectionText.includes(searchTerm)) {
+              section.style.display = "none";
+            } else {
+              resultsFound = true;
+              if (section.id === "faq") {
+                section.querySelectorAll(".faq-item").forEach((item) => {
+                  if (!item.textContent.toLowerCase().includes(searchTerm)) {
+                    item.style.display = "none";
+                  } else {
+                    item.style.display = "block";
+                  }
+                });
+              }
+            }
+          });
+
+        const existingMessage = document.querySelector(".no-results");
+        if (!resultsFound) {
+          if (!existingMessage) {
+            const message = document.createElement("div");
+            message.className = "no-results";
+            message.innerHTML = "No results found. Try different keywords.";
+            document.querySelector(".help-card").appendChild(message);
+          }
+        } else if (existingMessage) {
+          existingMessage.remove();
+        }
+      };
+
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+          if (this.value === "") searchHelp();
+        });
+
+      document.querySelectorAll(".quick-link").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          const href = this.getAttribute("href");
+          if (href && href.startsWith("#")) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement)
+              targetElement.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = checkAuth();
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

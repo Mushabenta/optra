@@ -1,0 +1,1563 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Sales History · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .page-header h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        white-space: nowrap;
+      }
+
+      @media (max-width: 480px) {
+        .page-header h2 {
+          font-size: 18px;
+        }
+      }
+
+      .history-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .history-card {
+          padding: 16px 12px;
+        }
+      }
+
+      .controls-bar {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 16px;
+        background: var(--dark-blue-bg);
+        padding: 12px 14px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--card-border);
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+      }
+
+      .filter-btn {
+        padding: 6px 14px;
+        background: white;
+        border: 2px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        color: #000000;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: var(--transition-smooth);
+        white-space: nowrap;
+      }
+
+      .filter-btn i {
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .filter-btn:hover {
+        border-color: var(--dark-blue);
+        transform: translateY(-1px);
+      }
+
+      .filter-btn.active {
+        background: var(--dark-blue);
+        color: white;
+        border-color: var(--dark-blue);
+      }
+
+      .filter-btn.active i {
+        color: white;
+      }
+
+      .input-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .date-input {
+        flex: 1;
+        min-width: 100px;
+        padding: 8px 10px;
+        font-size: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        background: white;
+        color: #000000;
+      }
+
+      .date-input:focus {
+        outline: none;
+        border-color: var(--dark-blue);
+      }
+
+      .search-wrapper {
+        position: relative;
+        flex: 1;
+        min-width: 120px;
+      }
+
+      .search-wrapper i {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        font-size: 12px;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 8px 10px 8px 32px;
+        font-size: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        background: white;
+        color: #000000;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--dark-blue);
+      }
+
+      .search-input::placeholder {
+        color: #9ca3af;
+      }
+
+      .action-icons {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .action-btn {
+        padding: 6px 14px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        white-space: nowrap;
+        color: white;
+      }
+
+      .action-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .action-btn.search-btn {
+        background: var(--dark-blue);
+      }
+
+      .action-btn.search-btn:hover {
+        background: var(--dark-blue-light);
+      }
+
+      .action-btn.excel {
+        background: #2e7d32;
+      }
+
+      .action-btn.excel:hover {
+        background: #1b5e20;
+      }
+
+      .action-btn.pdf {
+        background: #d32f2f;
+      }
+
+      .action-btn.pdf:hover {
+        background: #b71c1c;
+      }
+
+      @media (max-width: 768px) {
+        .controls-bar {
+          padding: 10px;
+        }
+        .filter-btn {
+          font-size: 10px;
+          padding: 5px 10px;
+        }
+        .action-btn {
+          font-size: 10px;
+          padding: 5px 10px;
+        }
+        .input-row {
+          flex-direction: column;
+          width: 100%;
+        }
+        .date-input,
+        .search-wrapper {
+          width: 100%;
+          min-width: auto;
+        }
+        .action-icons {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .filter-row {
+          justify-content: center;
+        }
+        .filter-btn {
+          font-size: 9px;
+          padding: 4px 8px;
+        }
+        .filter-btn i {
+          font-size: 9px;
+        }
+        .action-btn {
+          font-size: 9px;
+          padding: 4px 8px;
+        }
+        .controls-bar {
+          padding: 8px;
+        }
+      }
+
+      .table-container {
+        overflow-x: auto;
+        border-radius: var(--radius-sm);
+        background: white;
+        border: 1px solid var(--card-border);
+      }
+
+      .desktop-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 1000px;
+      }
+
+      .desktop-table th {
+        background: var(--dark-blue);
+        color: white;
+        padding: 10px 6px;
+        font-size: 11px;
+        font-weight: 600;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .desktop-table td {
+        padding: 8px 6px;
+        border-bottom: 1px solid var(--card-border);
+        color: #000000;
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .desktop-table tr:hover {
+        background: var(--dark-blue-bg);
+      }
+
+      .balance-positive {
+        color: var(--error);
+        font-weight: 700;
+      }
+      .balance-zero {
+        color: var(--success);
+        font-weight: 700;
+      }
+
+      .payment-btn {
+        background: none;
+        border: none;
+        color: var(--dark-blue);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px;
+        transition: var(--transition-smooth);
+      }
+
+      .payment-btn:hover {
+        color: var(--error);
+        transform: scale(1.1);
+      }
+
+      .mobile-cards {
+        display: none;
+        padding: 10px;
+      }
+
+      .sale-card {
+        background: white;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-md);
+        padding: 14px;
+        margin-bottom: 10px;
+      }
+
+      .sale-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--dark-blue);
+      }
+
+      .sale-card-customer {
+        font-size: 14px;
+        font-weight: 700;
+        color: #000000;
+      }
+
+      .sale-card-receipt {
+        background: var(--dark-blue-bg);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--dark-blue);
+      }
+
+      .sale-card-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .sale-card-row:last-of-type {
+        border-bottom: none;
+      }
+
+      .sale-card-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+      }
+
+      .sale-card-value {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000000;
+        text-align: right;
+      }
+
+      .sale-card-value.balance-positive {
+        color: var(--error);
+      }
+      .sale-card-value.balance-zero {
+        color: var(--success);
+      }
+
+      .sale-card-items-section {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px dashed var(--card-border);
+      }
+
+      .sale-items-title {
+        font-size: 10px;
+        font-weight: 600;
+        color: #6b7280;
+        margin-bottom: 6px;
+      }
+
+      .sale-item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 8px;
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-sm);
+        margin-bottom: 4px;
+      }
+
+      .sale-item-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: #000000;
+      }
+
+      .sale-item-details {
+        font-size: 9px;
+        color: #6b7280;
+      }
+
+      .sale-item-total {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--error);
+      }
+
+      .sale-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .balance-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: #6b7280;
+      }
+
+      .balance-value {
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .balance-value.positive {
+        color: var(--error);
+      }
+      .balance-value.zero {
+        color: var(--success);
+      }
+
+      .sale-action {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--dark-blue);
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+      }
+
+      .sale-action:hover {
+        background: var(--dark-blue-light);
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        .desktop-table {
+          display: none;
+        }
+        .mobile-cards {
+          display: block;
+        }
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 30px 20px;
+        color: #6b7280;
+      }
+      .no-results i {
+        font-size: 36px;
+        color: #9ca3af;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .no-results p {
+        color: #000000;
+      }
+
+      .chart-section {
+        background: white;
+        border-radius: var(--radius-sm);
+        padding: 16px;
+        margin-top: 16px;
+        border: 1px solid var(--card-border);
+      }
+
+      .chart-section h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--dark-blue);
+        margin-bottom: 12px;
+      }
+
+      canvas {
+        width: 100% !important;
+        max-height: 200px;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal-overlay.active {
+        display: flex;
+      }
+      .modal {
+        background: white;
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        max-width: 380px;
+        width: 90%;
+        text-align: center;
+      }
+      .modal-header h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000000;
+        margin-top: 6px;
+      }
+      .modal-header i {
+        font-size: 40px;
+        color: var(--dark-blue);
+      }
+      .modal-info {
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-sm);
+        padding: 12px;
+        margin: 12px 0;
+      }
+      .modal-info p {
+        color: #000000;
+        font-weight: 500;
+      }
+      .modal-input {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 15px;
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-sm);
+        margin-bottom: 12px;
+        color: #000000;
+      }
+      .modal-input:focus {
+        outline: none;
+        border-color: var(--dark-blue);
+      }
+      .modal-buttons {
+        display: flex;
+        gap: 10px;
+      }
+      .modal-btn {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+      }
+      .modal-btn:hover {
+        transform: translateY(-2px);
+      }
+      .submit-btn {
+        background: var(--dark-blue);
+        color: white;
+      }
+      .submit-btn:hover {
+        background: var(--dark-blue-light);
+      }
+      .cancel-btn {
+        background: #f3f4f6;
+        color: #000000;
+      }
+      .cancel-btn:hover {
+        background: #e5e7eb;
+      }
+
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Sales History</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="page-header" style="display: none">
+          <h2>Sales History</h2>
+        </div>
+
+        <div class="history-card">
+          <div class="controls-bar">
+            <div class="filter-row">
+              <button class="filter-btn active" id="dailyFilter">
+                <i class="fas fa-calendar-day"></i> Daily
+              </button>
+              <button class="filter-btn" id="rangeFilter">
+                <i class="fas fa-calendar-alt"></i> Range
+              </button>
+              <button class="filter-btn" id="nameFilter">
+                <i class="fas fa-user"></i> Name
+              </button>
+              <button class="filter-btn" id="debtorFilter">
+                <i class="fas fa-user-times"></i> Debtors
+              </button>
+            </div>
+
+            <div class="input-row" id="filterInputs">
+              <input type="date" id="singleDate" class="date-input" />
+              <input type="date" id="startDate" class="date-input" />
+              <input type="date" id="endDate" class="date-input" />
+              <div class="search-wrapper">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="customerName"
+                  class="search-input"
+                  placeholder="Search by customer name..."
+                />
+              </div>
+            </div>
+
+            <div class="action-icons">
+              <button class="action-btn search-btn" id="searchBtn">
+                <i class="fas fa-search"></i> Filter
+              </button>
+              <button class="action-btn excel" id="excelBtn">
+                <i class="fas fa-file-excel"></i> Excel
+              </button>
+              <button class="action-btn pdf" id="pdfBtn">
+                <i class="fas fa-file-pdf"></i> PDF
+              </button>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="desktop-table" id="salesTable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Date</th>
+                  <th>Payment</th>
+                  <th>Receipt</th>
+                  <th>Customer</th>
+                  <th>Item</th>
+                  <th>Qty</th>
+                  <th>Unit Price</th>
+                  <th>Total</th>
+                  <th>Paid</th>
+                  <th>Balance</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="salesTableBody">
+                <tr>
+                  <td colspan="12" class="no-results">
+                    <i class="fas fa-chart-line"></i>
+                    <p>No sales records found.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="mobile-cards" id="mobileCards"></div>
+          </div>
+
+          <div class="chart-section">
+            <h3>Sales Overview</h3>
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="paymentModal">
+      <div class="modal">
+        <div class="modal-header">
+          <i class="fas fa-money-bill-wave"></i>
+          <h2>Record Payment</h2>
+        </div>
+        <div class="modal-info">
+          <p id="modalCustomer" style="font-weight: 700"></p>
+          <p>Balance: <strong id="modalBalance">0 UGX</strong></p>
+        </div>
+        <input
+          type="number"
+          id="paymentAmount"
+          class="modal-input"
+          placeholder="Enter payment amount"
+          min="0"
+          step="1000"
+        />
+        <div class="modal-buttons">
+          <button class="modal-btn submit-btn" id="modalSubmitBtn">
+            Submit
+          </button>
+          <button class="modal-btn cancel-btn" id="modalCancelBtn">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="inventory.html" class="nav-item"
+          ><i class="fas fa-warehouse"></i><span>Inventory</span></a
+        >
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      // ===== SALES DATA =====
+      let salesData = [],
+        filteredSales = [],
+        currentUser = null,
+        chartInstance = null;
+      const today = new Date().toISOString().split("T")[0];
+
+      function formatMoney(amt) {
+        return isNaN(amt) ? "0" : Number(amt).toLocaleString();
+      }
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        const [y, m, d] = dateStr.split("-");
+        return `${d}/${m}/${y}`;
+      }
+
+      async function loadSales() {
+        try {
+          const all = await Optra.get("sales");
+          salesData = currentUser?.businessId
+            ? all.filter((s) => s.businessId === currentUser.businessId)
+            : all;
+          salesData.sort((a, b) => new Date(b.date) - new Date(a.date));
+          filteredSales = [...salesData];
+          renderTable();
+          renderChart();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      function renderTable() {
+        const tbody = document.getElementById("salesTableBody");
+        const mobileContainer = document.getElementById("mobileCards");
+        if (!filteredSales.length) {
+          tbody.innerHTML = `<tr><td colspan="12" class="no-results"><i class="fas fa-chart-line"></i><p>No sales records found.</p></td></tr>`;
+          mobileContainer.innerHTML = `<div class="no-results"><i class="fas fa-chart-line"></i><p>No sales records found.</p></div>`;
+          return;
+        }
+        tbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+        filteredSales.forEach((sale, idx) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+          <td>${idx + 1}</td>
+          <td>${formatDate(sale.date)}</td>
+          <td>${sale.paymentMethod || "Cash"}</td>
+          <td>${sale.receiptNumber || sale.id?.slice(-6) || "N/A"}</td>
+          <td>${sale.customerName || "N/A"}</td>
+          <td>${sale.item || sale.items?.[0]?.name || "N/A"}</td>
+          <td>${sale.quantity || sale.items?.[0]?.qty || 0}</td>
+          <td>${formatMoney(sale.unitPrice || sale.items?.[0]?.price || 0)}</td>
+          <td>${formatMoney(sale.total)}</td>
+          <td>${formatMoney(sale.amountPaid || 0)}</td>
+          <td class="${sale.balance > 0 ? "balance-positive" : "balance-zero"}">${formatMoney(sale.balance)}</td>
+          <td><button class="payment-btn" onclick="openPaymentModal(${idx})"><i class="fas fa-money-bill-wave"></i></button></td>
+        `;
+          tbody.appendChild(row);
+
+          let itemsHtml = "";
+          if (sale.items) {
+            sale.items.forEach((item) => {
+              itemsHtml += `<div class="sale-item-row"><div><div class="sale-item-name">${item.name || "N/A"}</div><div class="sale-item-details">Qty: ${item.qty || 0} × ${formatMoney(item.price)}</div></div><div class="sale-item-total">${formatMoney(item.total)}</div></div>`;
+            });
+          } else {
+            itemsHtml = `<div class="sale-item-row"><div><div class="sale-item-name">${sale.item || "N/A"}</div><div class="sale-item-details">Qty: ${sale.quantity || 0} × ${formatMoney(sale.unitPrice || 0)}</div></div><div class="sale-item-total">${formatMoney(sale.total)}</div></div>`;
+          }
+
+          const card = document.createElement("div");
+          card.className = "sale-card";
+          card.innerHTML = `
+          <div class="sale-card-header">
+            <span class="sale-card-customer">${sale.customerName || "N/A"}</span>
+            <span class="sale-card-receipt">#${sale.receiptNumber || sale.id?.slice(-6) || "N/A"}</span>
+          </div>
+          <div class="sale-card-row"><span class="sale-card-label">Date</span><span class="sale-card-value">${formatDate(sale.date)}</span></div>
+          <div class="sale-card-row"><span class="sale-card-label">Payment</span><span class="sale-card-value">${sale.paymentMethod || "Cash"}</span></div>
+          <div class="sale-card-row"><span class="sale-card-label">Total</span><span class="sale-card-value">${formatMoney(sale.total)}</span></div>
+          <div class="sale-card-row"><span class="sale-card-label">Paid</span><span class="sale-card-value">${formatMoney(sale.amountPaid || 0)}</span></div>
+          <div class="sale-card-items-section">
+            <div class="sale-items-title">Items:</div>
+            ${itemsHtml}
+          </div>
+          <div class="sale-card-footer">
+            <div>
+              <div class="balance-label">Balance</div>
+              <div class="balance-value ${sale.balance > 0 ? "positive" : "zero"}">${formatMoney(sale.balance)}</div>
+            </div>
+            <button class="sale-action" onclick="openPaymentModal(${idx})"><i class="fas fa-money-bill-wave"></i></button>
+          </div>
+        `;
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      function renderChart() {
+        const ctx = document.getElementById("salesChart").getContext("2d");
+        if (chartInstance) chartInstance.destroy();
+        if (!filteredSales.length) return;
+        const byDate = {};
+        filteredSales.forEach((s) => {
+          byDate[s.date] = (byDate[s.date] || 0) + s.total;
+        });
+        const labels = Object.keys(byDate).sort();
+        chartInstance = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: labels.map((d) => formatDate(d)),
+            datasets: [
+              {
+                label: "Total Sales (UGX)",
+                data: labels.map((d) => byDate[d]),
+                backgroundColor: "rgba(26,54,93,0.6)",
+                borderColor: "#1a365d",
+                borderWidth: 2,
+                borderRadius: 5,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+              legend: { labels: { font: { size: 10 }, color: "#000000" } },
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: (v) => v.toLocaleString(),
+                  color: "#000000",
+                },
+              },
+              x: { ticks: { color: "#000000" } },
+            },
+          },
+        });
+      }
+
+      const dailyFilter = document.getElementById("dailyFilter");
+      const rangeFilter = document.getElementById("rangeFilter");
+      const nameFilter = document.getElementById("nameFilter");
+      const debtorFilter = document.getElementById("debtorFilter");
+      const singleDate = document.getElementById("singleDate");
+      const startDate = document.getElementById("startDate");
+      const endDate = document.getElementById("endDate");
+      const customerName = document.getElementById("customerName");
+      const searchBtn = document.getElementById("searchBtn");
+
+      singleDate.value = today;
+      startDate.value = today;
+      endDate.value = today;
+      singleDate.style.display = "inline-block";
+      startDate.style.display = "none";
+      endDate.style.display = "none";
+      customerName.parentElement.style.display = "none";
+
+      dailyFilter.addEventListener("click", () => {
+        dailyFilter.classList.add("active");
+        rangeFilter.classList.remove("active");
+        nameFilter.classList.remove("active");
+        debtorFilter.classList.remove("active");
+        singleDate.style.display = "inline-block";
+        startDate.style.display = "none";
+        endDate.style.display = "none";
+        customerName.parentElement.style.display = "none";
+      });
+      rangeFilter.addEventListener("click", () => {
+        rangeFilter.classList.add("active");
+        dailyFilter.classList.remove("active");
+        nameFilter.classList.remove("active");
+        debtorFilter.classList.remove("active");
+        singleDate.style.display = "none";
+        startDate.style.display = "inline-block";
+        endDate.style.display = "inline-block";
+        customerName.parentElement.style.display = "none";
+      });
+      nameFilter.addEventListener("click", () => {
+        nameFilter.classList.add("active");
+        dailyFilter.classList.remove("active");
+        rangeFilter.classList.remove("active");
+        debtorFilter.classList.remove("active");
+        singleDate.style.display = "none";
+        startDate.style.display = "none";
+        endDate.style.display = "none";
+        customerName.parentElement.style.display = "block";
+      });
+      debtorFilter.addEventListener("click", () => {
+        debtorFilter.classList.add("active");
+        dailyFilter.classList.remove("active");
+        rangeFilter.classList.remove("active");
+        nameFilter.classList.remove("active");
+        filteredSales = salesData.filter((s) => s.balance > 0);
+        renderTable();
+        renderChart();
+      });
+
+      searchBtn.addEventListener("click", () => {
+        if (dailyFilter.classList.contains("active") && singleDate.value) {
+          filteredSales = salesData.filter((s) => s.date === singleDate.value);
+        } else if (
+          rangeFilter.classList.contains("active") &&
+          startDate.value &&
+          endDate.value
+        ) {
+          filteredSales = salesData.filter(
+            (s) => s.date >= startDate.value && s.date <= endDate.value,
+          );
+        } else if (
+          nameFilter.classList.contains("active") &&
+          customerName.value.trim()
+        ) {
+          const term = customerName.value.trim().toLowerCase();
+          filteredSales = salesData.filter((s) =>
+            s.customerName?.toLowerCase().includes(term),
+          );
+        } else {
+          filteredSales = [...salesData];
+        }
+        renderTable();
+        renderChart();
+      });
+
+      customerName.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") searchBtn.click();
+      });
+
+      const modal = document.getElementById("paymentModal");
+      const modalCustomer = document.getElementById("modalCustomer");
+      const modalBalance = document.getElementById("modalBalance");
+      const paymentAmount = document.getElementById("paymentAmount");
+      let currentSaleIndex = -1;
+
+      window.openPaymentModal = function (idx) {
+        currentSaleIndex = idx;
+        const sale = filteredSales[idx];
+        modalCustomer.textContent = sale.customerName || "N/A";
+        modalBalance.textContent = formatMoney(sale.balance) + " UGX";
+        paymentAmount.value = "";
+        modal.classList.add("active");
+      };
+
+      function closeModal() {
+        modal.classList.remove("active");
+        currentSaleIndex = -1;
+      }
+      document
+        .getElementById("modalCancelBtn")
+        .addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document
+        .getElementById("modalSubmitBtn")
+        .addEventListener("click", async () => {
+          if (currentSaleIndex === -1) return;
+          const sale = filteredSales[currentSaleIndex];
+          const amount = parseFloat(paymentAmount.value);
+          if (isNaN(amount) || amount <= 0) {
+            alert("Enter a valid amount");
+            return;
+          }
+          if (amount > sale.balance) {
+            alert(`Amount cannot exceed ${formatMoney(sale.balance)} UGX`);
+            return;
+          }
+          sale.amountPaid = (sale.amountPaid || 0) + amount;
+          sale.balance = sale.total - sale.amountPaid;
+          const all = await Optra.get("sales");
+          const idx = all.findIndex((s) => s.id === sale.id);
+          if (idx !== -1) {
+            all[idx] = sale;
+            await Optra.set("sales", all);
+          }
+          await loadSales();
+          closeModal();
+          alert(`✅ Payment of ${formatMoney(amount)} UGX recorded!`);
+        });
+
+      document.getElementById("excelBtn").addEventListener("click", async () => {
+        if (!filteredSales.length) {
+          alert("No data to export");
+          return;
+        }
+        const biz = await Optra.get("business_info");
+        const wsData = [
+          ["Business Name:", biz.name],
+          ["Contact:", biz.contact],
+          ["Email:", biz.email],
+          ["Location:", biz.location],
+          [],
+          [
+            "Receipt",
+            "Date",
+            "Customer",
+            "Item",
+            "Qty",
+            "Unit Price",
+            "Total",
+            "Paid",
+            "Balance",
+            "Method",
+          ],
+        ];
+        filteredSales.forEach((s) => {
+          wsData.push([
+            s.receiptNumber || s.id?.slice(-6) || "",
+            s.date || "",
+            s.customerName || "",
+            s.item || s.items?.[0]?.name || "",
+            s.quantity || s.items?.[0]?.qty || 0,
+            s.unitPrice || s.items?.[0]?.price || 0,
+            s.total || 0,
+            s.amountPaid || 0,
+            s.balance || 0,
+            s.paymentMethod || "Cash",
+          ]);
+        });
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, "Sales History");
+        XLSX.writeFile(
+          wb,
+          `Sales_History_${new Date().toISOString().split("T")[0]}.xlsx`,
+        );
+      });
+
+      document.getElementById("pdfBtn").addEventListener("click", async () => {
+        if (!filteredSales.length) {
+          alert("No data to export");
+          return;
+        }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: "landscape" });
+        const biz = await Optra.get("business_info");
+
+        // Business Name
+        doc.setFontSize(16);
+        doc.setTextColor("#1a365d");
+        doc.text(biz.name || "Optra Business", 14, 15);
+
+        // Contact - separate row
+        doc.setFontSize(9);
+        doc.setTextColor("#4b5563");
+        doc.text("Contact: " + (biz.contact || ""), 14, 23);
+
+        // Email - separate row
+        doc.text("Email: " + (biz.email || ""), 14, 30);
+
+        // Location - separate row
+        doc.text("Location: " + (biz.location || ""), 14, 37);
+
+        // Generated date
+        doc.text("Generated: " + new Date().toLocaleDateString(), 14, 44);
+
+        // Report Title
+        doc.setFontSize(14);
+        doc.setTextColor("#1a365d");
+        doc.text(
+          "Sales History Report",
+          doc.internal.pageSize.getWidth() / 2,
+          54,
+          { align: "center" },
+        );
+
+        const rows = filteredSales.map((s, i) => [
+          i + 1,
+          formatDate(s.date),
+          s.paymentMethod || "Cash",
+          s.receiptNumber || s.id?.slice(-6) || "",
+          s.customerName || "",
+          s.item || s.items?.[0]?.name || "",
+          s.quantity || s.items?.[0]?.qty || 0,
+          formatMoney(s.unitPrice || s.items?.[0]?.price || 0),
+          formatMoney(s.total),
+          formatMoney(s.amountPaid || 0),
+          formatMoney(s.balance),
+        ]);
+
+        doc.autoTable({
+          startY: 60,
+          head: [
+            [
+              "No",
+              "Date",
+              "Method",
+              "Receipt",
+              "Customer",
+              "Item",
+              "Qty",
+              "Unit Price",
+              "Total",
+              "Paid",
+              "Balance",
+            ],
+          ],
+          body: rows,
+          styles: { fontSize: 7, cellPadding: 2 },
+          headStyles: { fillColor: [26, 54, 93] },
+        });
+
+        var finalY = doc.lastAutoTable.finalY + 8;
+        doc.setFontSize(8);
+        doc.setTextColor("#9ca3af");
+        doc.text("Generated by Optra Business Management System", 14, finalY);
+
+        doc.save(`Sales_History_${new Date().toISOString().split("T")[0]}.pdf`);
+      });
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        currentUser = checkAuth();
+        if (currentUser) {
+          loadUserAvatar();
+          await loadSales();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

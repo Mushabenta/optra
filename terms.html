@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Terms and Conditions · Optra</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --dark-blue: #1a365d;
+        --dark-blue-light: #2a4a7f;
+        --dark-blue-bg: #ebf0f7;
+        --card-bg: #ffffff;
+        --card-border: #e5e7eb;
+        --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --text-dark: #000000;
+        --text-gray: #6b7280;
+        --success: #10b981;
+        --error: #ef4444;
+        --transition-smooth: all 0.2s ease;
+        --radius-xl: 28px;
+        --radius-lg: 16px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          "Poppins",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== HEADER ===== */
+      .main-header {
+        background: #ffffff;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--card-border);
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        flex-shrink: 0;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .hamburger-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 26px;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px 6px;
+        background: transparent;
+        border: none;
+      }
+      .hamburger-link:hover {
+        color: var(--dark-blue);
+        transform: scale(1.05);
+      }
+
+      .header-center {
+        flex: 1;
+        text-align: center;
+        padding: 0 8px;
+      }
+
+      .page-title {
+        font-size: 20px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: -0.3px;
+        white-space: nowrap;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex: 0 0 auto;
+      }
+
+      .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 22px;
+        color: #9ca3af;
+        transition: var(--transition-smooth);
+        text-decoration: none;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .icon-btn:hover {
+        color: var(--dark-blue);
+        transform: scale(1.1);
+      }
+
+      .avatar-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        overflow: hidden;
+        border: 2px solid var(--card-border);
+        transition: var(--transition-smooth);
+        background: var(--card-bg);
+        flex-shrink: 0;
+        position: relative;
+      }
+      .avatar-btn:hover {
+        transform: scale(1.04);
+        border-color: var(--dark-blue);
+      }
+      .avatar-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--card-bg);
+        color: #000000;
+        font-weight: 400 !important;
+        font-size: 18px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 600px) {
+        .main-header {
+          padding: 6px 12px;
+        }
+        .hamburger-link {
+          font-size: 22px;
+          padding: 4px;
+        }
+        .page-title {
+          font-size: 17px;
+        }
+        .avatar-btn {
+          width: 42px;
+          height: 42px;
+        }
+        .avatar-initials {
+          font-size: 16px;
+        }
+        .icon-btn {
+          font-size: 19px;
+        }
+      }
+      @media (max-width: 400px) {
+        .hamburger-link {
+          font-size: 18px;
+          padding: 2px;
+        }
+        .page-title {
+          font-size: 15px;
+        }
+        .avatar-btn {
+          width: 38px;
+          height: 38px;
+        }
+        .avatar-initials {
+          font-size: 14px;
+        }
+        .icon-btn {
+          font-size: 17px;
+        }
+        .main-header {
+          padding: 4px 8px;
+        }
+      }
+
+      /* ===== SCROLLABLE CONTENT ===== */
+      .scrollable-content {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: 60px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 16px auto 20px;
+        padding: 0 15px;
+        width: 100%;
+      }
+
+      /* ===== TERMS CARD ===== */
+      .terms-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius-xl);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+      }
+
+      @media (max-width: 480px) {
+        .terms-card {
+          padding: 16px 12px;
+        }
+      }
+
+      .terms-header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .terms-header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 8px;
+      }
+
+      .terms-header .subtitle {
+        color: #000000;
+        font-size: 14px;
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+      }
+
+      .effective-date {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 4px 16px;
+        background: var(--dark-blue-bg);
+        color: #000000;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid var(--card-border);
+      }
+
+      @media (max-width: 480px) {
+        .terms-header h1 {
+          font-size: 22px;
+        }
+        .terms-header .subtitle {
+          font-size: 12px;
+        }
+      }
+
+      /* Table of Contents */
+      .toc {
+        background: var(--dark-blue-bg);
+        border-radius: var(--radius-md);
+        padding: 16px;
+        margin-bottom: 24px;
+        border: 1px solid var(--card-border);
+      }
+
+      .toc h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 10px;
+      }
+
+      .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 8px;
+      }
+
+      .toc-item {
+        color: #000000;
+        text-decoration: none;
+        font-size: 11px;
+        padding: 6px 10px;
+        background: white;
+        border-radius: var(--radius-sm);
+        transition: var(--transition-smooth);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--card-border);
+      }
+
+      .toc-item:hover {
+        background: var(--dark-blue);
+        color: #ffffff;
+        transform: translateX(4px);
+        border-color: var(--dark-blue);
+      }
+
+      .toc-item i {
+        font-size: 9px;
+        color: #000000;
+      }
+
+      .toc-item:hover i {
+        color: #ffffff;
+      }
+
+      @media (max-width: 480px) {
+        .toc-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .toc-item {
+          font-size: 10px;
+          padding: 4px 8px;
+        }
+      }
+
+      /* Terms Sections */
+      .terms-section {
+        margin-bottom: 28px;
+        scroll-margin-top: 80px;
+      }
+
+      .terms-section h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #000000;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 2px solid var(--dark-blue-bg);
+      }
+
+      .terms-section h3 {
+        font-size: 15px;
+        font-weight: 600;
+        color: #000000;
+        margin: 12px 0 6px;
+      }
+
+      .terms-section p {
+        color: #000000;
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 10px;
+      }
+
+      .terms-list {
+        list-style: none;
+        padding: 0;
+        margin: 8px 0;
+      }
+
+      .terms-list li {
+        color: #000000;
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 6px;
+        padding-left: 18px;
+        position: relative;
+      }
+
+      .terms-list li::before {
+        content: "•";
+        color: #000000;
+        position: absolute;
+        left: 0;
+        font-weight: 700;
+      }
+
+      .terms-list li strong {
+        color: #000000;
+        font-weight: 600;
+      }
+
+      .info-box,
+      .warning-box {
+        background: var(--dark-blue-bg);
+        border-left: 4px solid var(--dark-blue);
+        border-radius: var(--radius-sm);
+        padding: 12px 14px;
+        margin: 12px 0;
+      }
+
+      .warning-box {
+        border-left-color: var(--error);
+      }
+
+      .info-box p,
+      .warning-box p {
+        margin-bottom: 0;
+        font-size: 12px;
+        color: #000000;
+      }
+
+      .info-box strong {
+        color: #000000;
+      }
+
+      .terms-section a {
+        color: #000000;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .terms-section a:hover {
+        text-decoration: underline;
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 480px) {
+        .terms-section h2 {
+          font-size: 17px;
+        }
+        .terms-section p,
+        .terms-list li {
+          font-size: 12px;
+        }
+      }
+
+      /* ===== BACK TO TOP ===== */
+      .back-to-top {
+        position: fixed;
+        bottom: 75px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        background: var(--dark-blue);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+        transition: var(--transition-smooth);
+        opacity: 0;
+        visibility: hidden;
+        border: 2px solid white;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 100;
+      }
+
+      .back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .back-to-top:hover {
+        background: var(--dark-blue-light);
+        transform: translateY(-4px);
+      }
+
+      @media (max-width: 480px) {
+        .back-to-top {
+          bottom: 65px;
+          width: 36px;
+          height: 36px;
+          font-size: 14px;
+        }
+      }
+
+      /* ===== FOOTER ===== */
+      .main-footer {
+        background: #ffffff;
+        border-top: 1px solid var(--card-border);
+        padding: 8px 0 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 100;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.02);
+        flex-shrink: 0;
+      }
+
+      .nav-icons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 12px;
+        gap: 4px;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #000000;
+        padding: 4px 10px;
+        transition: var(--transition-smooth);
+        font-size: 13px;
+        cursor: pointer;
+        position: relative;
+        min-width: 56px;
+        background: none;
+        border: none;
+        font-weight: 400 !important;
+        border-radius: 12px;
+      }
+
+      .nav-item i {
+        font-size: 28px;
+        margin-bottom: 3px;
+        color: #000000;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item span {
+        font-size: 15px;
+        font-weight: 400 !important;
+        color: #000000;
+        letter-spacing: 0.2px;
+        transition: var(--transition-smooth);
+      }
+
+      .nav-item:hover {
+        color: var(--dark-blue);
+        transform: translateY(-3px);
+        background: var(--dark-blue-bg);
+      }
+
+      .nav-item:hover i {
+        color: var(--dark-blue);
+        transform: scale(1.15);
+      }
+
+      .nav-item:hover span {
+        color: var(--dark-blue);
+      }
+
+      @media (max-width: 600px) {
+        .nav-item {
+          min-width: 44px;
+          padding: 4px 6px;
+        }
+        .nav-item i {
+          font-size: 24px;
+        }
+        .nav-item span {
+          font-size: 13px;
+        }
+        .nav-icons {
+          gap: 2px;
+          padding: 0 6px;
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 400px) {
+        .nav-item {
+          min-width: 38px;
+          padding: 4px 4px;
+        }
+        .nav-item i {
+          font-size: 22px;
+        }
+        .nav-item span {
+          font-size: 12px;
+        }
+      }
+
+      @media print {
+        .main-header,
+        .main-footer,
+        .back-to-top {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+      <div class="header-left">
+        <a href="menu.html" class="hamburger-link" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </a>
+      </div>
+      <div class="header-center">
+        <span class="page-title">Terms & Conditions</span>
+      </div>
+      <div class="header-right">
+        <button
+          class="icon-btn"
+          title="Notifications"
+          onclick="alert('Notifications coming soon!')"
+        >
+          <i class="fas fa-bell"></i>
+        </button>
+        <a
+          href="profile.html"
+          class="avatar-btn"
+          title="Profile"
+          id="avatarBtn"
+        >
+          <img id="profileAvatar" src="default-avatar.png" alt="Profile" />
+          <span class="avatar-initials" id="avatarInitials">U</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ===== SCROLLABLE CONTENT ===== -->
+    <div class="scrollable-content">
+      <div class="container">
+        <div class="terms-card">
+          <div class="terms-header">
+            <h1>Terms and Conditions</h1>
+            <p class="subtitle">
+              Please read these terms carefully before using Optra. By accessing
+              or using our application, you agree to be bound by these terms.
+            </p>
+            <div class="effective-date">Effective Date: June 1, 2026</div>
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <div class="toc-grid">
+              <a href="#acceptance" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 1. Acceptance</a
+              >
+              <a href="#definitions" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 2. Definitions</a
+              >
+              <a href="#account-registration" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 3. Registration</a
+              >
+              <a href="#user-responsibilities" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 4. Responsibilities</a
+              >
+              <a href="#data-usage" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 5. Data & Privacy</a
+              >
+              <a href="#intellectual-property" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 6. Intellectual
+                Property</a
+              >
+              <a href="#prohibited-conduct" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 7. Prohibited Conduct</a
+              >
+              <a href="#account-termination" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 8. Termination</a
+              >
+              <a href="#disclaimer" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 9. Disclaimer</a
+              >
+              <a href="#limitation" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 10. Limitation</a
+              >
+              <a href="#indemnification" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 11. Indemnification</a
+              >
+              <a href="#governing-law" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 12. Governing Law</a
+              >
+              <a href="#dispute-resolution" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 13. Dispute Resolution</a
+              >
+              <a href="#user-content" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 14. User Content</a
+              >
+              <a href="#updates" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 15. Updates</a
+              >
+              <a href="#third-party" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 16. Third-Party</a
+              >
+              <a href="#severability" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 17. Severability</a
+              >
+              <a href="#entire-agreement" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 18. Entire Agreement</a
+              >
+              <a href="#contact" class="toc-item"
+                ><i class="fas fa-chevron-right"></i> 19. Contact</a
+              >
+            </div>
+          </div>
+
+          <!-- Section 1 -->
+          <section id="acceptance" class="terms-section">
+            <h2>1. Acceptance of Terms</h2>
+            <p>
+              Welcome to Optra. By accessing or using our business management
+              application, you agree to be bound by these Terms and Conditions
+              ("Terms"). If you do not agree to these Terms, please do not use
+              Optra.
+            </p>
+            <p>
+              We may modify these Terms at any time. Changes will be effective
+              immediately upon posting. Your continued use of Optra after
+              changes constitutes your acceptance of the modified Terms.
+            </p>
+            <div class="info-box">
+              <p>
+                <strong>Note:</strong> These Terms form a legally binding
+                agreement between you and Brain Stack Studios regarding your use
+                of Optra.
+              </p>
+            </div>
+          </section>
+
+          <!-- Section 2 -->
+          <section id="definitions" class="terms-section">
+            <h2>2. Definitions</h2>
+            <p>
+              For the purposes of these Terms, the following terms have the
+              meanings ascribed to them below:
+            </p>
+            <ul class="terms-list">
+              <li>
+                <strong>"Application" or "Optra"</strong> refers to the business
+                management software.
+              </li>
+              <li>
+                <strong>"User," "You," or "Your"</strong> refers to the
+                individual or entity using Optra.
+              </li>
+              <li>
+                <strong>"Account"</strong> means the registration account
+                created by you.
+              </li>
+              <li>
+                <strong>"Business Data"</strong> includes all information you
+                input into Optra.
+              </li>
+              <li>
+                <strong>"Local Storage"</strong> means the browser-based storage
+                where your data is stored.
+              </li>
+            </ul>
+          </section>
+
+          <!-- Section 3 -->
+          <section id="account-registration" class="terms-section">
+            <h2>3. Account Registration</h2>
+            <p>
+              To use Optra, you must register for an account. You agree to
+              provide accurate, current, and complete information during
+              registration.
+            </p>
+            <p>
+              You are responsible for maintaining the confidentiality of your
+              account credentials and for all activities that occur under your
+              account.
+            </p>
+            <ul class="terms-list">
+              <li>You must be at least 18 years old to use Optra.</li>
+              <li>You may not share your account credentials with others.</li>
+              <li>Each user must have their own account.</li>
+            </ul>
+          </section>
+
+          <!-- Section 4 -->
+          <section id="user-responsibilities" class="terms-section">
+            <h2>4. User Responsibilities</h2>
+            <p>As a user of Optra, you agree to:</p>
+            <ul class="terms-list">
+              <li>Use Optra only for lawful business purposes.</li>
+              <li>Ensure that any information you provide is accurate.</li>
+              <li>Maintain appropriate security measures for your device.</li>
+              <li>
+                Regularly back up your Business Data using export features.
+              </li>
+            </ul>
+          </section>
+
+          <!-- Section 5 -->
+          <section id="data-usage" class="terms-section">
+            <h2>5. Data Usage and Privacy</h2>
+            <p>
+              Optra is designed with a privacy-first architecture. All Business
+              Data is stored locally on your device. We do not have access to
+              your data, and it is never transmitted to our servers.
+            </p>
+            <p>
+              Our <a href="privacy policy.html">Privacy Policy</a> explains how we
+              handle your information.
+            </p>
+            <ul class="terms-list">
+              <li>
+                <strong>Data Ownership:</strong> You retain full ownership of
+                all Business Data.
+              </li>
+              <li>
+                <strong>Data Loss:</strong> We are not responsible for data loss
+                due to browser clearing or device failure.
+              </li>
+            </ul>
+          </section>
+
+          <!-- Section 6 -->
+          <section id="intellectual-property" class="terms-section">
+            <h2>6. Intellectual Property</h2>
+            <p>
+              Optra is owned by Brain Stack Studios and is protected by
+              copyright and other intellectual property laws. You are granted a
+              non-exclusive license to use Optra for your business purposes.
+            </p>
+            <ul class="terms-list">
+              <li>You may not copy, modify, or distribute Optra.</li>
+              <li>
+                You may not reverse engineer or attempt to extract the source
+                code.
+              </li>
+            </ul>
+          </section>
+
+          <!-- Section 7 -->
+          <section id="prohibited-conduct" class="terms-section">
+            <h2>7. Prohibited Conduct</h2>
+            <p>
+              You may not use Optra for any unlawful purpose or in any way that
+              could harm the application or other users.
+            </p>
+            <ul class="terms-list">
+              <li>Attempting to hack or bypass security measures.</li>
+              <li>Introducing viruses or malware.</li>
+              <li>Impersonating another person or entity.</li>
+            </ul>
+          </section>
+
+          <!-- Section 8 -->
+          <section id="account-termination" class="terms-section">
+            <h2>8. Account Termination</h2>
+            <p>
+              You may delete your account at any time using the "Delete Account"
+              feature. Upon deletion, all your data will be permanently removed.
+            </p>
+            <div class="warning-box">
+              <p>
+                <strong>Warning:</strong> Account deletion is permanent and
+                cannot be undone. Export your data before deleting.
+              </p>
+            </div>
+          </section>
+
+          <!-- Section 9 -->
+          <section id="disclaimer" class="terms-section">
+            <h2>9. Disclaimer of Warranties</h2>
+            <p>
+              OPTRA IS PROVIDED "AS IS" WITHOUT ANY WARRANTIES OF ANY KIND. WE
+              DISCLAIM ALL WARRANTIES, INCLUDING MERCHANTABILITY, FITNESS FOR A
+              PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+            </p>
+          </section>
+
+          <!-- Section 10 -->
+          <section id="limitation" class="terms-section">
+            <h2>10. Limitation of Liability</h2>
+            <p>
+              TO THE FULLEST EXTENT PERMITTED BY LAW, BRAIN STACK STUDIOS SHALL
+              NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+              CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS OR
+              DATA.
+            </p>
+          </section>
+
+          <!-- Section 11 -->
+          <section id="indemnification" class="terms-section">
+            <h2>11. Indemnification</h2>
+            <p>
+              You agree to indemnify and hold harmless Brain Stack Studios from
+              any claims arising out of your use of Optra or violation of these
+              Terms.
+            </p>
+          </section>
+
+          <!-- Section 12 -->
+          <section id="governing-law" class="terms-section">
+            <h2>12. Governing Law</h2>
+            <p>
+              These Terms shall be governed by the laws of the Republic of
+              Uganda. Any legal action shall be brought exclusively in the
+              courts of Kampala, Uganda.
+            </p>
+          </section>
+
+          <!-- Section 13 -->
+          <section id="dispute-resolution" class="terms-section">
+            <h2>13. Dispute Resolution</h2>
+            <p>
+              Any dispute arising out of these Terms shall first be attempted to
+              be resolved informally by contacting us. If unresolved, it shall
+              be settled through binding arbitration in Uganda.
+            </p>
+          </section>
+
+          <!-- Section 14 -->
+          <section id="user-content" class="terms-section">
+            <h2>14. User Content</h2>
+            <p>
+              You retain all rights to your Business Data. You are solely
+              responsible for your content and the consequences of sharing it.
+            </p>
+          </section>
+
+          <!-- Section 15 -->
+          <section id="updates" class="terms-section">
+            <h2>15. Updates to Service</h2>
+            <p>
+              We may add, modify, or remove features at any time. We may update
+              these Terms at any time, and your continued use constitutes
+              acceptance.
+            </p>
+          </section>
+
+          <!-- Section 16 -->
+          <section id="third-party" class="terms-section">
+            <h2>16. Third-Party Links</h2>
+            <p>
+              Optra may contain links to third-party websites. We have no
+              control over and assume no responsibility for their content or
+              practices.
+            </p>
+          </section>
+
+          <!-- Section 17 -->
+          <section id="severability" class="terms-section">
+            <h2>17. Severability</h2>
+            <p>
+              If any provision of these Terms is held to be invalid or
+              unenforceable, the remaining provisions shall remain in full force
+              and effect.
+            </p>
+          </section>
+
+          <!-- Section 18 -->
+          <section id="entire-agreement" class="terms-section">
+            <h2>18. Entire Agreement</h2>
+            <p>
+              These Terms, together with our Privacy Policy, constitute the
+              entire agreement between you and Brain Stack Studios regarding
+              your use of Optra.
+            </p>
+          </section>
+
+          <!-- Section 19 -->
+          <section id="contact" class="terms-section">
+            <h2>19. Contact Information</h2>
+            <ul class="terms-list">
+              <li>
+                <strong>Email:</strong>
+                <a href="mailto:brainstack212@gmail.com"
+                  >brainstack212@gmail.com</a
+                >
+              </li>
+              <li>
+                <strong>Website:</strong>
+                <a
+                  href="https://brainstackstudios.infinityfreeapp.com"
+                  target="_blank"
+                  >brainstackstudios.infinityfreeapp.com</a
+                >
+              </li>
+              <li><strong>Address:</strong> Kampala, Uganda</li>
+            </ul>
+          </section>
+
+          <!-- Acknowledgments -->
+          <div
+            style="
+              margin-top: 24px;
+              padding-top: 16px;
+              border-top: 1px solid var(--card-border);
+              text-align: center;
+            "
+          >
+            <p style="color: #000000; font-size: 12px">
+              By using Optra, you acknowledge that you have read, understood,
+              and agree to be bound by these Terms and Conditions.
+            </p>
+            <p style="color: #000000; font-size: 11px; margin-top: 6px">
+              © 2026 Optra Business Management System. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="main-footer">
+      <div class="nav-icons">
+        <a href="new sales form.html" class="nav-item"
+          ><i class="fas fa-cash-register"></i><span>Add Sale</span></a
+        >
+        <a href="profit report.html" class="nav-item"
+          ><i class="fas fa-chart-line"></i><span>Profit</span></a
+        >
+        <a href="settings.html" class="nav-item"
+          ><i class="fas fa-cog"></i><span>Settings</span></a
+        >
+      </div>
+    </footer>
+
+    <script>
+      function loadUserAvatar() {
+        const avatarImg = document.getElementById("profileAvatar");
+        const initialsSpan = document.getElementById("avatarInitials");
+        const user = JSON.parse(localStorage.getItem("currentUser") || "{}");
+        const name = user.name || "User";
+        const nameParts = name.trim().split(" ");
+        let initials =
+          nameParts.length >= 2
+            ? (nameParts[0].charAt(0) + nameParts[1].charAt(0)).toUpperCase()
+            : nameParts[0].charAt(0).toUpperCase();
+        if (!initials) initials = "U";
+
+        let hasImage = false,
+          imageSrc = null;
+        if (user.profileImage) {
+          imageSrc = user.profileImage;
+          hasImage = true;
+        }
+        if (hasImage && imageSrc) {
+          avatarImg.src = imageSrc;
+          avatarImg.style.display = "block";
+          initialsSpan.style.display = "none";
+        } else {
+          avatarImg.style.display = "none";
+          initialsSpan.textContent = initials;
+          initialsSpan.style.display = "flex";
+          initialsSpan.style.background = "var(--card-bg)";
+          initialsSpan.style.color = "#000000";
+        }
+      }
+
+      function checkAuth() {
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const currentUser = localStorage.getItem("currentUser");
+        if (!isLoggedIn || isLoggedIn !== "true" || !currentUser) {
+          window.location.href = "index.html";
+          return null;
+        }
+        try {
+          return JSON.parse(currentUser);
+        } catch (e) {
+          window.location.href = "index.html";
+          return null;
+        }
+      }
+
+      window.onscroll = function () {
+        const backToTop = document.getElementById("backToTop");
+        if (
+          document.body.scrollTop > 300 ||
+          document.documentElement.scrollTop > 300
+        ) {
+          backToTop.classList.add("show");
+        } else {
+          backToTop.classList.remove("show");
+        }
+      };
+
+      window.scrollToTop = function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      document.querySelectorAll(".toc-item").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+          if (targetElement)
+            targetElement.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = checkAuth();
+        if (user) {
+          loadUserAvatar();
+        }
+      });
+    </script><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>

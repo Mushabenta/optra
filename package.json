@@ -1,0 +1,16 @@
+{
+  "name": "optra",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Optra business management app (static pages + Express/PostgreSQL API)",
+  "scripts": {
+    "build": "cd backend && npm install --omit=dev --no-audit --no-fund",
+    "start": "node backend/src/server.js",
+    "dev": "node --watch backend/src/server.js",
+    "test": "cd backend && npm test",
+    "db:setup": "cd backend && npm run db:setup"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

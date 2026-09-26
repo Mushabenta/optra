@@ -1,0 +1,2352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BizMate - Complete System Documentation</title>
+    <style>
+      /* Professional Documentation Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f9f9f9;
+        padding: 0;
+        margin: 0;
+      }
+
+      .document-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background-color: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+      }
+
+      /* Header */
+      .doc-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #118ab2;
+      }
+
+      .doc-header h1 {
+        font-size: 36px;
+        color: #2d3047;
+        margin-bottom: 10px;
+      }
+
+      .doc-header h2 {
+        font-size: 24px;
+        color: #118ab2;
+        font-weight: 400;
+        margin-bottom: 20px;
+      }
+
+      .doc-meta {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        background-color: #f5f5f5;
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .doc-meta-item {
+        text-align: center;
+      }
+
+      .doc-meta-label {
+        font-weight: bold;
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      .doc-meta-value {
+        font-size: 16px;
+        color: #2d3047;
+      }
+
+      /* Table of Contents */
+      .toc {
+        background-color: #f8fafc;
+        border-left: 4px solid #118ab2;
+        padding: 25px;
+        margin-bottom: 40px;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .toc h3 {
+        font-size: 20px;
+        color: #2d3047;
+        margin-bottom: 15px;
+      }
+
+      .toc-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+
+      .toc-section {
+        font-weight: bold;
+        color: #118ab2;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+
+      .toc-item {
+        color: #475569;
+        text-decoration: none;
+        font-size: 12px;
+        display: block;
+        padding: 3px 0;
+        border-bottom: 1px dashed #e2e8f0;
+      }
+
+      /* Headings */
+      h1 {
+        font-size: 32px;
+        color: #2d3047;
+        margin: 40px 0 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #118ab2;
+      }
+
+      h2 {
+        font-size: 24px;
+        color: #2d3047;
+        margin: 30px 0 15px;
+        padding-left: 10px;
+        border-left: 4px solid #ef476f;
+      }
+
+      h3 {
+        font-size: 20px;
+        color: #2d3047;
+        margin: 25px 0 10px;
+      }
+
+      h4 {
+        font-size: 18px;
+        color: #2d3047;
+        margin: 20px 0 10px;
+      }
+
+      /* Tables */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      th {
+        background-color: #118ab2;
+        color: white;
+        font-weight: 600;
+        padding: 12px 15px;
+        text-align: left;
+      }
+
+      td {
+        padding: 10px 15px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+
+      /* Cards */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .card {
+        background-color: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #118ab2;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      /* Info boxes */
+      .info-box {
+        background-color: #e6f7ff;
+        border-left: 4px solid #118ab2;
+        padding: 15px 20px;
+        margin: 20px 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .warning-box {
+        background-color: #fff7e6;
+        border-left: 4px solid #ffd166;
+        padding: 15px 20px;
+        margin: 20px 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .danger-box {
+        background-color: #ffe6e6;
+        border-left: 4px solid #ef476f;
+        padding: 15px 20px;
+        margin: 20px 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      /* Step boxes */
+      .step-box {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .step-number {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-color: #118ab2;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 30px;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      /* Feature grid */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: #f8fafc;
+        border-radius: 8px;
+      }
+
+      .feature-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #ef476f, #118ab2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+      }
+
+      /* Badges */
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .badge-green {
+        background-color: #06d6a0;
+        color: white;
+      }
+
+      .badge-red {
+        background-color: #ef476f;
+        color: white;
+      }
+
+      .badge-yellow {
+        background-color: #ffd166;
+        color: #2d3047;
+      }
+
+      .badge-blue {
+        background-color: #118ab2;
+        color: white;
+      }
+
+      .badge-purple {
+        background-color: #9d4edd;
+        color: white;
+      }
+
+      /* Footer */
+      .doc-footer {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 2px solid #e2e8f0;
+        text-align: center;
+        color: #64748b;
+        font-size: 14px;
+      }
+
+      /* Page references */
+      .page-ref {
+        font-family: monospace;
+        background-color: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 13px;
+        color: #118ab2;
+      }
+
+      /* Print styles */
+      @media print {
+        body {
+          background-color: white;
+        }
+        .document-container {
+          box-shadow: none;
+          padding: 20px;
+        }
+        .toc {
+          background-color: white;
+          border: 1px solid #ccc;
+        }
+        th {
+          background-color: #333 !important;
+          color: white !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .document-container {
+          padding: 20px;
+        }
+        .toc-grid {
+          grid-template-columns: 1fr;
+        }
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+        .doc-meta {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="document-container">
+      <!-- Header -->
+      <div class="doc-header">
+        <h1>BizMate Business Management System</h1>
+        <h2>Complete System Documentation</h2>
+        <div class="doc-meta">
+          <div class="doc-meta-item">
+            <div class="doc-meta-label">Version</div>
+            <div class="doc-meta-value">2.0.0</div>
+          </div>
+          <div class="doc-meta-item">
+            <div class="doc-meta-label">Last Updated</div>
+            <div class="doc-meta-value">March 10, 2026</div>
+          </div>
+          <div class="doc-meta-item">
+            <div class="doc-meta-label">Total Pages</div>
+            <div class="doc-meta-value">30+ Modules</div>
+          </div>
+          <div class="doc-meta-item">
+            <div class="doc-meta-label">Developer</div>
+            <div class="doc-meta-value">Brain Stack Studios</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h3>📋 Complete Table of Contents</h3>
+        <div class="toc-grid">
+          <div>
+            <div class="toc-section">PART 1: INTRODUCTION</div>
+            <span class="toc-item">1.1 What is BizMate?</span>
+            <span class="toc-item">1.2 Key Features</span>
+            <span class="toc-item">1.3 System Architecture</span>
+            <span class="toc-item">1.4 Technology Stack</span>
+            <span class="toc-item">1.5 Target Audience</span>
+
+            <div class="toc-section" style="margin-top: 15px">
+              PART 2: GETTING STARTED
+            </div>
+            <span class="toc-item">2.1 System Requirements</span>
+            <span class="toc-item">2.2 Registration Process</span>
+            <span class="toc-item">2.3 Login Guide</span>
+            <span class="toc-item">2.4 Password Recovery</span>
+            <span class="toc-item">2.5 First-Time Setup</span>
+          </div>
+          <div>
+            <div class="toc-section">PART 3: USER MANAGEMENT</div>
+            <span class="toc-item">3.1 User Roles Explained</span>
+            <span class="toc-item">3.2 Admin Dashboard</span>
+            <span class="toc-item">3.3 Manager Dashboard</span>
+            <span class="toc-item">3.4 Staff Dashboard</span>
+            <span class="toc-item">3.5 Approving Users</span>
+            <span class="toc-item">3.6 Managing Users</span>
+            <span class="toc-item">3.7 User Status</span>
+
+            <div class="toc-section" style="margin-top: 15px">
+              PART 4: SALES MODULE
+            </div>
+            <span class="toc-item">4.1 New Sale Form</span>
+            <span class="toc-item">4.2 Products vs Services</span>
+            <span class="toc-item">4.3 Cart Management</span>
+            <span class="toc-item">4.4 Payment Methods</span>
+            <span class="toc-item">4.5 Receipt Generation</span>
+          </div>
+          <div>
+            <div class="toc-section">PART 5: SALES HISTORY</div>
+            <span class="toc-item">5.1 Viewing Sales</span>
+            <span class="toc-item">5.2 Filtering Options</span>
+            <span class="toc-item">5.3 Debtor Management</span>
+            <span class="toc-item">5.4 Recording Payments</span>
+            <span class="toc-item">5.5 Exporting Sales</span>
+
+            <div class="toc-section" style="margin-top: 15px">
+              PART 6: EXPENSES
+            </div>
+            <span class="toc-item">6.1 Adding Expenses</span>
+            <span class="toc-item">6.2 Expense History</span>
+            <span class="toc-item">6.3 Expense Filters</span>
+            <span class="toc-item">6.4 Deleting Expenses</span>
+          </div>
+          <div>
+            <div class="toc-section">PART 7: PURCHASES</div>
+            <span class="toc-item">7.1 New Purchase</span>
+            <span class="toc-item">7.2 Multiple Items</span>
+            <span class="toc-item">7.3 Supplier Management</span>
+            <span class="toc-item">7.4 Purchase History</span>
+            <span class="toc-item">7.5 Supplier Payments</span>
+
+            <div class="toc-section" style="margin-top: 15px">
+              PART 8: INVENTORY
+            </div>
+            <span class="toc-item">8.1 Stock Overview</span>
+            <span class="toc-item">8.2 Stock Updates</span>
+            <span class="toc-item">8.3 Low Stock Alerts</span>
+          </div>
+        </div>
+        <div
+          style="
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+          "
+        >
+          <div>
+            <div class="toc-section">PART 9: STAFF</div>
+            <span class="toc-item">9.1 Adding Staff</span>
+            <span class="toc-item">9.2 Staff Details</span>
+            <span class="toc-item">9.3 Salary Payments</span>
+            <span class="toc-item">9.4 Payment History</span>
+            <span class="toc-item">9.5 Staff Statistics</span>
+          </div>
+          <div>
+            <div class="toc-section">PART 10: INCOME</div>
+            <span class="toc-item">10.1 Other Income</span>
+            <span class="toc-item">10.2 Adding Income</span>
+            <span class="toc-item">10.3 Income History</span>
+
+            <div class="toc-section" style="margin-top: 15px">
+              PART 11: PROFIT
+            </div>
+            <span class="toc-item">11.1 Profit Summary</span>
+            <span class="toc-item">11.2 Profit Charts</span>
+            <span class="toc-item">11.3 Item Analysis</span>
+          </div>
+          <div>
+            <div class="toc-section">PART 12: PROFILE</div>
+            <span class="toc-item">12.1 Profile View</span>
+            <span class="toc-item">12.2 Profile Image</span>
+            <span class="toc-item">12.3 Change Password</span>
+            <span class="toc-item">12.4 Delete Account</span>
+
+            <div class="toc-section" style="margin-top: 15px">
+              PART 13: SETTINGS
+            </div>
+            <span class="toc-item">13.1 Settings Menu</span>
+            <span class="toc-item">13.2 Feedback</span>
+          </div>
+          <div>
+            <div class="toc-section">PART 14: SUBSCRIPTION</div>
+            <span class="toc-item">14.1 Free Plan</span>
+            <span class="toc-item">14.2 Premium Plan</span>
+            <span class="toc-item">14.3 Business Plan</span>
+            <span class="toc-item">14.4 Lifetime Plan</span>
+            <span class="toc-item">14.5 Payment Methods</span>
+
+            <div class="toc-section" style="margin-top: 15px">
+              PART 15: TROUBLESHOOTING
+            </div>
+            <span class="toc-item">15.1 Common Issues</span>
+            <span class="toc-item">15.2 FAQ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PART 1: INTRODUCTION -->
+      <h1>PART 1: INTRODUCTION TO BIZMATE</h1>
+
+      <h2>1.1 What is BizMate?</h2>
+      <p>
+        BizMate is a comprehensive, offline-capable business management system
+        designed specifically for small and medium enterprises (SMEs) in Uganda
+        and across Africa. Unlike cloud-based solutions, BizMate stores all data
+        locally on the user's device, ensuring complete privacy, offline
+        accessibility, and zero recurring costs for basic features.
+      </p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">🎯 Core Purpose</div>
+          <p>
+            To provide affordable, accessible business management tools that
+            help African SMEs formalize operations, reduce losses, and increase
+            profitability.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">Key Philosophy</div>
+          <p>
+            Privacy-first architecture where your data stays on your device. No
+            cloud, no servers, no third-party access.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">Target Market</div>
+          <p>
+            Retail shops, restaurants, wholesalers, service providers, and any
+            business needing simple financial tracking.
+          </p>
+        </div>
+      </div>
+
+      <h2>1.2 Key Features at a Glance</h2>
+
+      <table>
+        <tr>
+          <th>Module</th>
+          <th>Features</th>
+        </tr>
+        <tr>
+          <td><strong>User Management</strong></td>
+          <td>
+            3 role levels (Admin, Manager, Staff), user approval, permissions
+            management
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Sales</strong></td>
+          <td>
+            Product/service sales, cart management, receipts, credit tracking,
+            payment recording
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Purchases</strong></td>
+          <td>
+            Supplier management, multi-item purchases, payment tracking, debt
+            management
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Expenses</strong></td>
+          <td>Daily expense tracking, categorization, history viewing</td>
+        </tr>
+        <tr>
+          <td><strong>Inventory</strong></td>
+          <td>Automatic stock updates, low stock alerts, valuation reports</td>
+        </tr>
+        <tr>
+          <td><strong>Staff</strong></td>
+          <td>Employee records, salary payments, payment history</td>
+        </tr>
+        <tr>
+          <td><strong>Income</strong></td>
+          <td>Non-sales income tracking (rental, interest, etc.)</td>
+        </tr>
+        <tr>
+          <td><strong>Reports</strong></td>
+          <td>Profit/loss analysis, item-level profitability, visual charts</td>
+        </tr>
+        <tr>
+          <td><strong>Export</strong></td>
+          <td>PDF reports, Excel spreadsheets for all modules</td>
+        </tr>
+      </table>
+
+      <h2>1.3 System Architecture</h2>
+      <p>
+        BizMate uses a pure client-side architecture with no server component:
+      </p>
+
+      <div class="info-box">
+        <strong>Architecture Layers:</strong>
+        <ul style="margin-top: 10px; margin-left: 20px">
+          <li>
+            <strong>Presentation Layer:</strong> HTML/CSS - User interface and
+            styling
+          </li>
+          <li>
+            <strong>Logic Layer:</strong> JavaScript - Application functionality
+            and business rules
+          </li>
+          <li>
+            <strong>Data Layer:</strong> localStorage - Browser-based data
+            persistence
+          </li>
+        </ul>
+      </div>
+
+      <div class="warning-box">
+        <strong>Important Note:</strong> All data is stored locally on your
+        device. Clearing browser data will permanently delete all BizMate
+        information. Always export important data as backup.
+      </div>
+
+      <h2>1.4 Technology Stack</h2>
+
+      <table>
+        <tr>
+          <th>Technology</th>
+          <th>Purpose</th>
+          <th>Version</th>
+        </tr>
+        <tr>
+          <td>HTML5</td>
+          <td>Structure and content</td>
+          <td>Latest</td>
+        </tr>
+        <tr>
+          <td>CSS3</td>
+          <td>Styling and responsive design</td>
+          <td>Latest</td>
+        </tr>
+        <tr>
+          <td>JavaScript</td>
+          <td>Application logic</td>
+          <td>ES6+</td>
+        </tr>
+        <tr>
+          <td>Chart.js</td>
+          <td>Data visualization</td>
+          <td>4.4.0</td>
+        </tr>
+        <tr>
+          <td>jsPDF</td>
+          <td>PDF report generation</td>
+          <td>2.5.1</td>
+        </tr>
+        <tr>
+          <td>SheetJS</td>
+          <td>Excel file generation</td>
+          <td>0.18.5</td>
+        </tr>
+        <tr>
+          <td>Font Awesome</td>
+          <td>Icons and UI elements</td>
+          <td>6.5.0</td>
+        </tr>
+      </table>
+
+      <h2>1.5 Target Audience</h2>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">👤</div>
+          <div>
+            <strong>Small Business Owners:</strong> Track sales, expenses,
+            profits
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"></div>
+          <div>
+            <strong>Store Managers:</strong> Inventory control, staff management
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"></div>
+          <div><strong>Accountants:</strong> Accurate records, reports</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"></div>
+          <div><strong>Cashiers:</strong> Easy sales entry</div>
+        </div>
+      </div>
+
+      <!-- PART 2: GETTING STARTED -->
+      <h1>PART 2: GETTING STARTED</h1>
+
+      <h2>2.1 System Requirements</h2>
+
+      <table>
+        <tr>
+          <th>Component</th>
+          <th>Minimum Requirement</th>
+        </tr>
+        <tr>
+          <td>Device</td>
+          <td>Computer, tablet, or smartphone</td>
+        </tr>
+        <tr>
+          <td>Browser</td>
+          <td>Chrome 60+, Firefox 55+, Safari 11+, Edge 79+</td>
+        </tr>
+        <tr>
+          <td>Internet</td>
+          <td>Only for initial load (works offline)</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>50MB free space</td>
+        </tr>
+        <tr>
+          <td>Screen</td>
+          <td>320px minimum width</td>
+        </tr>
+      </table>
+
+      <div class="warning-box">
+        <strong>NOT SUPPORTED:</strong> Internet Explorer (all versions)
+      </div>
+
+      <h2>2.2 Registration Process</h2>
+
+      <div class="step-box">
+        <span class="step-number">1</span>
+        <strong>Navigate to Registration Page</strong>
+        <p>
+          URL: <span class="page-ref">register.html</span> or click "Create
+          Account" on login page
+        </p>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">2</span>
+        <strong>Complete Registration Form</strong>
+
+        <table style="margin-top: 15px">
+          <tr>
+            <th>Field</th>
+            <th>Validation Rules</th>
+            <th>Example</th>
+          </tr>
+          <tr>
+            <td>Full Name</td>
+            <td>Min 2 chars, letters/spaces only</td>
+            <td>John Doe</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>Valid email format</td>
+            <td>john@example.com</td>
+          </tr>
+          <tr>
+            <td>Username</td>
+            <td>3-20 chars, letters/numbers/underscores</td>
+            <td>johndoe</td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td>Min 8 chars, letter, number, special</td>
+            <td>Pass@123</td>
+          </tr>
+          <tr>
+            <td>Business ID</td>
+            <td>Min 5 chars, letters, numbers, special</td>
+            <td>BIZ2024@CORP</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="info-box">
+        <strong>Business ID Rules:</strong>
+        <ul>
+          <li>
+            Must contain letters, numbers, and at least one special character
+          </li>
+          <li>Minimum 5 characters</li>
+          <li>First user with a Business ID becomes Admin automatically</li>
+          <li>Subsequent users require Admin approval</li>
+        </ul>
+      </div>
+
+      <h2>2.3 Login Guide</h2>
+
+      <p>
+        <strong>Login Page URL:</strong>
+        <span class="page-ref">index.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Username or Email</td>
+          <td>Enter your registered username or email</td>
+        </tr>
+        <tr>
+          <td>Password</td>
+          <td>Enter your password</td>
+        </tr>
+      </table>
+
+      <h3>Login Results:</h3>
+      <table>
+        <tr>
+          <th>Scenario</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>Valid credentials (approved)</td>
+          <td>
+            Redirect to <span class="page-ref">menu.html</span> (Dashboard)
+          </td>
+        </tr>
+        <tr>
+          <td>Valid credentials (pending)</td>
+          <td>Show pending approval screen</td>
+        </tr>
+        <tr>
+          <td>Invalid credentials</td>
+          <td>Error message</td>
+        </tr>
+      </table>
+
+      <h2>2.4 Password Recovery</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">forgot password.html</span>
+      </p>
+
+      <ol style="margin-left: 20px">
+        <li>Click "Forgot Password?" on login page</li>
+        <li>Enter your registered email</li>
+        <li>System generates 6-digit code (visible in console for demo)</li>
+        <li>Enter the code</li>
+        <li>Enter and confirm new password</li>
+        <li>Click "Reset Password"</li>
+        <li>Redirected to login</li>
+      </ol>
+
+      <h2>2.5 First-Time Setup (For Admins)</h2>
+
+      <p>After logging in as Admin, complete your business information:</p>
+
+      <div class="step-box">
+        <span class="step-number">1</span>
+        <strong>Navigate to Business Info</strong>
+        <p>
+          Found on <span class="page-ref">profit report.html</span> or any page
+          with business info card
+        </p>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">2</span>
+        <strong>Enter Business Details</strong>
+
+        <table style="margin-top: 15px">
+          <tr>
+            <th>Field</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td>Business Name</td>
+            <td>Appears on receipts and reports</td>
+          </tr>
+          <tr>
+            <td>Contact</td>
+            <td>Phone number for customers</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>Business email address</td>
+          </tr>
+          <tr>
+            <td>Location</td>
+            <td>Physical address</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">3</span>
+        <strong>Click "Save Business Info"</strong>
+        <p>
+          Data stored in
+          <span class="page-ref">bizmate_business_info</span> localStorage key
+        </p>
+      </div>
+
+      <!-- PART 3: USER MANAGEMENT -->
+      <h1>PART 3: USER MANAGEMENT</h1>
+
+      <h2>3.1 User Roles Explained</h2>
+
+      <table>
+        <tr>
+          <th>Role</th>
+          <th>Permissions</th>
+          <th>Access Level</th>
+        </tr>
+        <tr>
+          <td><span class="badge badge-blue">Admin</span></td>
+          <td>Full system access, user approval, all reports</td>
+          <td>100%</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-green">Manager</span></td>
+          <td>Operations, reports, inventory, no user management</td>
+          <td>80%</td>
+        </tr>
+        <tr>
+          <td><span class="badge badge-yellow">Staff</span></td>
+          <td>Basic transactions, inventory view only</td>
+          <td>50%</td>
+        </tr>
+      </table>
+
+      <h2>3.2 Admin Dashboard</h2>
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">menu.html</span> (Admin view)
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│  🏠 BizMate                    👤 Admin (John)  │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  ┌──────────────────────┐                      │
+│  │   USER MANAGEMENT    │                      │
+│  │  • Staff Management  │                      │
+│  │  • Approve Users     │                      │
+│  └──────────────────────┘                      │
+│                                                 │
+│  ┌──────────────────────┐ ┌──────────────────┐ │
+│  │   SALES & REVENUE    │ │  EXPENSES &      │ │
+│  │  • New Sales         │ │  PURCHASES       │ │
+│  │  • Sales History     │ │  • New Expense   │ │
+│  │  • Income Report     │ │  • Add Purchase  │ │
+│  └──────────────────────┘ └──────────────────┘ │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h2>3.3 Manager Dashboard</h2>
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">menu.html</span> (Manager view)
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│  🏠 BizMate                  👤 Manager (Jane)  │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  ┌──────────────────────┐ ┌──────────────────┐ │
+│  │    OPERATIONS        │ │     REPORTS       │ │
+│  │  • New Sales         │ │  • Profit Summary│ │
+│  │  • Sales History     │ │  • Inventory     │ │
+│  │  • New Expense       │ │  • Income Report │ │
+│  │  • Add Purchase      │ │                  │ │
+│  └──────────────────────┘ └──────────────────┘ │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h2>3.4 Staff Dashboard</h2>
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">menu.html</span> (Staff view)
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│  BizMate                   Staff (Bob)    │
+├─────────────────────────────────────────────────┤
+│                                                 │
+│  ┌──────────────────────┐                      │
+│  │   DAILY OPERATIONS   │                      │
+│  │  • New Sales         │                      │
+│  │  • Sales History     │                      │
+│  │  • New Expense       │                      │
+│  │  • Add Purchase      │                      │
+│  └──────────────────────┘                      │
+│                                                 │
+│  ┌──────────────────────┐                      │
+│  │      INVENTORY       │                      │
+│  │  • Inventory         │                      │
+│  │  • Income Report     │                      │
+│  └──────────────────────┘                      │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h2>3.5 Approving Users (Admin Only)</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">manage users.html</span>
+      </p>
+
+      <div class="step-box">
+        <span class="step-number">1</span>
+        <strong>Navigate to Manage Users</strong>
+        <p>From Admin Dashboard → User Management → Approve Users</p>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">2</span> <strong>View Pending Users</strong>
+
+        <table style="margin-top: 15px">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>John Doe</td>
+            <td>john@example.com</td>
+            <td>Manager</td>
+            <td><span class="badge badge-yellow">Pending</span></td>
+            <td>
+              <button
+                style="
+                  padding: 5px 10px;
+                  background: #06d6a0;
+                  color: white;
+                  border: none;
+                  border-radius: 4px;
+                "
+              >
+                Approve
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">3</span> <strong>Click "Approve"</strong>
+        <p>User status changes to Active and they can now log in</p>
+      </div>
+
+      <h2>3.6 Managing Existing Users</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">manage users.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>Action</th>
+          <th>How to Perform</th>
+          <th>Effect</th>
+        </tr>
+        <tr>
+          <td>Change Role</td>
+          <td>Click role dropdown, select new role</td>
+          <td>User permissions update immediately</td>
+        </tr>
+        <tr>
+          <td>Unapprove</td>
+          <td>Click "Unapprove" button</td>
+          <td>User cannot log in</td>
+        </tr>
+        <tr>
+          <td>Delete User</td>
+          <td>Click trash icon, confirm</td>
+          <td>User permanently removed</td>
+        </tr>
+        <tr>
+          <td>View Details</td>
+          <td>Click "View" button</td>
+          <td>Shows complete user information</td>
+        </tr>
+      </table>
+
+      <div class="danger-box">
+        <strong>⚠️ Warning:</strong> Admin users cannot delete their own
+        account. This prevents accidental loss of admin access.
+      </div>
+
+      <!-- PART 4: SALES MODULE -->
+      <h1>PART 4: SALES MODULE</h1>
+
+      <h2>4.1 New Sale Form</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">new sales form.html</span>
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│                   NEW SALE                       │
+├─────────────────────────────────────────────────┤
+│ Customer Name: [_________________] *            │
+│                                                 │
+│ Item Type:                                      │
+│ ┌──────────┐ ┌──────────┐                      │
+│ │ PRODUCT  │ │ SERVICE  │                      │
+│ └──────────┘ └──────────┘                      │
+│                                                 │
+│ ┌─────────────────────────────────────────┐    │
+│ │ Select Product: [Rice (50kg)_______] ▼  │    │
+│ │ Quantity: [2]        Unit Price: [75,000]│    │
+│ │ ┌──────────┐                           │    │
+│ │ │ADD ITEM  │                           │    │
+│ │ └──────────┘                           │    │
+│ └─────────────────────────────────────────┘    │
+│                                                 │
+│ ┌─────────────────────────────────────────┐    │
+│ │              CART ITEMS                   │    │
+│ ├─────────────┬────┬───────┬──────────────┤    │
+│ │ Item        │ Qty│ Price │ Total        │    │
+│ ├─────────────┼────┼───────┼──────────────┤    │
+│ │ Rice        │ 2  │75,000 │ 150,000      │    │
+│ │ Sugar       │ 1  │90,000 │ 90,000       │    │
+│ │ TOTAL: 240,000 UGX                       │    │
+│ └─────────────────────────────────────────┘    │
+│                                                 │
+│ Payment Method: [Cash__________] ▼              │
+│ Date: [2026-03-10       ]                       │
+│ Amount Paid: [240,000]     Balance: [0]        │
+│                                                 │
+│ ┌─────────────────────┐                        │
+│ │ COMPLETE TRANSACTION│                        │
+│ └─────────────────────┘                        │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h3>Form Fields Explained:</h3>
+
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Description</th>
+          <th>Validation</th>
+        </tr>
+        <tr>
+          <td>Customer Name</td>
+          <td>Name of the customer</td>
+          <td>Required, min 2 characters</td>
+        </tr>
+        <tr>
+          <td>Item Type</td>
+          <td>Product (affects inventory) or Service (no inventory)</td>
+          <td>Toggle selection</td>
+        </tr>
+        <tr>
+          <td>Product Selection</td>
+          <td>Choose from inventory dropdown</td>
+          <td>Shows available stock</td>
+        </tr>
+        <tr>
+          <td>Service Name</td>
+          <td>Manual entry for services</td>
+          <td>Required for services</td>
+        </tr>
+        <tr>
+          <td>Quantity</td>
+          <td>Number of items</td>
+          <td>Min 1, cannot exceed stock</td>
+        </tr>
+        <tr>
+          <td>Unit Price</td>
+          <td>Price per unit</td>
+          <td>Auto-filled for products, manual for services</td>
+        </tr>
+        <tr>
+          <td>Payment Method</td>
+          <td>Cash, Mobile Money, Bank, Credit</td>
+          <td>Required</td>
+        </tr>
+        <tr>
+          <td>Amount Paid</td>
+          <td>Payment received</td>
+          <td>Cannot exceed total</td>
+        </tr>
+      </table>
+
+      <h2>4.2 Products vs Services</h2>
+
+      <table>
+        <tr>
+          <th>Aspect</th>
+          <th>Product</th>
+          <th>Service</th>
+        </tr>
+        <tr>
+          <td>Inventory Impact</td>
+          <td>Quantity deducted</td>
+          <td>No impact</td>
+        </tr>
+        <tr>
+          <td>Price Source</td>
+          <td>From latest purchase</td>
+          <td>Manual entry</td>
+        </tr>
+        <tr>
+          <td>Stock Check</td>
+          <td>Validated against inventory</td>
+          <td>No check</td>
+        </tr>
+        <tr>
+          <td>Example</td>
+          <td>Rice, Sugar, Oil</td>
+          <td>Delivery, Installation</td>
+        </tr>
+      </table>
+
+      <h2>4.3 Cart Management</h2>
+
+      <h3>Adding Items:</h3>
+      <ul>
+        <li>
+          For products: Select from dropdown, adjust quantity, click "Add Item"
+        </li>
+        <li>For services: Enter name and price, click "Add Item"</li>
+        <li>System checks stock availability for products</li>
+        <li>Running total updates automatically</li>
+      </ul>
+
+      <h3>Cart Table Columns:</h3>
+      <table>
+        <tr>
+          <th>Column</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>Item</td>
+          <td>Product or service name</td>
+        </tr>
+        <tr>
+          <td>Qty</td>
+          <td>Quantity</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td>Unit price</td>
+        </tr>
+        <tr>
+          <td>Total</td>
+          <td>Qty × Price</td>
+        </tr>
+        <tr>
+          <td>Action</td>
+          <td>Remove button (🗑️)</td>
+        </tr>
+      </table>
+
+      <h2>4.4 Payment Methods</h2>
+
+      <table>
+        <tr>
+          <th>Method</th>
+          <th>Description</th>
+          <th>Use Case</th>
+        </tr>
+        <tr>
+          <td>Cash</td>
+          <td>Physical currency</td>
+          <td>In-person payments</td>
+        </tr>
+        <tr>
+          <td>Mobile Money</td>
+          <td>MTN/Airtel Money</td>
+          <td>Digital payments</td>
+        </tr>
+        <tr>
+          <td>Bank</td>
+          <td>Bank transfer</td>
+          <td>Large transactions</td>
+        </tr>
+        <tr>
+          <td>Credit</td>
+          <td>Customer owes balance</td>
+          <td>Trusted customers</td>
+        </tr>
+      </table>
+
+      <h3>Credit Sales:</h3>
+      <ul>
+        <li>Enter amount paid (less than total)</li>
+        <li>Balance shows in <span style="color: #ef476f">red</span></li>
+        <li>Customer becomes debtor</li>
+        <li>Can record additional payments later</li>
+      </ul>
+
+      <!-- PART 5: SALES HISTORY -->
+      <h1>PART 5: SALES HISTORY</h1>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">sales history.html</span>
+      </p>
+
+      <h2>5.1 Viewing Sales</h2>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                        SALES HISTORY                             │
+├─────────────────────────────────────────────────────────────────┤
+│ [Daily] [Range] [Name] [Debtors]                                │
+│ Date: [2026-03-10]                    [🔍] [📊] [📄]            │
+├─────┬──────────┬────────┬────────┬──────┬─────────┬──────┬──────┤
+│ #   │ Customer │ Items  │ Total  │ Paid │ Balance │ Date │ Act  │
+├─────┼──────────┼────────┼────────┼──────┼─────────┼──────┼──────┤
+│ 1   │ John Doe │ 2 items│240,000 │240,00│    0    │10/03 │   │
+│ 2   │ Jane Smit│ 1 item │ 90,000 │50,000│ 40,000 │09/03 │  │
+│ 3   │ Acme Ltd │ 3 items│350,000 │350,00│    0    │08/03 │    │
+└─────┴──────────┴────────┴────────┴──────┴─────────┴──────┴──────┘
+</pre
+        >
+      </div>
+
+      <h2>5.2 Filtering Options</h2>
+
+      <table>
+        <tr>
+          <th>Filter</th>
+          <th>How to Use</th>
+          <th>Result</th>
+        </tr>
+        <tr>
+          <td>Daily</td>
+          <td>Select date, click search</td>
+          <td>Shows sales for that day</td>
+        </tr>
+        <tr>
+          <td>Range</td>
+          <td>Enter start/end dates, click search</td>
+          <td>Shows sales between dates</td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td>Enter customer name, click search</td>
+          <td>Shows matching customer sales</td>
+        </tr>
+        <tr>
+          <td>Debtors</td>
+          <td>Click button</td>
+          <td>Shows only unpaid sales</td>
+        </tr>
+      </table>
+
+      <h2>5.3 Debtor Management</h2>
+
+      <p><strong>Debtor:</strong> Customer with balance > 0</p>
+
+      <div class="info-box">
+        <strong>Visual Indicators:</strong>
+        <ul>
+          <li>
+            Balance shown in <span style="color: #ef476f">red</span> for debtors
+          </li>
+          <li>💰 icon indicates payment can be recorded</li>
+          <li>
+            Balance turns <span style="color: #06d6a0">green</span> when fully
+            paid
+          </li>
+        </ul>
+      </div>
+
+      <h2>5.4 Recording Additional Payments</h2>
+
+      <div class="step-box">
+        <span class="step-number">1</span>
+        <strong>Find the sale with balance > 0</strong>
+        <p>Look for red balance or use Debtor filter</p>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">2</span> <strong>Click the 💰 icon</strong>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">3</span>
+        <strong>Payment modal appears</strong>
+
+        <div class="ui-example-light" style="margin-top: 10px">
+          <pre>
+┌─────────────────────────────────┐
+│        RECORD PAYMENT           │
+├─────────────────────────────────┤
+│ Customer: Jane Smith            │
+│ Outstanding Balance: 40,000 UGX │
+│                                 │
+│ Payment Amount: [_______] UGX   │
+│                                 │
+│ ┌────────┐ ┌────────┐          │
+│ │ SUBMIT │ │ CANCEL │          │
+│ └────────┘ └────────┘          │
+└─────────────────────────────────┘
+</pre
+          >
+        </div>
+      </div>
+
+      <div class="step-box">
+        <span class="step-number">4</span>
+        <strong>Enter payment amount and click Submit</strong>
+        <p>System updates balance automatically</p>
+      </div>
+
+      <h2>5.5 Exporting Sales</h2>
+
+      <table>
+        <tr>
+          <th>Button</th>
+          <th>Format</th>
+          <th>Content</th>
+        </tr>
+        <tr>
+          <td>📊 PDF</td>
+          <td>PDF Document</td>
+          <td>Formatted report with business info</td>
+        </tr>
+        <tr>
+          <td>📄 Excel</td>
+          <td>CSV File</td>
+          <td>Raw data for spreadsheet software</td>
+        </tr>
+      </table>
+
+      <!-- PART 6: EXPENSES -->
+      <h1>PART 6: EXPENSES</h1>
+
+      <h2>6.1 Adding Expenses</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">new Expense.html</span>
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────┐
+│          NEW EXPENSE             │
+├─────────────────────────────────┤
+│ Expense Name: [Electricity___]  │
+│ Amount (UGX): [250,000______]   │
+│ Date: [2026-03-10________]      │
+│                                 │
+│ ┌────────────┐                  │
+│ │SAVE EXPENSE│                  │
+│ └────────────┘                  │
+├─────────────────────────────────┤
+│ TODAY'S TOTAL: UGX 425,000      │
+├─────────────────────────────────┤
+│ RECENT EXPENSES                  │
+│ • Electricity - 250,000 (10/03) │
+│ • Rent - 1,000,000 (01/03)      │
+│ • Salaries - 500,000 (28/02)    │
+└─────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h2>6.2 Expense History</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">expenses history.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Expense</th>
+          <th>Amount</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>10/03/2026</td>
+          <td>Electricity</td>
+          <td>250,000</td>
+          <td>🗑️</td>
+        </tr>
+        <tr>
+          <td>09/03/2026</td>
+          <td>Office Supplies</td>
+          <td>75,000</td>
+          <td>🗑️</td>
+        </tr>
+        <tr>
+          <td>08/03/2026</td>
+          <td>Transport</td>
+          <td>50,000</td>
+          <td>🗑️</td>
+        </tr>
+      </table>
+
+      <!-- PART 7: PURCHASES -->
+      <h1>PART 7: PURCHASES</h1>
+
+      <h2>7.1 New Purchase</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">add purchases.html</span>
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│                  ADD PURCHASE                    │
+├─────────────────────────────────────────────────┤
+│ Supplier Name: [ABC Wholesalers_] *            │
+│ Contact: [0772123456_________] *               │
+│ Email: [abc@wholesalers.com_] *                │
+│ Payment Date: [2026-03-10______] *             │
+│                                                 │
+│ ┌─────────────────────────────────────────┐    │
+│ │ Goods: [Rice (50kg)__________]          │    │
+│ │ Quantity: [2_________________]          │    │
+│ │ Unit Price: [75,000____________]        │    │
+│ │ ┌──────────┐                           │    │
+│ │ │ADD ITEM  │                           │    │
+│ │ └──────────┘                           │    │
+│ └─────────────────────────────────────────┘    │
+│                                                 │
+│ ┌─────────────────────────────────────────┐    │
+│ │ Goods     │ Qty │ Price │ Total        │    │
+│ ├───────────┼─────┼───────┼──────────────┤    │
+│ │ Rice      │ 2   │75,000 │ 150,000      │    │
+│ │ Sugar     │ 1   │90,000 │ 90,000       │    │
+│ │ Oil       │ 5   │20,000 │ 100,000      │    │
+│ │ TOTAL: 340,000 UGX                       │    │
+│ └─────────────────────────────────────────┘    │
+│                                                 │
+│ Amount Paid: [200,000]     Balance: [140,000]  │
+│                                                 │
+│ ┌──────────┐ ┌──────────┐                      │
+│ │  RESET   │ │  SAVE    │                      │
+│ └──────────┘ └──────────┘                      │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h2>7.2 Multiple Items Per Purchase</h2>
+
+      <p>You can add multiple items to a single purchase:</p>
+
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+        <tr>
+          <td>Rice (50kg)</td>
+          <td>5</td>
+          <td>75,000</td>
+          <td>375,000</td>
+        </tr>
+        <tr>
+          <td>Sugar (50kg)</td>
+          <td>3</td>
+          <td>90,000</td>
+          <td>270,000</td>
+        </tr>
+        <tr>
+          <td>Cooking Oil</td>
+          <td>10</td>
+          <td>20,000</td>
+          <td>200,000</td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <td></td>
+          <td></td>
+          <td><strong>845,000</strong></td>
+        </tr>
+      </table>
+
+      <h2>7.3 Supplier Management</h2>
+
+      <p>Each purchase tracks:</p>
+      <ul>
+        <li>Supplier name, contact, email</li>
+        <li>Payment status (Paid/Partial/Unpaid)</li>
+        <li>Running balance</li>
+        <li>Payment history</li>
+      </ul>
+
+      <h2>7.4 Purchase History</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">purchases history.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>Supplier</th>
+          <th>Contact</th>
+          <th>Date</th>
+          <th>Total</th>
+          <th>Paid</th>
+          <th>Balance</th>
+        </tr>
+        <tr>
+          <td>ABC Wholesalers</td>
+          <td>0772...</td>
+          <td>10/03</td>
+          <td>340,000</td>
+          <td>200,000</td>
+          <td style="color: #ef476f">140,000</td>
+        </tr>
+        <tr>
+          <td>XYZ Ltd</td>
+          <td>0755...</td>
+          <td>09/03</td>
+          <td>150,000</td>
+          <td>150,000</td>
+          <td style="color: #06d6a0">0</td>
+        </tr>
+      </table>
+
+      <h2>7.5 Supplier Payments</h2>
+
+      <p>
+        Click the 💰 icon on any purchase with balance > 0 to record additional
+        payments.
+      </p>
+
+      <!-- PART 8: INVENTORY -->
+      <h1>PART 8: INVENTORY</h1>
+
+      <p>
+        <strong>Page URL:</strong> <span class="page-ref">inventory.html</span>
+      </p>
+
+      <h2>8.1 Stock Overview</h2>
+
+      <table>
+        <tr>
+          <th>Item Name</th>
+          <th>Quantity</th>
+          <th>Buy Price</th>
+          <th>Total Value</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>Rice (50kg)</td>
+          <td>15</td>
+          <td>75,000</td>
+          <td>1,125,000</td>
+          <td><span class="badge badge-green">Good</span></td>
+        </tr>
+        <tr>
+          <td>Sugar (50kg)</td>
+          <td>8</td>
+          <td>90,000</td>
+          <td>720,000</td>
+          <td><span class="badge badge-yellow">Low</span></td>
+        </tr>
+        <tr>
+          <td>Salt</td>
+          <td>2</td>
+          <td>5,000</td>
+          <td>10,000</td>
+          <td><span class="badge badge-red">⚠️ Critical</span></td>
+        </tr>
+      </table>
+
+      <h2>8.2 Stock Updates</h2>
+
+      <table>
+        <tr>
+          <th>Event</th>
+          <th>Effect on Stock</th>
+        </tr>
+        <tr>
+          <td>Purchase added</td>
+          <td>Quantity increases by purchase amount</td>
+        </tr>
+        <tr>
+          <td>Product sold</td>
+          <td>Quantity decreases by sale amount</td>
+        </tr>
+        <tr>
+          <td>Service sold</td>
+          <td>No change</td>
+        </tr>
+      </table>
+
+      <h2>8.3 Low Stock Alerts</h2>
+
+      <table>
+        <tr>
+          <th>Stock Level</th>
+          <th>Indicator</th>
+          <th>Action Needed</th>
+        </tr>
+        <tr>
+          <td>> 10</td>
+          <td><span class="badge badge-green">Good</span></td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>5-10</td>
+          <td><span class="badge badge-yellow">Low</span></td>
+          <td>Consider reorder</td>
+        </tr>
+        <tr>
+          <td>1-4</td>
+          <td><span class="badge badge-red">⚠️ Critical</span></td>
+          <td>Reorder soon</td>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td><span class="badge badge-red">Out of Stock</span></td>
+          <td>Cannot sell</td>
+        </tr>
+      </table>
+
+      <!-- PART 9: STAFF MANAGEMENT -->
+      <h1>PART 9: STAFF MANAGEMENT</h1>
+
+      <h2>9.1 Adding Staff</h2>
+
+      <p>
+        <strong>Page URL:</strong> <span class="page-ref">add staff.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Validation</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td>Full Name</td>
+          <td>Letters and spaces only, min 2 chars</td>
+          <td>Jane Smith</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>Valid format</td>
+          <td>jane@company.com</td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td>Ugandan format (077..., 075...)</td>
+          <td>0772123456</td>
+        </tr>
+        <tr>
+          <td>Hire Date</td>
+          <td>Cannot be future</td>
+          <td>2026-03-10</td>
+        </tr>
+        <tr>
+          <td>Salary</td>
+          <td>Positive number</td>
+          <td>500,000</td>
+        </tr>
+        <tr>
+          <td>Role</td>
+          <td>Letters and spaces</td>
+          <td>Cashier</td>
+        </tr>
+      </table>
+
+      <h2>9.2 Staff Details</h2>
+
+      <p>
+        <strong>Page URL:</strong> <span class="page-ref">view staff.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Salary</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          <td>42</td>
+          <td>Jane Smith</td>
+          <td>jane@...</td>
+          <td>0772...</td>
+          <td>500,000</td>
+          <td>Cashier</td>
+          <td>✎ 🗑️</td>
+        </tr>
+      </table>
+
+      <h2>9.3 Salary Payments</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">salary payments.html</span>
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│              PROCESS SALARY PAYMENT              │
+├─────────────────────────────────────────────────┤
+│ Select Staff: [Jane Smith (ID: 42)_______] ▼   │
+│                                                 │
+│ Staff ID: 42                                     │
+│ Full Name: Jane Smith                            │
+│ Email: jane@company.com                          │
+│ Phone: 0772123456                                │
+│ Monthly Salary: 500,000 UGX                      │
+│                                                 │
+│ Payment Date: [2026-03-10______] *              │
+│ Amount Paid: [500,000_________] UGX *           │
+│ Balance: 0 UGX                                   │
+│ Next Payment: 09/04/2026                         │
+│                                                 │
+│ ┌──────────┐ ┌──────────┐                      │
+│ │  SAVE    │ │  BACK    │                      │
+│ └──────────┘ └──────────┘                      │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h2>9.4 Salary Payment History</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">staff history.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Salary</th>
+          <th>Paid</th>
+          <th>Balance</th>
+          <th>Date</th>
+        </tr>
+        <tr>
+          <td>42</td>
+          <td>Jane Smith</td>
+          <td>500,000</td>
+          <td>500,000</td>
+          <td>0</td>
+          <td>10/03</td>
+        </tr>
+        <tr>
+          <td>43</td>
+          <td>John Doe</td>
+          <td>450,000</td>
+          <td>300,000</td>
+          <td style="color: #ef476f">150,000</td>
+          <td>10/03</td>
+        </tr>
+      </table>
+
+      <!-- PART 10: INCOME -->
+      <h1>PART 10: INCOME</h1>
+
+      <p>
+        <strong>Page URL:</strong> <span class="page-ref">income.html</span>
+      </p>
+
+      <h2>10.1 Adding Other Income</h2>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────┐
+│          INCOME TRACKER          │
+├─────────────────────────────────┤
+│ Income Source: [Rental Income_] │
+│ Amount (UGX): [700,000______]   │
+│ Date: [2026-03-01________]      │
+│ Notes: [Office rent for March_] │
+│                                 │
+│ ┌──────────┐                    │
+│ │ADD INCOME│                    │
+│ └──────────┘                    │
+├─────────────────────────────────┤
+│ Source   │ Amount  │ Date │ Del │
+├─────────┼─────────┼──────┼─────┤
+│ Rent    │ 700,000 │03/01 │  🗑️ │
+│ Interest│ 50,000  │03/01 │  🗑️ │
+└─────────┴─────────┴──────┴─────┘
+</pre
+        >
+      </div>
+
+      <!-- PART 11: PROFIT REPORTS -->
+      <h1>PART 11: PROFIT REPORTS</h1>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">profit report.html</span>
+      </p>
+
+      <h2>11.1 Profit Summary Cards</h2>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│                  PROFIT SUMMARY                  │
+├─────────────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────┐ │
+│  │ TOTAL       │  │ TOTAL       │  │ GROSS   │ │
+│  │ REVENUE     │  │ COST        │  │ PROFIT  │ │
+│  │ UGX 1,475,00│  │ UGX 950,000 │  │ UGX 525K│ │
+│  └─────────────┘  └─────────────┘  └─────────┘ │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────┐ │
+│  │ OTHER       │  │ EXPENSES    │  │ NET     │ │
+│  │ INCOME      │  │             │  │ PROFIT  │ │
+│  │ UGX 870,000 │  │ UGX 425,000 │  │ UGX 970K│ │
+│  └─────────────┘  └─────────────┘  └─────────┘ │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h3>Calculations:</h3>
+      <ul>
+        <li><strong>Gross Profit =</strong> Total Revenue - Total Cost</li>
+        <li>
+          <strong>Net Profit =</strong> Gross Profit - Expenses + Other Income
+        </li>
+      </ul>
+
+      <h2>11.2 Item-Level Profit Analysis</h2>
+
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Selling Price</th>
+          <th>Buying Price</th>
+          <th>Revenue</th>
+          <th>Cost</th>
+          <th>Profit</th>
+        </tr>
+        <tr>
+          <td>Rice</td>
+          <td>10</td>
+          <td>85,000</td>
+          <td>75,000</td>
+          <td>850,000</td>
+          <td>750,000</td>
+          <td style="color: #06d6a0">100,000</td>
+        </tr>
+        <tr>
+          <td>Sugar</td>
+          <td>5</td>
+          <td>100,000</td>
+          <td>90,000</td>
+          <td>500,000</td>
+          <td>450,000</td>
+          <td style="color: #06d6a0">50,000</td>
+        </tr>
+        <tr>
+          <td><strong>TOTAL</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><strong>1,350,000</strong></td>
+          <td><strong>1,200,000</strong></td>
+          <td><strong>150,000</strong></td>
+        </tr>
+      </table>
+
+      <!-- PART 12: PROFILE -->
+      <h1>PART 12: PROFILE</h1>
+
+      <p>
+        <strong>Page URL:</strong> <span class="page-ref">profile.html</span>
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│                  MY PROFILE                      │
+├─────────────────────────────────────────────────┤
+│              ┌─────────────┐                    │
+│              │    👤       │                    │
+│              │   IMAGE     │                    │
+│              │ [📷][👁️][🗑️]│                    │
+│              └─────────────┘                    │
+│                                                 │
+│ Business ID: BIZ2024@CORP                       │
+│ Email: john@company.com                          │
+│ Username: johndoe                                │
+│ Role: Admin                                      │
+│                                                 │
+│ Member Since: January 15, 2026                  │
+│ Account Status: Active                           │
+│                                                 │
+│              [Delete Account]                    │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <h2>12.1 Profile Image Features</h2>
+
+      <table>
+        <tr>
+          <th>Button</th>
+          <th>Action</th>
+          <th>Details</th>
+        </tr>
+        <tr>
+          <td>📷</td>
+          <td>Upload</td>
+          <td>JPG/PNG/GIF, max 2MB</td>
+        </tr>
+        <tr>
+          <td>👁️</td>
+          <td>View</td>
+          <td>Opens full-size image modal</td>
+        </tr>
+        <tr>
+          <td>🗑️</td>
+          <td>Delete</td>
+          <td>Reverts to initial avatar</td>
+        </tr>
+      </table>
+
+      <h2>12.2 Change Password</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">change password.html</span>
+      </p>
+
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Requirement</th>
+        </tr>
+        <tr>
+          <td>Current Password</td>
+          <td>Must match stored password</td>
+        </tr>
+        <tr>
+          <td>New Password</td>
+          <td>Min 6 characters</td>
+        </tr>
+        <tr>
+          <td>Confirm Password</td>
+          <td>Must match new password</td>
+        </tr>
+      </table>
+
+      <h2>12.3 Delete Account</h2>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">delete account.html</span>
+      </p>
+
+      <div class="danger-box">
+        <strong
+          >⚠️ WARNING: This action is permanent and cannot be undone.</strong
+        >
+        <p>Deleting your account removes:</p>
+        <ul>
+          <li>Your user profile</li>
+          <li>All sales records</li>
+          <li>All purchase records</li>
+          <li>All expenses</li>
+          <li>All staff records</li>
+          <li>All inventory items</li>
+          <li>All other income</li>
+        </ul>
+      </div>
+
+      <!-- PART 13: SETTINGS -->
+      <h1>PART 13: SETTINGS</h1>
+
+      <p>
+        <strong>Page URL:</strong> <span class="page-ref">settings.html</span>
+      </p>
+
+      <div class="ui-example-light">
+        <pre>
+┌─────────────────────────────────────────────────┐
+│                   SETTINGS                       │
+├─────────────────────────────────────────────────┤
+│ ┌─────────────────────────────────────────────┐ │
+│ │ 👤 Profile                                   │ │
+│ │ View and edit your personal information      │ │
+│ │                                          ➔  │ │
+│ └─────────────────────────────────────────────┘ │
+│ ┌─────────────────────────────────────────────┐ │
+│ │ 🔒 Change Password                           │ │
+│ │ Update your account password                 │ │
+│ │                                          ➔  │ │
+│ └─────────────────────────────────────────────┘ │
+│ ┌─────────────────────────────────────────────┐ │
+│ │ 💬 Feedback                                  │ │
+│ │ Share your suggestions or report issues      │ │
+│ │                                          ➔  │ │
+│ └─────────────────────────────────────────────┘ │
+│ ┌─────────────────────────────────────────────┐ │
+│ │ 🔐 Privacy Policy                            │ │
+│ │ Learn how we protect your data               │ │
+│ │                                          ➔  │ │
+│ └─────────────────────────────────────────────┘ │
+│ ┌─────────────────────────────────────────────┐ │
+│ │ 👑 Subscription                              │ │
+│ │ View and upgrade your plan                   │ │
+│ │                                          ➔  │ │
+│ └─────────────────────────────────────────────┘ │
+│ ┌─────────────────────────────────────────────┐ │
+│ │ ℹ️ About                                     │ │
+│ │ Learn more about BizMate                     │ │
+│ │                                          ➔  │ │
+│ └─────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────┘
+</pre
+        >
+      </div>
+
+      <!-- PART 14: SUBSCRIPTION -->
+      <h1>PART 14: SUBSCRIPTION</h1>
+
+      <p>
+        <strong>Page URL:</strong>
+        <span class="page-ref">subscription.html</span>
+      </p>
+
+      <h2>14.1 Plan Comparison</h2>
+
+      <table>
+        <tr>
+          <th>Feature</th>
+          <th>Free</th>
+          <th>Premium</th>
+          <th>Business</th>
+          <th>Lifetime</th>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td>UGX 0</td>
+          <td>UGX 7,000/mo</td>
+          <td>UGX 84,000/yr</td>
+          <td>UGX 300,000</td>
+        </tr>
+        <tr>
+          <td>Users</td>
+          <td>1</td>
+          <td>3</td>
+          <td>Unlimited</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td>Transactions</td>
+          <td>Limited</td>
+          <td>Unlimited</td>
+          <td>Unlimited</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td>Staff Management</td>
+          <td>✗</td>
+          <td>✓</td>
+          <td>✓</td>
+          <td>✓</td>
+        </tr>
+        <tr>
+          <td>Data Export</td>
+          <td>✗</td>
+          <td>✓</td>
+          <td>✓</td>
+          <td>✓</td>
+        </tr>
+        <tr>
+          <td>History</td>
+          <td>30 days</td>
+          <td>6 months</td>
+          <td>1 year</td>
+          <td>Lifetime</td>
+        </tr>
+      </table>
+
+      <h2>14.2 Payment Methods</h2>
+
+      <div class="feature-grid">
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <div>
+            <strong>MTN Mobile Money</strong><br />077, 078, 079 prefixes
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <div><strong>Airtel Money</strong><br />070, 074, 075 prefixes</div>
+        </div>
+      </div>
+
+      <!-- PART 15: TROUBLESHOOTING -->
+      <h1>PART 15: TROUBLESHOOTING</h1>
+
+      <h2>15.1 Common Issues and Solutions</h2>
+
+      <table>
+        <tr>
+          <th>Issue</th>
+          <th>Solution</th>
+        </tr>
+        <tr>
+          <td>Can't log in</td>
+          <td>
+            Check password, ensure account approved, use "Forgot Password"
+          </td>
+        </tr>
+        <tr>
+          <td>Data not saving</td>
+          <td>Check localStorage space, clear browser cache</td>
+        </tr>
+        <tr>
+          <td>Tables not responsive</td>
+          <td>Rotate device, zoom out, use landscape mode</td>
+        </tr>
+        <tr>
+          <td>PDF not downloading</td>
+          <td>Allow pop-ups for this site</td>
+        </tr>
+        <tr>
+          <td>Can't add sale</td>
+          <td>Check inventory stock, fill all required fields</td>
+        </tr>
+        <tr>
+          <td>Wrong profit calculation</td>
+          <td>Verify purchase prices, check expense entries</td>
+        </tr>
+      </table>
+
+      <h2>15.2 Frequently Asked Questions</h2>
+
+      <div class="info-box">
+        <p><strong>Q: Is BizMate really free?</strong></p>
+        <p>
+          A: Yes! The Free plan includes all basic features forever. Premium
+          features are available through affordable subscriptions.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Q: Do I need internet to use BizMate?</strong></p>
+        <p>
+          A: No. BizMate works completely offline after the initial page load.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Q: Where is my data stored?</strong></p>
+        <p>
+          A: All data is stored in your browser's localStorage on your device.
+          No data is sent to any server.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Q: What happens if I clear my browser data?</strong></p>
+        <p>
+          A: All BizMate data will be permanently deleted. Always export
+          important data first.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Q: How do I backup my data?</strong></p>
+        <p>
+          A: Use the export features (PDF/Excel) on history pages to save copies
+          of your data.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>Q: What browsers are supported?</strong></p>
+        <p>
+          A: Chrome 60+, Firefox 55+, Safari 11+, Edge 79+. Internet Explorer is
+          not supported.
+        </p>
+      </div>
+
+      <!-- Footer -->
+      <div class="doc-footer">
+        <p>
+          © 2025-2026 BizMate Business Management System. All rights reserved.
+        </p>
+        <p>Developed by Brain Stack Studios, Kampala, Uganda</p>
+        <p>
+          Version 2.0.0 | Last Updated: March 10, 2026 | 30+ Modules | Complete
+          Documentation
+        </p>
+        <p style="margin-top: 20px">
+          📧 brainstackstudios99@gmail.com | 🌐
+          https://brainstackstudios.infinityfreeapp.com
+        </p>
+      </div>
+    </div><script src="api-config.js"></script>
+    <script src="api.js"></script>
+  </body>
+</html>
